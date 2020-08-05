@@ -1,0 +1,24 @@
+{
+  "name": "@process-creative/slate-sync",
+  "version": "2.1.8",
+  "main": "index.js",
+  "dependencies": {
+    "@process-creative/slate-config": "2.1.8",
+    "@process-creative/slate-env": "2.1.8",
+    "@shopify/themekit": "0.6.12",
+    "array-flatten": "^2.1.1",
+    "chalk": "2.3.2",
+    "figures": "^2.0.0",
+    "inquirer": "^5.0.1",
+    "react-dev-utils": "0.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate-v2.git",
+    "directory": "packages/slate-sync"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  }
+}

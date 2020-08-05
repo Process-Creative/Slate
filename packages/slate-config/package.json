@@ -1,0 +1,17 @@
+{
+  "name": "@process-creative/slate-config",
+  "version": "2.1.8",
+  "main": "index.js",
+  "devDependencies": {
+    "jest": "^26.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate-v2.git",
+    "directory": "packages/slate-config"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  }
+}
