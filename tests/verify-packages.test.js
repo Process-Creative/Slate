@@ -43,7 +43,7 @@ describe('package.json', () => {
     it(`${pkg.name} should have repository settings defined`, () => {
       expect(pkg.repository).toBeDefined();
       expect(pkg.repository.type).toStrictEqual('git');
-      expect(pkg.repository.url).toStrictEqual('ssh://git@github.com/Process-Creative/slate.git');
+      expect(pkg.repository.url).toStrictEqual('ssh://git@github.com/Process-Creative/slate-v2.git');
       expect(pkg.repository.directory).toBeDefined();
     });
   })
