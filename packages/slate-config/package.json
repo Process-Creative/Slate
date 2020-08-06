@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-config",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "main": "index.js",
   "devDependencies": {
     "jest": "^26.2.2"

@@ -1,18 +1,18 @@
 {
   "name": "@process-creative/slate-tools",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "bin": {
     "slate-tools": "./cli/index.js"
   },
   "dependencies": {
-    "@process-creative/concat-style-loader": "2.1.8",
-    "@process-creative/slate-config": "2.1.8",
-    "@process-creative/slate-cssvar-loader": "2.1.8",
-    "@process-creative/slate-env": "2.1.8",
-    "@process-creative/slate-sections-plugin": "2.1.8",
-    "@process-creative/slate-sync": "2.1.8",
-    "@process-creative/slate-tag-webpack-plugin": "2.1.8",
-    "@process-creative/slate-translations": "2.1.8",
+    "@process-creative/concat-style-loader": "2.1.9",
+    "@process-creative/slate-config": "2.1.9",
+    "@process-creative/slate-cssvar-loader": "2.1.9",
+    "@process-creative/slate-env": "2.1.9",
+    "@process-creative/slate-sections-plugin": "2.1.9",
+    "@process-creative/slate-sync": "2.1.9",
+    "@process-creative/slate-tag-webpack-plugin": "2.1.9",
+    "@process-creative/slate-translations": "2.1.9",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
     "@shopify/themekit": "0.6.12",
     "archiver": "^2.1.0",
