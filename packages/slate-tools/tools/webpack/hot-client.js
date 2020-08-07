@@ -20,17 +20,18 @@ client.subscribe((event) => {
       let newSearch = (window.location.search||'')
         .split('&')
         .map(t => t.split('=').map(t => decodeURIComponent(t)))
-        .filter(kvp => kvp[0] != 't')
+        .filter(kvp => kvp[0] != 't' && kvp[0] != 'cache')
       ;
 
-      newSearch.push([ 't', new Date().getTime()]);
+      newSearch.push([ 't', Math.random() ]);
+      newSearch.push([ 'cache', false ]);
 
       newSearch = newSearch
         .map(kvp => kvp.join('='))
         .join('&')
       ;
       
-      window.location.search = newSearch
+      setTimeout(() => window.location.search = newSearch, 2000);
     }
   }
 });
