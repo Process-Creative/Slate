@@ -113,10 +113,9 @@ function onCompilerDone(stats) {
   }
 }
 
-async function onClientBeforeSync(files) {
-  if (firstSync && argv.skipFirstDeploy) {
+const onClientBeforeSync = async files => {
+  if(firstSync && argv.skipFirstDeploy) {
     assetServer.skipDeploy = true;
-
     return;
   }
 
@@ -128,19 +127,15 @@ async function onClientBeforeSync(files) {
     }
   }
 
-  if (!continueIfPublishedTheme) {
-    process.exit(0);
-  }
 
-  if (skipSettingsData === null) {
+  if(!continueIfPublishedTheme) process.exit(0);
+
+  if(skipSettingsData === null) {
     skipSettingsData = await promptSkipSettingsData(files);
   }
 
-  if (skipSettingsData) {
-    assetServer.files = files.filter(
-      (file) => !file.endsWith('settings_data.json'),
-    );
-  }
+  if (!skipSettingsData) return;
+  assetServer.files = files.filter(file => !file.endsWith('settings_data.json'));
 }
 
 function onClientSyncSkipped() {

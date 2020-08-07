@@ -6,7 +6,6 @@
     "@process-creative/slate-config": "2.1.9",
     "@process-creative/slate-env": "2.1.9",
     "@shopify/themekit": "0.6.12",
-    "array-flatten": "^2.1.1",
     "chalk": "2.3.2",
     "figures": "^2.0.0",
     "inquirer": "^5.0.1",

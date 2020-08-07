@@ -1,7 +1,6 @@
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const figures = require('figures');
-const flatten = require('array-flatten');
 const minimatch = require('minimatch');
 const {argv} = require('yargs');
 const {getIgnoreFilesValue} = require('@process-creative/slate-env');
@@ -25,16 +24,14 @@ function _includesSettingsData(files) {
 
 function _filterIgnoredFiles(files) {
   const envIgnoreGlobs = getIgnoreFilesValue().split(':');
-  return flatten(
-    envIgnoreGlobs.map((glob) => {
-      if (glob[0] !== '/') {
-        /* eslint-disable-next-line no-param-reassign */
-        glob = `/${glob}`;
-      }
+  return envIgnoreGlobs.map((glob) => {
+    if (glob[0] !== '/') {
+      /* eslint-disable-next-line no-param-reassign */
+      glob = `/${glob}`;
+    }
 
-      return files.filter(minimatch.filter(glob));
-    }),
-  );
+    return files.filter(minimatch.filter(glob));
+  }).flat(Number.POSITIVE_INFINITY);
 }
 
 module.exports = async function(files) {
