@@ -15,7 +15,22 @@ client.subscribe((event) => {
   if (event.action === 'shopify_upload_finished') {
     // Reload either if the serve force's our hand or if the entry point module
     if (event.force || window.__slate_should_reload__) {
-      window.location.reload();
+
+      //Force cache reload
+      let newSearch = (window.location.search||'')
+        .split('&')
+        .map(t => t.split('=').map(t => decodeURIComponent(t)))
+        .filter(kvp => kvp[0] != 't')
+      ;
+
+      newSearch.push([ 't', new Date().getTime()]);
+
+      newSearch = newSearch
+        .map(kvp => kvp.join('='))
+        .join('&')
+      ;
+      
+      window.location.search = newSearch
     }
   }
 });
