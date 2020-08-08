@@ -5,11 +5,11 @@
   "dependencies": {
     "@process-creative/slate-config": "2.1.9",
     "@process-creative/slate-env": "2.1.9",
-    "@shopify/themekit": "0.6.12",
-    "chalk": "2.3.2",
-    "figures": "^2.0.0",
-    "inquirer": "^5.0.1",
-    "react-dev-utils": "0.5.2"
+    "@shopify/themekit": "1.1.4",
+    "chalk": "4.1.0",
+    "figures": "^3.2.0",
+    "inquirer": "^7.3.3",
+    "react-dev-utils": "10.2.1"
   },
   "repository": {
     "type": "git",

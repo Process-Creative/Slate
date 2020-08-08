@@ -6,7 +6,6 @@ const argv = require('minimist')(process.argv.slice(2));
 const figures = require('figures');
 const chalk = require('chalk');
 const ora = require('ora');
-const consoleControl = require('console-control-strings');
 const clearConsole = require('react-dev-utils/clearConsole');
 const ip = require('ip');
 const env = require('@process-creative/slate-env');
@@ -74,9 +73,6 @@ Promise.all([
   });
 
 function onCompilerCompile() {
-  if (process.env.NODE_ENV !== 'test') {
-    clearConsole();
-  }
   spinner.start();
 }
 
@@ -84,10 +80,6 @@ function onCompilerDone(stats) {
   const statsJson = stats.toJson({}, true);
 
   spinner.stop();
-
-  if (process.env.NODE_ENV !== 'test') {
-    clearConsole();
-  }
 
   if (statsJson.errors.length) {
     console.log(chalk.red('Failed to compile.\n'));
@@ -152,10 +144,9 @@ function onClientSync() {
 }
 
 function onClientSyncDone() {
-  process.stdout.write(consoleControl.previousLine(4));
-  process.stdout.write(consoleControl.eraseData());
-
-  console.log(`\n${chalk.green(figures.tick)}  Files uploaded successfully!`);
+  // process.stdout.write(consoleControl.previousLine(4));
+  // process.stdout.write(consoleControl.eraseData());
+  // console.log(`${chalk.green(figures.tick)}  Files uploaded successfully!`);
 }
 
 const logPreviewInformation = (devServer) => {

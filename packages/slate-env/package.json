@@ -4,7 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@process-creative/slate-config": "2.1.9",
-    "dotenv": "^4.0.0"
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "glob": "^7.1.2"
