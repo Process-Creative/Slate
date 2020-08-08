@@ -1,9 +1,9 @@
 {
   "name": "@process-creative/slate-env",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "main": "index.js",
   "dependencies": {
-    "@process-creative/slate-config": "2.1.9",
+    "@process-creative/slate-config": "2.1.10",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {

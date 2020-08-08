@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tools",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "bin": {
     "slate-tools": "./cli/index.js"
   },
@@ -8,12 +8,12 @@
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@process-creative/concat-style-loader": "2.1.9",
-    "@process-creative/slate-config": "2.1.9",
-    "@process-creative/slate-env": "2.1.9",
-    "@process-creative/slate-sections-plugin": "2.1.9",
-    "@process-creative/slate-sync": "2.1.9",
+    "@process-creative/slate-config": "2.1.10",
+    "@process-creative/slate-env": "2.1.10",
+    "@process-creative/slate-sections-plugin": "2.1.10",
+    "@process-creative/slate-sync": "2.1.10",
     "@process-creative/slate-tag-webpack-plugin": "2.1.9",
-    "@process-creative/slate-translations": "2.1.9",
+    "@process-creative/slate-translations": "2.1.10",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
     "@shopify/themekit": "1.1.4",
     "archiver": "^5.0.0",

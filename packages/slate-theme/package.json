@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
-  "version": "2.0.0",
+  "version": "2.1.10",
   "main": "index.js",
   "scripts": {
     "env": "slate-tools env",
@@ -11,9 +11,7 @@
     "zip": "slate-tools build && slate-tools zip"
   },
   "dependencies": {
-    "@process-creative/slate-tools": "^2.1.9"
-  },
-  "devDependencies": {
+    "@process-creative/slate-tools": "2.1.10"
   },
   "repository": {
     "type": "git",
