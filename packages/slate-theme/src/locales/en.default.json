@@ -1,0 +1,12 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content."
+    },
+    
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    }
+  }
+}

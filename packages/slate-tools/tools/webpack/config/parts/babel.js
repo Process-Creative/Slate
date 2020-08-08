@@ -3,23 +3,28 @@ const SlateConfig = require('@process-creative/slate-config');
 
 const config = new SlateConfig(require('../../../../slate-tools.schema'));
 
-const part = {module: {rules: []}};
-
-const babelLoader = {
-  test: /\.js$/,
-  exclude: config.get('webpack.babel.exclude'),
-  loader: 'babel-loader',
-  options: {
-    babelrc: false,
-    extends: config.get('webpack.babel.configPath'),
-  },
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: config.get('webpack.babel.exclude'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  "useBuiltIns": "usage",
+                  "corejs": { version: 3, proposals: true },
+                  "targets": "> 0.25%, not dead"
+                }
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  }
 };
-
-if (
-  fs.existsSync(config.get('webpack.babel.configPath')) &&
-  config.get('webpack.babel.enable')
-) {
-  part.module.rules.push(babelLoader);
-}
-
-module.exports = part;

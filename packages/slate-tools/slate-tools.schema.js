@@ -38,10 +38,6 @@ module.exports = {
   // Include babel-loader in the webpack core config
   'webpack.babel.enable': true,
 
-  // A path to a valid Babel configuration. File must exist for Babel to be enabled.
-  'webpack.babel.configPath': (config) =>
-    path.join(config.get('paths.theme'), '.babelrc'),
-
   // Sometimes packages in node_modules need to be transpiled by Babel. To
   // allow this, change this config option so that it includes the following pattern:
   //

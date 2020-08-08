@@ -1,6 +1,8 @@
 OWNER="Process-Creative"
 
 git config core.autocrlf true
+git config core.filemode false
+
 git remote set-url origin https://${GH_TOKEN}@github.com/${OWNER}/slate-v2.git
 git fetch --all
 git checkout master

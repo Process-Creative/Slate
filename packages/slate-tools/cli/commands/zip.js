@@ -11,9 +11,11 @@ const config = new SlateConfig(require('../../slate-tools.schema'));
  * script is used for shipit and should not be called explicitly.
  */
 
-const zipName = fs.existsSync(config.get('paths.theme.packageJson'))
+const zipName = (
+  fs.existsSync(config.get('paths.theme.packageJson'))
   ? require(config.get('paths.theme.packageJson')).name
-  : 'theme-zip';
+  : 'theme-zip'
+).split('/').pop();
 const zipPath = getZipPath(config.get('paths.theme'), zipName, 'zip');
 const output = fs.createWriteStream(zipPath);
 const archive = archiver('zip');

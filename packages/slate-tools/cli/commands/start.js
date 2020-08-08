@@ -6,7 +6,6 @@ const argv = require('minimist')(process.argv.slice(2));
 const figures = require('figures');
 const chalk = require('chalk');
 const ora = require('ora');
-const consoleControl = require('console-control-strings');
 const clearConsole = require('react-dev-utils/clearConsole');
 const ip = require('ip');
 const env = require('@process-creative/slate-env');
@@ -74,9 +73,6 @@ Promise.all([
   });
 
 function onCompilerCompile() {
-  if (process.env.NODE_ENV !== 'test') {
-    clearConsole();
-  }
   spinner.start();
 }
 
@@ -84,10 +80,6 @@ function onCompilerDone(stats) {
   const statsJson = stats.toJson({}, true);
 
   spinner.stop();
-
-  if (process.env.NODE_ENV !== 'test') {
-    clearConsole();
-  }
 
   if (statsJson.errors.length) {
     console.log(chalk.red('Failed to compile.\n'));
@@ -113,10 +105,9 @@ function onCompilerDone(stats) {
   }
 }
 
-async function onClientBeforeSync(files) {
-  if (firstSync && argv.skipFirstDeploy) {
+const onClientBeforeSync = async files => {
+  if(firstSync && argv.skipFirstDeploy) {
     assetServer.skipDeploy = true;
-
     return;
   }
 
@@ -128,19 +119,15 @@ async function onClientBeforeSync(files) {
     }
   }
 
-  if (!continueIfPublishedTheme) {
-    process.exit(0);
-  }
 
-  if (skipSettingsData === null) {
+  if(!continueIfPublishedTheme) process.exit(0);
+
+  if(skipSettingsData === null) {
     skipSettingsData = await promptSkipSettingsData(files);
   }
 
-  if (skipSettingsData) {
-    assetServer.files = files.filter(
-      (file) => !file.endsWith('settings_data.json'),
-    );
-  }
+  if (!skipSettingsData) return;
+  assetServer.files = files.filter(file => !file.endsWith('settings_data.json'));
 }
 
 function onClientSyncSkipped() {
@@ -157,10 +144,9 @@ function onClientSync() {
 }
 
 function onClientSyncDone() {
-  process.stdout.write(consoleControl.previousLine(4));
-  process.stdout.write(consoleControl.eraseData());
-
-  console.log(`\n${chalk.green(figures.tick)}  Files uploaded successfully!`);
+  // process.stdout.write(consoleControl.previousLine(4));
+  // process.stdout.write(consoleControl.eraseData());
+  // console.log(`${chalk.green(figures.tick)}  Files uploaded successfully!`);
 }
 
 const logPreviewInformation = (devServer) => {

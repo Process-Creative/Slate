@@ -17,5 +17,6 @@ module.exports = function() {
       entrypoints[`layout.${name}`] = jsFile;
     }
   });
+  
   return entrypoints;
 };

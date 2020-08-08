@@ -12,20 +12,16 @@ const part = {
 };
 
 const sassRule = {
-  test: /\.s[ac]ss$/,
+  test: /\.scss$/,
 };
 
 const styleLoader = {
-  loader: 'style-loader',
-  options: {
-    hmr: isDev,
-  },
+  loader: 'style-loader'
 };
 
 const cssLoader = {
   loader: 'css-loader',
   options: {
-    importLoaders: 2,
     sourceMap: config.get('webpack.sourceMap.styles'),
   },
 };
@@ -39,15 +35,13 @@ const postcssLoader = {
   },
 };
 
-const cssVarLoader = {loader: '@process-creative/slate-cssvar-loader'};
-
 const sassLoader = {
   loader: 'sass-loader',
   options: {sourceMap: config.get('webpack.sourceMap.styles')},
 };
 
 sassRule.use = [
-  ...(isDev ? [styleLoader] : [MiniCssExtractPlugin.loader, cssVarLoader]),
+  ...(isDev ? [styleLoader] : [MiniCssExtractPlugin.loader]),
   cssLoader,
   postcssLoader,
   sassLoader,
