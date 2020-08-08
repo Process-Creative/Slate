@@ -16,10 +16,7 @@ const cssRule = {
 };
 
 const styleLoader = {
-  loader: 'style-loader',
-  options: {
-    hmr: isDev,
-  },
+  loader: 'style-loader'
 };
 
 const cssLoader = {
@@ -40,10 +37,8 @@ const postcssLoader = {
   },
 };
 
-const cssVarLoader = {loader: '@process-creative/slate-cssvar-loader'};
-
 cssRule.use = [
-  ...(isDev ? [styleLoader] : [MiniCssExtractPlugin.loader, cssVarLoader]),
+  ...(isDev ? [styleLoader] : [ MiniCssExtractPlugin.loader ]),
   cssLoader,
   postcssLoader,
 ];
