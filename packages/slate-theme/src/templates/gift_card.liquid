@@ -1,0 +1,88 @@
+{% comment %}
+  Gift Card Template
+    Template for Gift Card Products
+
+  Version:
+    1.0.0 - 2019/10/31
+
+  QR code is rendered in `#QrCode`
+  `gift_card.pass_url` is true if apple wallet is enabled for the shop
+{% endcomment %}
+
+<div class="c-gift-card-template {% if gift_card.expired or gift_card.enabled != true %}is-disabled{% endif %}">
+  <h1 class="c-gift-card-template__title o-heading is-size-2">
+    {{- 'gift_cards.issued.subtext' | t -}}
+  </h1>
+
+
+  {%- unless gift_card.enabled %}
+    <span class="c-gift-card-template__disabled">
+      {{- 'gift_cards.issued.disabled' | t -}}
+    </span>
+  {%- endunless -%}
+
+
+  {%- assign gift_card_expiry_date = gift_card.expires_on | date: "%d/%m/%y" -%}
+  {%- if gift_card.expired and gift_card.enabled -%}
+    <span class="c-gift-card-template__expired">
+      {{- 'gift_cards.issued.expired' | t: expiry: gift_card_expiry_date -}}
+    </span>
+  {%- endif -%}
+
+  {% if gift_card.expired != true and gift_card.expires_on and gift_card.enabled %}
+    <span class="c-gift-card-template__active">
+      {{ 'gift_cards.issued.active' | t: expiry: gift_card_expiry_date }}
+    </span>
+  {% endif %}
+
+  {%- comment -%} Picture {%- endcomment -%}
+  {%- assign image = 'gift-card/card.jpg' | shopify_asset_url -%}
+  {%- render 'tool.picture' with {
+    image: image,
+    width: 500,
+    alt: 'Gift card illustration',
+    class: 'c-gift-card-template__image'
+  -%}
+
+  {%- comment -%} Value {%- endcomment -%}
+  <h2>
+    {{- 'gift_cards.issued.value' | t -}}:
+    <span class="c-gift-card-template__money" data-currency data-money="{{ gift_card.initial_value }}">
+      {{ gift_card.initial_value | money_with_currency }}
+    </span>
+  </h2>
+
+  {%- comment -%} Remaining {%- endcomment -%}
+  {%- if gift_card.balance != gift_card.initial_value -%}
+    <h2>
+      {{- 'gift_cards.issued.remaining' | t -}}:
+      <span class="c-gift-card-template__money" data-currency data-money="{{ gift_card.balance }}">
+        {{ gift_card.balance | money_with_currency }}
+      </span>
+    </h2>
+  {%- endif -%}
+
+  {%- comment -%} Gift Card Code {%- endcomment -%}
+  {%- assign code_size = gift_card.code | format_code | size -%}
+  <span id="GiftCardDigits" class="c-gift-card-template__code">
+    {{- gift_card.code | format_code -}}
+  </span>
+  <p>{{ 'gift_cards.issued.redeem' | t }}</p>
+
+  <a href="{{ shop.url }}" class="o-btn" target="_blank">
+    {{ 'gift_cards.issued.shop_link' | t }}
+  </a>
+  <div id="QrCode" class="giftcard-qr" data-identifier="{{ gift_card.qr_identifier }}"></div>
+
+  {% if gift_card.pass_url %}
+    <a href="{{ gift_card.pass_url }}" class="apple-wallet">
+      <img
+        class="apple-wallet-image"
+        src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+        width="120"
+        height="40"
+        alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+      />
+    </a>
+  {% endif %}
+</main>

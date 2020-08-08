@@ -66,6 +66,3 @@ docs/v1/build
 .npmrc
 yarn.lock
 package-lock.json
-
-# Development packages
-packages/slate-theme
