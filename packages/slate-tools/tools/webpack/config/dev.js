@@ -40,6 +40,7 @@ module.exports = merge([
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
 
+      //Static scripts
       new HtmlWebpackPlugin({
         excludeChunks: ['static'],
         filename: `../snippets/tool.script-tags.liquid`,
