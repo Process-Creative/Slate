@@ -16,4 +16,4 @@ do
 done
 echo "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" > ".npmrc"
 
-yarn lerna publish from-git --yes --registry //npm.pkg.github.com
+yarn lerna publish from-package --yes --registry //npm.pkg.github.com
