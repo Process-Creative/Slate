@@ -2,6 +2,7 @@ OWNER="Process-Creative"
 
 git config core.autocrlf true
 git config core.filemode false
+npm config set "@process-creative:registry" "https://npm.pkg.github.com/" --global
 
 git remote set-url origin https://${GH_TOKEN}@github.com/${OWNER}/slate-v2.git
 git fetch --all
