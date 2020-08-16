@@ -7,9 +7,9 @@ npm config set "@process-creative:registry" "https://npm.pkg.github.com/" --glob
 git remote set-url origin https://${GH_TOKEN}@github.com/${OWNER}/slate-v2.git
 git fetch --all
 git checkout master
-# yarn lerna version patch --conventional-commits --yes --exact
-# git push --follow-tags
-# git checkout master
+yarn lerna version patch --conventional-commits --yes --exact
+git push --follow-tags
+git checkout master
 
 for D in `find ./packages/ -mindepth 1 -maxdepth 1 -type d`
 do
