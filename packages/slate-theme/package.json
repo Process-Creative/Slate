@@ -1,7 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
   "version": "2.1.10",
-  "main": "index.js",
   "scripts": {
     "env": "slate-tools env",
     "start": "slate-tools start",
