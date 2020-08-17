@@ -24,14 +24,17 @@ function _includesSettingsData(files) {
 
 function _filterIgnoredFiles(files) {
   const envIgnoreGlobs = getIgnoreFilesValue().split(':');
-  return envIgnoreGlobs.map((glob) => {
-    if (glob[0] !== '/') {
-      /* eslint-disable-next-line no-param-reassign */
-      glob = `/${glob}`;
-    }
+  let y = envIgnoreGlobs.map((glob) => {
+    if (glob[0] !== '/') glob = `/${glob}`;
 
     return files.filter(minimatch.filter(glob));
-  }).flat(Number.POSITIVE_INFINITY);
+  });
+
+  const f = x => x.reduce((x,y) => {
+    return [...x, ...(Array.isArray(y) ? f(y) : [y])]
+  }, []);
+
+  return f(y);
 }
 
 module.exports = async function(files) {
