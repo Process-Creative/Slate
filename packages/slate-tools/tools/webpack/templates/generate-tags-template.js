@@ -12,7 +12,10 @@ const getTemplate = params => {
     const basenameNoExt = basename.split('.').slice(0, -1).join('.');
     const src = isDevServer ? file : `{{ '${basename}' | asset_url }}`;
 
-    const layoutTemplateName = basename.split('.')[1];
+    const layoutTemplateBits = basename.split('.');
+    layoutTemplateBits.shift();
+    layoutTemplateBits.pop();
+    const layoutTemplateName = layoutTemplateBits.join('.');
 
     if(liquidLayouts[basenameNoExt]) {
       x += ifHasConditionScript({ ...params,
@@ -33,7 +36,7 @@ const getTemplate = params => {
       if(templateSubdir) {
         targetTemplate = `${templateSubdir}/${targetTemplate}`;
       }
-
+      
       x += ifHasConditionScript({ ...params,
         condition: 'template', value: targetTemplate, src
       });
