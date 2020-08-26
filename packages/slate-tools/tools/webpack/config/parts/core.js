@@ -11,6 +11,13 @@ const extractLiquidStyles = new ExtractTextPlugin(
   '[name].styleLiquid.scss.liquid',
 );
 
+const modules = [
+  path.resolve(__dirname, '../../../../node_modules'),
+  path.resolve(__dirname, '../../../../../../node_modules'),
+  path.resolve(__dirname, '../../'),
+  path.join(config.get('paths.theme'), 'node_modules'),
+];
+
 module.exports = {
   context: config.get('paths.theme.src'),
 
@@ -20,14 +27,8 @@ module.exports = {
     jsonpFunction: 'shopifySlateJsonp',
   },
 
-  resolveLoader: {
-    modules: [
-      path.resolve(__dirname, '../../../../node_modules'),
-      path.resolve(__dirname, '../../../../../../node_modules'),
-      path.resolve(__dirname, '../../'),
-      path.join(config.get('paths.theme'), 'node_modules'),
-    ],
-  },
+  resolveLoader: { modules },
+  resolve: { modules },
 
   module: {
     rules: [
