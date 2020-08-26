@@ -7,6 +7,14 @@ const SlateSectionsPlugin = require('@process-creative/slate-sections-plugin');
 const config = new SlateConfig(require('../../../../slate-tools.schema'));
 const injectLocalesIntoSettingsSchema = require('../utilities/inject-locales-into-settings-schema');
 
+//Directories
+const modules = [
+  path.join(config.get('paths.theme'), 'node_modules'),
+  path.resolve(__dirname, '../../../../../../'),
+  path.resolve(__dirname, '../../'),
+  path.resolve(__dirname, '../../../../node_modules'),
+];
+
 const extractLiquidStyles = new ExtractTextPlugin(
   '[name].styleLiquid.scss.liquid',
 );
@@ -21,12 +29,11 @@ module.exports = {
   },
 
   resolveLoader: {
-    modules: [
-      path.resolve(__dirname, '../../../../node_modules'),
-      path.resolve(__dirname, '../../../../../../node_modules'),
-      path.resolve(__dirname, '../../'),
-      path.join(config.get('paths.theme'), 'node_modules'),
-    ]
+    modules
+  },
+
+  resolve: {
+    modules
   },
 
   module: {
