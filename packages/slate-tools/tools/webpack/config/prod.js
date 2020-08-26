@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin  = require('terser-webpack-plugin');
 const SlateConfig = require('@process-creative/slate-config');
 const SlateTagPlugin = require('@process-creative/slate-tag-webpack-plugin');
 
@@ -41,11 +41,7 @@ module.exports = merge([
       new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'},
       }),
-
-      new UglifyJSPlugin({
-        sourceMap: true,
-      }),
-
+      
       new HtmlWebpackPlugin({
         excludeChunks: ['static'],
         filename: `../snippets/tool.script-tags.liquid`,
@@ -85,6 +81,12 @@ module.exports = merge([
         chunks: 'all',
         name: getChunkName,
       },
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          sourceMap: true
+        })
+      ],
     },
   },
   config.get('webpack.extend'),
