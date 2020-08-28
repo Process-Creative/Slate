@@ -53,8 +53,8 @@ module.exports = {
         test: /\.(png|svg|jpg|gif)$/,
         exclude: config.get('webpack.commonExcludes'),
         use: [
-          {loader: 'file-loader', options: {name: '[name].[ext]'}},
-          {loader: 'img-loader'},
+          { loader: 'file-loader', options: {name: '[name].[ext]'}},
+          { loader: 'img-loader' },
         ],
       },
       {
@@ -77,8 +77,6 @@ module.exports = {
   },
 
   plugins: [
-    // extractLiquidStyles,
-
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -113,5 +111,5 @@ module.exports = {
       from: config.get('paths.theme.src.sections'),
       to: config.get('paths.theme.dist.sections'),
     }),
-  ],
+  ]
 };
