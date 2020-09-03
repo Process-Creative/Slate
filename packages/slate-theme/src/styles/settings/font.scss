@@ -1,0 +1,28 @@
+/*
+ *  px2em - Function for converting pixels to an em that is relative to the base
+ *          font size. Pass your custom em to define what size the "current element"
+ *          is, relative to the base font size. E.g. if I am doing px2em(16) it will
+ *          generate 1em, yet if my heading is already set to font-size 2em
+ */
+@function px2em($px, $rem: 1rem) {
+  //Remove units.
+  $uPx: $px / ($px * 0+1);
+  $uRem: $rem / ($rem * 0+1);
+  $uBase: $s-font--base-size / ($s-font--base-size * 0+1);
+  $x: $uPx  / ($uBase * $uRem);
+  @return 1em * $x;
+};
+
+
+/*
+ *  Base Font
+ *    Font all other fonts inherit from.
+ */
+$s-font--base-size: 16px;
+$s-font--base-weight: 400;
+$s-font--base-stack: 'Crimson Text', serif;
+$s-font--base-line: 1.0;
+$s-font--base-letter: px2em(0.67, 1rem);
+
+$s-font--base-size-desktop: 1.5rem;
+$s-font--base-letter-desktop: px2em(0.67, $s-font--base-size-desktop);

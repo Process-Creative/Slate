@@ -1,0 +1,20 @@
+/*
+ *  Color Definitions
+ *    Define the sites colors here, below you will use these for defining how
+ *    each other color variable is used.
+ */
+$s-color--white: white;
+$s-color--light-gray: #F0F0F0;
+$s-color--dark-gray: #818285; 
+$s-color--black: black;
+
+
+//Background colors
+$s-color--background: $s-color--white;
+$s-color--background-secondary: $s-color--light-gray;
+
+//Font Colors
+$s-color--font-base: $s-color--black;
+
+//Border Colors
+$s-color--border: $s-color--dark-gray;

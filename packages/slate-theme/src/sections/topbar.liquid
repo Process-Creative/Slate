@@ -1,0 +1,41 @@
+<section class="c-top-bar">
+  {%- for block in section.blocks -%}
+    {%- if block.settings.url == blank -%}
+      <span class="c-top-bar__item">
+    {%- else -%}
+      <a href="{{ block.settings.url }}" class="c-top-bar__item">
+    {%- endif -%}
+      {{ block.settings.title | escape }}
+    {%- if block.settings.url == blank -%}
+      </span>
+    {%- else -%}
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+{% schema %}
+  {
+    "name": "Top Bar",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text Display",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title",
+            "default": "Hello World"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

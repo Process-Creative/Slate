@@ -1,0 +1,19 @@
+//Edges (the space between the edge of the screen and the first column)
+$s-grid--edge-xsmall: 2.5rem;
+$s-grid--edge-small: 5rem;
+$s-grid--edge-medium: 10rem;
+$s-grid--edge-large: 25rem;
+
+//Gutters (the space between each column)
+$s-grid--gutter-xsmall: 0.3125rem;
+$s-grid--gutter-small: $s-grid--gutter-xsmall * 2;
+$s-grid--gutter-medium: $s-grid--gutter-small * 2;
+$s-grid--gutter-large: $s-grid--gutter-medium * 2;
+$s-grid--gutter-xlarge: $s-grid--gutter-large * 2;
+
+//Max width (that the grid internals can possibly be)
+$s-grid--max-width: 100rem;
+
+//Counts
+$s-grid--column-count: 12;
+$s-grid--gutter-count: $s-grid--column-count - 1;

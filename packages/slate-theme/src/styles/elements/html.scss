@@ -1,0 +1,12 @@
+html,body {
+  margin: 0;
+  padding: 0;
+
+  //Setup default fonts. I don't use the pseudoclass here since it will add in
+  //media queries that we don't want.
+  @include t-font--base;
+
+  //Colors
+  background: $s-color--background;
+  color: $s-color--font-base;
+}
