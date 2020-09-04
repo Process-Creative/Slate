@@ -1,0 +1,26 @@
+{
+  "name": "@process-creative/slate-tester",
+  "version": "2.1.15",
+  "dependencies": {
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "start": "ts-node src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate-v2.git",
+    "directory": "packages/slate-tester"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  },
+  "devDependencies": {
+    "@types/node": "^14.6.4",
+    "cypress": "^5.1.0",
+    "ts-node": "^9.0.0",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.0.2"
+  }
+}

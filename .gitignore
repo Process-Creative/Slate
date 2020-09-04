@@ -59,6 +59,10 @@ package-lock.json
 wallaby.js
 .env
 .env*
+**/cypress/videos/
+**/cypress/screenshots/
+**/cypress/plugins/
+**/slate-tester/cypress
 
 # Docs #
 ######################
