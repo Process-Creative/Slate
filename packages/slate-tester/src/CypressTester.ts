@@ -2,52 +2,50 @@ import * as cypress from 'cypress';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
+import { deepReadDir } from './Utils';
 
 //Type Definitions
 export type BrowserType = Parameters<(typeof cypress.run)>[0]['browser'];
-export interface SiteTestParams {
+
+export type CypressTestParams = {
   baseUrl:string;
-  browser:BrowserType
-};
+  browser:BrowserType;
+}
 
 //Paths
-const PATH_PROJECT = path.resolve(__dirname);
-const PATH_CYPRESS = path.resolve(PATH_PROJECT, 'cypress');
-const PATH_VIDEOS = path.resolve(PATH_CYPRESS, 'videos');
-const PATH_SCREENSHOTS = path.resolve(PATH_CYPRESS, 'screenshots');
+export const PATH_PROJECT = path.resolve(__dirname, '..');
+export const PATH_CYPRESS = path.resolve(PATH_PROJECT, 'cypress');
+export const PATH_VIDEOS = path.resolve(PATH_CYPRESS, 'videos');
+export const PATH_SCREENSHOTS = path.resolve(PATH_CYPRESS, 'screenshots');
 
 //Methods
 export const getRecordingVideos = ():string[] => {
   if(!fs.existsSync(PATH_VIDEOS)) return [];
-  return fs.readdirSync(PATH_VIDEOS).map(vid => path.resolve(PATH_VIDEOS, vid));
+  return deepReadDir(PATH_VIDEOS);
 }
 
 export const getRecordingScreenshots = ():string[] => {
   if(!fs.existsSync(PATH_SCREENSHOTS)) return [];
-  return fs.readdirSync(PATH_SCREENSHOTS).map(sc => path.resolve(PATH_SCREENSHOTS, sc));
+  return deepReadDir(PATH_SCREENSHOTS);
 }
 
-export const doSiteTest = async (params:SiteTestParams) => {
+export const doCypressTest = async (params:CypressTestParams) => {
   const results = await cypress.run({
     browser: params.browser,
     project: path.resolve(PATH_PROJECT),
     config: { baseUrl: params.baseUrl },
     configFile: false,
     headless: true,
-    env: {
-      ...params
-    }
+    env: { ...params }
   });
 
   const videos = getRecordingVideos();
   const screenshots = getRecordingScreenshots();
 
-  return {
-    results, videos, screenshots
-  }
+  return { results, videos, screenshots };
 }
 
-export const doSiteTestCleanup = () => {
+export const doCypressTestCleanup = (params:CypressTestParams) => {
   //Cleanse these directories
   [
     PATH_VIDEOS, PATH_SCREENSHOTS,

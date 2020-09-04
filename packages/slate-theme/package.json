@@ -7,7 +7,9 @@
     "watch": "slate-tools start --skipFirstDeploy",
     "build": "slate-tools build",
     "deploy": "slate-tools build && slate-tools deploy",
-    "zip": "slate-tools build && slate-tools zip"
+    "zip": "slate-tools build && slate-tools zip",
+    "test": "slate-tools test",
+    "open": "slate-tools open"
   },
   "dependencies": {
     "@process-creative/slate-tools": "2.1.15",

@@ -62,7 +62,7 @@ wallaby.js
 **/cypress/videos/
 **/cypress/screenshots/
 **/cypress/plugins/
-**/slate-tester/cypress
+**/slate-theme/results/
 
 # Docs #
 ######################
