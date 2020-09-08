@@ -8,7 +8,6 @@
     "build": "slate-tools build",
     "deploy": "slate-tools build && slate-tools deploy",
     "zip": "slate-tools build && slate-tools zip",
-    "test": "slate-tools test",
     "open": "slate-tools open"
   },
   "dependencies": {
