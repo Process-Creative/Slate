@@ -5,12 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [2.1.18](https://github.com/Process-Creative/slate-v2/compare/v2.1.17...v2.1.18) (2020-09-08)
 
-**Note:** Version bump only for package @process-creative/concat-style-loader
-
-
-
-
-
-## 2.1.9 (2020-08-06)
-
-**Note:** Version bump only for package @process-creative/concat-style-loader
+**Note:** Version bump only for package @process-creative/slate-tester
