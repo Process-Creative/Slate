@@ -9,10 +9,11 @@ const injectLocalesIntoSettingsSchema = require('../utilities/inject-locales-int
 
 //Directories
 const modules = [
-  path.join(config.get('paths.theme'), 'node_modules'),
-  path.resolve(__dirname, '../../../../../../'),
-  path.resolve(__dirname, '../../'),
-  path.resolve(__dirname, '../../../../node_modules'),
+  path.join(config.get('paths.theme'), 'node_modules'), //Themes node modules
+  path.resolve(__dirname, '..', '..', '..', '..', '..', '..'),//Monorepo root
+  path.resolve(__dirname, '..', '..'),//Monorepo / slate-tools/tools/webpack/
+  path.resolve(__dirname, '..', '..', '..', '..', '..', '..', 'node_modules'),//Monorepo root / node_modules
+  path.resolve(__dirname, '..', '..', '..', '..', 'node_modules'),//Monorepo / Slate tools / node_modules
 ];
 
 const extractLiquidStyles = new ExtractTextPlugin(
@@ -52,8 +53,8 @@ module.exports = {
         test: /\.(png|svg|jpg|gif)$/,
         exclude: config.get('webpack.commonExcludes'),
         use: [
-          {loader: 'file-loader', options: {name: '[name].[ext]'}},
-          {loader: 'img-loader'},
+          { loader: 'file-loader', options: {name: '[name].[ext]'}},
+          { loader: 'img-loader' },
         ],
       },
       {
@@ -76,8 +77,6 @@ module.exports = {
   },
 
   plugins: [
-    // extractLiquidStyles,
-
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -112,5 +111,5 @@ module.exports = {
       from: config.get('paths.theme.src.sections'),
       to: config.get('paths.theme.dist.sections'),
     }),
-  ],
+  ]
 };

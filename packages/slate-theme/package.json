@@ -7,9 +7,12 @@
     "watch": "slate-tools start --skipFirstDeploy",
     "build": "slate-tools build",
     "deploy": "slate-tools build && slate-tools deploy",
-    "zip": "slate-tools build && slate-tools zip"
+    "zip": "slate-tools build && slate-tools zip",
+    "test": "slate-tools test",
+    "open": "slate-tools open"
   },
   "dependencies": {
+    "fork-ts-checker-webpack-plugin": "^5.1.0",
     "@process-creative/slate-tools": "2.1.17"
   },
   "repository": {

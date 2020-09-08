@@ -16,9 +16,11 @@ module.exports = function(module, chunks, cacheGroup) {
   if (!names.every(Boolean)) return;
 
   names.sort();
+
+  console.log('cache group', cacheGroup);
   let name =
-    (cacheGroup && cacheGroup !== 'default' ? `${cacheGroup}@` : '') +
-    names.join('@');
+    (cacheGroup && cacheGroup !== 'default' ? `${cacheGroup}_` : '') +
+    names.join('_');
 
   // Filenames and paths can't be too long otherwise an
   // ENAMETOOLONG error is raised. If the generated name is too

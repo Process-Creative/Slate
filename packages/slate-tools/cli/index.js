@@ -23,6 +23,8 @@ async function init() {
     case 'start':
     case 'zip':
     case 'env':
+    case 'test':
+    case 'open':
       result = spawn.sync(
         'node',
         [require.resolve(`./commands/${script}`)].concat(args),

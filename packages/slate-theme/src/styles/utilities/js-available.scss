@@ -1,0 +1,11 @@
+.js-available {
+  .no-js {
+    display: none !important;
+  }
+}
+
+.js-unavailable {
+  .has-js {
+    display: none !important;
+  }
+}

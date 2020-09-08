@@ -21,11 +21,7 @@ const styleLoader = {
 
 const cssLoader = {
   loader: 'css-loader',
-  // Enabling sourcemaps in styles when using HMR causes style-loader to inject
-  // styles using a <link> tag instead of <style> tag. This causes
-  // a FOUC content, which can cause issues with JS that is reading
-  // the DOM for styles (width, height, visibility) on page load.
-  options: {sourceMap: !isDev},
+  options: { sourceMap: !isDev },
 };
 
 const postcssLoader = {

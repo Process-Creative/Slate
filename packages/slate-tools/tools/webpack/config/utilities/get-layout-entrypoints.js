@@ -8,14 +8,14 @@ module.exports = function() {
 
   fs.readdirSync(config.get('paths.theme.src.layout')).forEach((file) => {
     const name = path.parse(file).name;
-    const jsFile = path.join(
-      config.get('paths.theme.src.scripts'),
-      'layout',
-      `${name}.js`,
-    );
-    if (fs.existsSync(jsFile)) {
-      entrypoints[`layout.${name}`] = jsFile;
-    }
+    const scriptPath = path.join(config.get('paths.theme.src.scripts'), 'layout');
+
+    [ 'js', 'ts', 'jsx', 'tsx' ].some(ext => {
+      const filePath = path.join(scriptPath, `${name}.${ext}`);
+      if(!fs.existsSync(filePath)) return false;
+      entrypoints[`layout.${name}`] = filePath;
+      return true;
+    });
   });
   
   return entrypoints;
