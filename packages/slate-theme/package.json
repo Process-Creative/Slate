@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
-  "version": "2.1.15",
+  "version": "2.1.17",
   "scripts": {
     "env": "slate-tools env",
     "start": "slate-tools start",
@@ -12,8 +12,8 @@
     "open": "slate-tools open"
   },
   "dependencies": {
-    "@process-creative/slate-tools": "2.1.15",
-    "fork-ts-checker-webpack-plugin": "^5.1.0"
+    "fork-ts-checker-webpack-plugin": "^5.1.0",
+    "@process-creative/slate-tools": "2.1.17"
   },
   "repository": {
     "type": "git",
