@@ -11,7 +11,6 @@
     "open": "slate-tools open"
   },
   "dependencies": {
-    "fork-ts-checker-webpack-plugin": "^5.1.0",
     "@process-creative/slate-tools": "2.1.17"
   },
   "repository": {
