@@ -67,6 +67,7 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^5.1.1",
+    "fork-ts-checker-webpack-plugin": "^5.1.0",
     "write-file-webpack-plugin": "4.5.1",
     "yamljs": "0.3.0",
     "yargs": "^15.4.1"

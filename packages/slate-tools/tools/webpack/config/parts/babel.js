@@ -5,6 +5,8 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const config = new SlateConfig(require('../../../../slate-tools.schema'));
 
+const PATH_UTILITIES = path.resolve(__dirname, '..', 'utilities');
+
 module.exports = {
   module: {
     rules: [
@@ -35,12 +37,13 @@ module.exports = {
       async: false,
       // logger: { infrastructure: 'silent', issues: 'silent', devServer: true },
       typescript: {
-        configFile: path.resolve(__dirname, '..', 'utilities', 'tsconfig.json'),
+        configFile: path.resolve(PATH_UTILITIES, 'tsconfig.json'),
         mode: 'write-references',
         logger: { infrastructure: 'silent', issues: 'console', devServer: true },
         configOverwrite: {
           include: [
-            `${config.get('paths.theme.src')}/**/*`
+            `${config.get('paths.theme.src')}/**/*`,
+            path.resolve(PATH_UTILITIES, 'empty.d.ts') //Add an empty definition file to satisfy Typescript for projects without TS
           ]
         },
         diagnosticOptions: {
