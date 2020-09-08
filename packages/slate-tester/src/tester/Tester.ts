@@ -1,17 +1,28 @@
 import { doCypressTestCleanup, doCypressTest, BrowserType, CypressTestParams } from './CypressTester';
 import { PromiseType } from 'utility-types';
-import { saveResults } from './Results';
+import { saveResults } from './../Results';
+import { SlateTheme } from '../utils/ThemeUtils';
 
 //Type Definitions
-export type SiteTestParams = (
+export type SlateSiteInfo = {
+  testProducts:string[];
+};
+
+export type StandardTestParams = {
+  theme:SlateTheme;
+  siteInformation:SlateSiteInfo;
+};
+
+export type FullSiteTestParams = (
   CypressTestParams
 );
 
 export type TestResults = PromiseType<ReturnType<typeof fullSiteTest>>;
 
 //Methods
-export const fullSiteTest = async (params:SiteTestParams) => {
-  console.log('Starting Site Tests...');
+export const fullSiteTest = async (params:FullSiteTestParams) => {
+  console.log('Starting Site Tests with the following parameters;', params);
+  
   //Cleanup
   await cleanupSiteTest(params);
 
@@ -33,6 +44,6 @@ export const fullSiteTest = async (params:SiteTestParams) => {
   return results;
 }
 
-export const cleanupSiteTest = async (params:SiteTestParams) => {
+export const cleanupSiteTest = async (params:FullSiteTestParams) => {
   doCypressTestCleanup(params);
 }

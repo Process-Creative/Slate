@@ -11,6 +11,8 @@ install:
 - npm run bootstrap
 script:
 - yarn test
+before_deploy:
+- yarn tsc
 deploy:
   provider: script
   script: bash .travis/deploy.sh
