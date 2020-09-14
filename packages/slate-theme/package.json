@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
-  "version": "2.1.20",
+  "version": "2.1.21",
   "scripts": {
     "env": "slate-tools env",
     "start": "slate-tools start",
@@ -12,7 +12,7 @@
     "tester": "slate-tools test"
   },
   "dependencies": {
-    "@process-creative/slate-tools": "2.1.20"
+    "@process-creative/slate-tools": "2.1.21"
   },
   "repository": {
     "type": "git",
