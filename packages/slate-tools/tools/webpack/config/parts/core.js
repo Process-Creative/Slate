@@ -45,9 +45,11 @@ module.exports = {
         loader: 'hmr-alamo-loader',
       },
       {
-        test: /fonts\/.*\.(eot|svg|ttf|woff|woff2|otf)$/,
+        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
         exclude: /node_modules/,
-        loader: 'file-loader',
+        use: [
+          { loader: 'file-loader', options: { name: '[name].[ext]' } }
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

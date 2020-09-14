@@ -8,7 +8,8 @@
     "build": "slate-tools build",
     "deploy": "slate-tools build && slate-tools deploy",
     "zip": "slate-tools build && slate-tools zip",
-    "open": "slate-tools open"
+    "open": "slate-tools open",
+    "tester": "slate-tools test"
   },
   "dependencies": {
     "@process-creative/slate-tools": "2.1.19"
