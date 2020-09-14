@@ -17,7 +17,6 @@ module.exports = function(module, chunks, cacheGroup) {
 
   names.sort();
 
-  console.log('cache group', cacheGroup);
   let name =
     (cacheGroup && cacheGroup !== 'default' ? `${cacheGroup}_` : '') +
     names.join('_');
