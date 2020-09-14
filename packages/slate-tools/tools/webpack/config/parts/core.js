@@ -34,13 +34,14 @@ module.exports = {
   },
 
   resolve: {
-    modules
+    modules,
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.jsx', '.ts', '.tsx' ]
   },
 
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js|\.ts$/,
         exclude: config.get('webpack.commonExcludes'),
         loader: 'hmr-alamo-loader',
       },
