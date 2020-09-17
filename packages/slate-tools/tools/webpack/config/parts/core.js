@@ -46,7 +46,7 @@ module.exports = {
         loader: 'hmr-alamo-loader',
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        test: /\.(eot|ttf|woff|woff2|otf)$/,
         exclude: /node_modules/,
         use: [
           { loader: 'file-loader', options: { name: '[name].[ext]' } }
