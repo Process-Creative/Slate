@@ -18,7 +18,7 @@
     "@process-creative/slate-tester": "2.1.18",
     "@process-creative/slate-translations": "2.1.18",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
-    "@shopify/themekit": "1.1.4",
+    "@shopify/themekit": "^1.1.6",
     "archiver": "^5.0.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "8.1.0",

@@ -5,7 +5,7 @@
   "dependencies": {
     "@process-creative/slate-config": "2.1.18",
     "@process-creative/slate-env": "2.1.18",
-    "@shopify/themekit": "1.1.4",
+    "@shopify/themekit": "^1.1.6",
     "chalk": "4.1.0",
     "figures": "^3.2.0",
     "inquirer": "^7.3.3",
