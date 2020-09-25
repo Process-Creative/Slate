@@ -88,6 +88,7 @@ async function deploy(cmd = '', replace = false, files = []) {
   // console.log(chalk.magenta(`\n${figures.arrowUp}  Uploading to Shopify...\n`));
 
   try {
+    await themekit('version');
     await promiseThemekitConfig();
     await promiseThemekitDeploy(cmd, replace, files);
   } catch (error) {
@@ -121,6 +122,7 @@ async function promiseThemekitDeploy(cmd, replace, files) {
       ..._generateConfigFlags(),
       files: [...files],
       noDelete: !replace,
+      'allow-live': true
     },
     {
       cwd: config.get('paths.theme.dist'),
