@@ -21,8 +21,10 @@ const styleLoader = {
 
 const cssLoader = {
   loader: 'css-loader',
-  options: { sourceMap: !isDev },
-  modules: true
+  options: {
+    sourceMap: !isDev,
+    modules: true
+  }
 };
 
 const postcssLoader = {
