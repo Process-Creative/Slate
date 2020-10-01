@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="canonical" href="{{ canonical_url }}" />
 
+{%- comment -%} DNS Prefetching {%- endcomment -%}
+{%- render 'tool.dns-prefetching' -%}
+
 {%- comment -%}SEO Friendly page title{%- endcomment -%}
 {%- capture seo_title -%}
   {{ page_title }}
@@ -37,13 +40,6 @@
   <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
 {%- endif -%}
 
+
 {%- comment -%} Stylesheets {%- endcomment -%}
 {%- render 'tool.style-tags' with layout: 'theme' -%}
-
-{%- comment -%}
-  Inject Liquid variables into Window Object for use by Javascript
-  Also tell CSS that we have Javascript available.
-{%- endcomment -%}
-<script type="text/javascript">
-  document.documentElement.className = document.documentElement.className.replace('js-unavailable', 'js-available');
-</script>

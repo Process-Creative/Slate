@@ -26,6 +26,19 @@
       "admin_link_html": "Are you the store owner? <a href=\"\/admin\">Log in here<\/a>",
       "password_link": "Enter using password",
       "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
+    },
+    "social": {
+      "social_share_label": "Share"
+    },
+    "newsletter": {
+      "subscribe_title": "Stay in the Loop",
+      "subscribe_message": "Subscribe to be the first to hear about our exclusive offers and latest arrivals.",
+      "success_title": "Thanks for subscribing.",
+      "button_text": "Subscribe",
+      "placeholder": "Email Address"
+    },
+    "header": {
+      "search_placeholder": "Search"
     }
   },
   "gift_cards": {
@@ -159,6 +172,50 @@
       "confirm-password": "Confirm password",
       "submit": "Register",
       "cancel": "Return to Store"
+    }
+  },
+  "social_media": {
+    "title": "Social Media",
+    "title_description": "(Please enter username)",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "Pinterest": "Pinterest"
+  },
+  "layout": {
+    "breadcrumbs": {
+      "home": "Home"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Enter your name",
+      "email": "Enter your email",
+      "message": "Enter your message",
+      "send": "Submit my enquiry",
+      "post_success": "Thanks for contacting us. We'll get back to you within 24 hours."
+    }
+  },
+  "articles": {
+    "general": {
+      "all_tags": "All Articles",
+      "learn_more": "Learn more"
+    }
+  },
+  "products": {
+    "product": {
+      "afterpay": "Pay in 4 instalments with",
+      "add_to_cart": "Add To Cart",
+      "sold_out": "Sold Out",
+      "more_details": "more details"
+    }
+  },
+  "collection": {
+    "filter": {
+      "filter": "Filter",
+      "product": "Product",
+      "brand": "Brands",
+      "color": "Colour",
+      "price": "Price"
     }
   }
 }
