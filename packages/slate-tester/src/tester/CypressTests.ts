@@ -1,19 +1,18 @@
 export type CypressTest = typeof CYPRESS_TESTS[number] | string;
 
 export const CYPRESS_TESTS = <const>[
-  // 'all/Window.ts',
-  
-  // 'development/Deployed.ts',
-  // 'development/Named.ts',
+  'development/Deployed.ts',
+  'development/Named.ts',
 
   'layout/theme/Charset.ts',
-  // 'layout/theme/Favicon.ts',
-  // 'layout/theme/JavaScript.ts',
-  // 'layout/theme/Locale.ts',
+  'layout/theme/Favicon.ts',
+  'layout/theme/JavaScript.ts',
+  'layout/theme/Locale.ts',
 
-  // 'seo/Title.ts',
+  'seo/Title.ts',
+  'seo/Sitemap.ts',
 
-  // 'shopify/Shopify.ts',
+  'shopify/Shopify.ts',
   
-  // 'template/product/VariantSelector.ts'
+  'template/product/VariantSelector.ts'
 ];
