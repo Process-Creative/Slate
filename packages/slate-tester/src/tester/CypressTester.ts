@@ -15,11 +15,6 @@ export type CypressTestParams = StandardTestParams & {
   tests?:CypressTest[];
 };
 
-export type CypressTestResult = {
-  test:CypressTest;
-  result:(CypressCommandLine.CypressRunResult|CypressCommandLine.CypressFailedRunResult);
-}
-
 //Paths
 export const PATH_CYPRESS_PROJ = path.resolve(__dirname, '..', '..');
 export const PATH_CYPRESS = path.resolve(PATH_CYPRESS_PROJ, 'cypress');
@@ -38,26 +33,24 @@ export const getRecordingScreenshots = ():string[] => {
 }
 
 export const doCypressTest = async (params:CypressTestParams) => {
-  const allResults:CypressTestResult[] = [];
-  const tests = params.tests || CYPRESS_TESTS;
+  const tests = (params.tests || CYPRESS_TESTS) as string[];
 
-  for(let i = 0; i < tests.length; i++) {
-    const test = tests[i];
-    let result = await cypress.run({
-      browser: params.browser,
-      project: path.resolve(PATH_CYPRESS_PROJ),
-      spec: path.join(PATH_CYPRESS_PROJ, 'cypress', 'integration', test),
-      config: { baseUrl: getThemePreviewUrl(params) },
-      configFile: false,
-      headless: true,
-      env: { ...params }
-    });
-    allResults.push({ test, result });
-  }
+  //Batch tests
+  let result = await cypress.run({
+    browser: params.browser,
+    project: path.resolve(PATH_CYPRESS_PROJ),
+    spec: tests.map(test => {
+      return path.join(PATH_CYPRESS_PROJ, 'cypress', 'integration', test)
+    }).join(','),
+    config: { baseUrl: getThemePreviewUrl(params) },
+    configFile: false,
+    headless: true,
+    env: { ...params }
+  });
 
   const videos = getRecordingVideos();
   const screenshots = getRecordingScreenshots();
-  return { allResults, videos, screenshots };
+  return { result, tests, videos, screenshots };
 }
 
 export const doCypressTestCleanup = (params:CypressTestParams) => {
@@ -66,7 +59,7 @@ export const doCypressTestCleanup = (params:CypressTestParams) => {
     PATH_CYPRESS_VID, PATH_CYPRESS_PIC,
 
     ...[
-      'commands', 'support', 'plugins'
+      'commands'
     ].map(p => path.resolve(PATH_CYPRESS, p))
   ].forEach(p => {
     if(!fs.existsSync(p)) return;

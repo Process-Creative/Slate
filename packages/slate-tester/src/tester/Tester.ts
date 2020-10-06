@@ -4,17 +4,14 @@ import { saveResults } from './../Results';
 import { SlateTheme } from '../utils/ThemeUtils';
 
 //Type Definitions
-export type SlateSiteInfo = {
-  testProducts:string[];
-};
-
 export type StandardTestParams = {
   theme:SlateTheme;
-  siteInformation:SlateSiteInfo;
 };
 
 export type FullSiteTestParams = (
-  CypressTestParams
+  CypressTestParams & {
+    skipCleanup?:boolean
+  } 
 );
 
 export type TestResults = PromiseType<ReturnType<typeof fullSiteTest>>;
@@ -24,7 +21,9 @@ export const fullSiteTest = async (params:FullSiteTestParams) => {
   console.log('Starting Site Tests with the following parameters;', params);
   
   //Cleanup
-  await cleanupSiteTest(params);
+  if(!params.skipCleanup) {
+    await cleanupSiteTest(params);
+  }
 
   //Do tests
   console.log('Running Cypress Site Tests...');
@@ -38,8 +37,10 @@ export const fullSiteTest = async (params:FullSiteTestParams) => {
   await saveResults(results)
 
   //Cleanup
-  console.log('Cleaning Up...');
-  await cleanupSiteTest(params);
+  if(!params.skipCleanup) {
+    console.log('Cleaning Up...');
+    await cleanupSiteTest(params);
+  }
 
   return results;
 }

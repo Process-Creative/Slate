@@ -4,5 +4,5 @@ import { getTestThemeParams } from "../params/ThemeTestParams";
   let params = await getTestThemeParams();
   let results = await fullSiteTest(params);
 
-  return results;
+  process.exit(0);
 })().catch(console.error);

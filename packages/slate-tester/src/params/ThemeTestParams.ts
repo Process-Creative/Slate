@@ -4,8 +4,6 @@ import { FullSiteTestParams } from '..';
 import { validate, getSlateEnv } from '@process-creative/slate-env';
 import { prompt } from 'inquirer';
 import * as  minimist from 'minimist';
-import { param } from 'cypress/types/jquery';
-import { cleanupSiteTest } from '../tester/Tester';
 
 export const PATH_THEME = path.resolve('.');
 export const PATH_THEME_INFO_JS = path.resolve(PATH_THEME, 'slate-tester.js');
@@ -25,6 +23,8 @@ export const getTestThemeParams = async () => {
   } else {
     params = { } as any;
   }
+
+  params.skipCleanup = params.skipCleanup || argv['skipCleanup'];
 
   //Read defaults if necessary from args and/or slate env
   if(!params.theme && validate().isValid) {
@@ -60,17 +60,6 @@ export const getTestThemeParams = async () => {
     }) as { themeId?:string };
     params.theme.themeId = themeId;
   }
-
-  //Read defaults for site info
-  if(!params.siteInformation) {
-    params.siteInformation = { testProducts: argv['testProducts'] };
-  }
-
-  //Test Products
-  let { testProducts } = params.siteInformation;
-  if(!testProducts || !Array.isArray(testProducts)) testProducts = [ testProducts as any ];
-  testProducts = testProducts.filter(f => f);
-  params.siteInformation.testProducts = testProducts;
 
   return params;
 }

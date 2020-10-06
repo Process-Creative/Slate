@@ -1,14 +1,23 @@
+import { fail } from 'assert';
 import { getThemeUrl } from './../../../Utils';
 
-context('JavaScript', () => {
+const SELECTOR_FAVICON = 'link[rel="shortcut icon"]';
+
+context('Favicon', () => {
   beforeEach(() => {
     cy.visit(getThemeUrl('/'));
   });
 
-  it('header should have a favicon', () => {
-    cy.get('link[rel="shortcut icon"]')
+  it('should have a favicon', () => {
+    cy.get(SELECTOR_FAVICON)
       .should('exist')
-      .should('have.property', 'href')
+      .should('have.attr', 'href')
     ;
   });
+
+  it('should have the favicon type', () => {
+    cy.get(SELECTOR_FAVICON)
+      .should('have.attr', 'type')
+    ;
+  })
 })

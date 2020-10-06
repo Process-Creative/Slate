@@ -12,6 +12,8 @@
     "tester": "slate-tools test"
   },
   "dependencies": {
+    "keen-slider": "^5.2.3",
+    "normalize.css": "^8.0.1",
     "@process-creative/slate-tools": "2.1.26"
   },
   "repository": {

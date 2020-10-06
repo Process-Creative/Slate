@@ -64,6 +64,7 @@ wallaby.js
 **/cypress/plugins/
 **/cypress/support/
 **/cypress/fixtures
+**/cypress/integration
 **/slate-theme/results/
 cypress.json
 

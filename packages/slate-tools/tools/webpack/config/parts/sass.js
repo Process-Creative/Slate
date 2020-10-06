@@ -23,6 +23,7 @@ const cssLoader = {
   loader: 'css-loader',
   options: {
     sourceMap: config.get('webpack.sourceMap.styles'),
+    modules: true
   },
 };
 
