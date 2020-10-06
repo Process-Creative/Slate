@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tools",
-  "version": "2.1.24",
+  "version": "2.1.26",
   "bin": {
     "slate-tools": "./cli/index.js",
     "st": "./cli/index.js"
@@ -13,7 +13,7 @@
     "@process-creative/slate-config": "2.1.18",
     "@process-creative/slate-env": "2.1.18",
     "@process-creative/slate-sections-plugin": "2.1.18",
-    "@process-creative/slate-sync": "2.1.18",
+    "@process-creative/slate-sync": "2.1.26",
     "@process-creative/slate-tag-webpack-plugin": "2.1.18",
     "@process-creative/slate-tester": "2.1.18",
     "@process-creative/slate-translations": "2.1.18",

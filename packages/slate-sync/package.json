@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-sync",
-  "version": "2.1.18",
+  "version": "2.1.26",
   "main": "index.js",
   "dependencies": {
     "@process-creative/slate-config": "2.1.18",
