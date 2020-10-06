@@ -23,7 +23,9 @@ const cssLoader = {
   loader: 'css-loader',
   options: {
     sourceMap: !isDev,
-    modules: true
+    modules: {
+      compileType: 'icss',
+    }
   }
 };
 
