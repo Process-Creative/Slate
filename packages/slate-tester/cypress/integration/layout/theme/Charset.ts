@@ -1,4 +1,3 @@
-import { fail } from 'assert';
 import { getThemeUrl } from './../../../Utils';
 
 const SELECTOR_CHARSET = 'meta[charset]';

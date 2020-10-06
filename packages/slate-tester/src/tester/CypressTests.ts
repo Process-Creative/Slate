@@ -14,5 +14,5 @@ export const CYPRESS_TESTS = <const>[
 
   'shopify/Shopify.ts',
   
-  'template/product/VariantSelector.ts'
+  'template/product/ProductForm.ts'
 ];

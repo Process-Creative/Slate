@@ -59,7 +59,7 @@ export const doCypressTestCleanup = (params:CypressTestParams) => {
     PATH_CYPRESS_VID, PATH_CYPRESS_PIC,
 
     ...[
-      'commands', 'support', 'plugins'
+      'commands'
     ].map(p => path.resolve(PATH_CYPRESS, p))
   ].forEach(p => {
     if(!fs.existsSync(p)) return;
