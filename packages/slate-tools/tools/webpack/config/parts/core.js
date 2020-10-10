@@ -100,19 +100,22 @@ module.exports = {
           to: config.get('paths.theme.dist.locales'),
         },
         {
-          from: config.get('paths.theme.src.snippets'),
-          to: config.get('paths.theme.dist.snippets'),
-        },
-        {
           from: config.get('paths.theme.src.templates'),
           to: config.get('paths.theme.dist.templates'),
         }
       ]
     }),
 
+    //Sections
     new SlateSectionsPlugin({
       from: config.get('paths.theme.src.sections'),
       to: config.get('paths.theme.dist.sections'),
+    }),
+
+    //Snippets
+    new SlateSectionsPlugin({
+      from: config.get('paths.theme.src.snippets'),
+      to: config.get('paths.theme.dist.snippets'),
     }),
   ]
 };
