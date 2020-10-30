@@ -4,4 +4,4 @@ Fork of @shopify/slate, kept running by the need for a performant theme building
 ## Plans
 Current plans for the framework involve bringing it up to date, last updates were a while ago and the tools are desperate for a cleaning.
 
-Notifications will now be posted to the internal slack channel.
+Notifications will now be posted to the internal slack channel. Hopefully.
