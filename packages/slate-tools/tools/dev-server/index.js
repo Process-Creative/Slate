@@ -17,6 +17,9 @@ class DevServer {
   start() {
     const bsConfig = {
       port: this.port,
+      open: false,
+      notify: false,
+      reloadOnRestart: true,
       proxy: {
         target: this.proxyTarget,
         middleware: (req, res, next) => {

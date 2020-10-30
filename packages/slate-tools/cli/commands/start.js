@@ -10,6 +10,7 @@ const clearConsole = require('react-dev-utils/clearConsole');
 const ip = require('ip');
 const env = require('@process-creative/slate-env');
 const SlateConfig = require('@process-creative/slate-config');
+const open = require('open');
 
 const promptContinueIfPublishedTheme = require('../prompts/continue-if-published-theme');
 const promptSkipSettingsData = require('../prompts/skip-settings-data');
@@ -209,5 +210,6 @@ async function onClientAfterSync() {
   if(!firstSync) return;
   firstSync = false;
   await devServer.start();
+  await open(previewUrl);
   logPreviewInformation(devServer);
 }
