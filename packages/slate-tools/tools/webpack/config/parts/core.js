@@ -38,6 +38,12 @@ module.exports = {
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.jsx', '.ts', '.tsx' ]
   },
 
+  externals: {
+    jquery: 'jQuery',
+    jQuery: 'jQuery',
+    $: 'jQuery'
+  },
+
   module: {
     rules: [
       {

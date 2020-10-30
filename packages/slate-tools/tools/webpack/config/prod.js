@@ -78,8 +78,7 @@ module.exports = merge([
 
     optimization: {
       splitChunks: {
-        chunks: 'all',
-        name: getChunkName,
+        name: getChunkName
       },
       minimize: true,
       minimizer: [
