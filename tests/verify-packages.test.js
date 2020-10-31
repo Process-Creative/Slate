@@ -7,7 +7,7 @@ const PACKAGES_DIR = path.resolve('.', PACKAGES_DIR_NAME);
 const PACKAGES = fs
   .readdirSync(PACKAGES_DIR)
   .map(dir => path.join(PACKAGES_DIR, dir))
-  .filter(dir => fs.statSync(dir).isDirectory)
+  .filter(dir => fs.statSync(dir).isDirectory())
 ;
 
 let PACKAGE_JSONS = PACKAGES.map(dir => {

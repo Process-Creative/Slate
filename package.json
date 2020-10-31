@@ -13,6 +13,7 @@
     "changelog": "node_modules/.bin/lerna-changelog",
     "clean": "lerna clean",
     "build": "lerna run build",
+    "sign": "lerna run sign",
     "tsc": "lerna run tsc",
     "check": "lerna run check",
     "test": "jest"
