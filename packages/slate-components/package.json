@@ -1,0 +1,28 @@
+{
+  "name": "@process-creative/slate-components",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node src/index"
+  },
+  "bin": {
+    "slate-components": "./cli/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate-v2.git",
+    "directory": "packages/slate-components"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  },
+  "dependencies": {
+    "@types/node": "^14.14.6",
+    "commander": "^6.2.0",
+    "inquirer": "^7.3.3",
+    "open": "^7.3.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}

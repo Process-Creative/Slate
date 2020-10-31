@@ -9,10 +9,13 @@
     "deploy": "slate-tools build && slate-tools deploy",
     "zip": "slate-tools build && slate-tools zip",
     "open": "slate-tools open",
-    "tester": "slate-tools test"
+    "tester": "slate-tools test",
+    "component-install": "slate-components install",
+    "theme-info": "slate-components theme"
   },
   "dependencies": {
     "@process-creative/slate-tools": "2.1.31",
+    "@process-creative/slate-components": "1.0.0",
     "keen-slider": "^5.2.3",
     "normalize.css": "^8.0.1"
   },
