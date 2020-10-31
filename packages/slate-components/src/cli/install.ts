@@ -1,5 +1,5 @@
 import * as program from 'commander';
-import { fileGetSchemaPath, fileReadSchema, filesCopy } from '../file';
+import { fileGetSchemaPath, fileReadSchema, fileCopy } from '../file';
 import { schemaGetFrameworkCompatibility, schemaLoadTree, schemaTreeGetFiles, schemaValidateName } from '../schema';
 import * as open from 'open';
 import { themeGetInfo } from '../theme';
@@ -39,7 +39,7 @@ program
     ]);
     if(!install) return;
 
-    filesCopy({
+    fileCopy({
       root, files, theme,
       onFile: (p) => {
         const strSource = p.source.replace(p.sourceRoot, '');

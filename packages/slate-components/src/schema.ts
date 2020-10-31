@@ -1,5 +1,5 @@
-import { fileGetSchemaContents, fileReadSchema, PATH_COMPONENTS } from "./file";
-import { Framework } from "./framework";
+import { fileGetSchemaContents, fileReadSchema, PATH_COMPONENTS, fileGetAllComponents } from "./file";
+import { Framework, frameworkValidate } from "./framework";
 
 export type SchemaIdentifier = {
   name:string;
@@ -9,7 +9,8 @@ export type Schema = SchemaIdentifier & {
   compatible:Framework[];
   version:string;
   deps:string[];
-  scripts:string[];
+  scripts?:string[];
+  description?:string;
 };
 
 export type LoadedSchema = Schema & {
@@ -21,7 +22,6 @@ export const schemaCreate = (params:SchemaCreateParams) => ({
   version: '1.0.0',
   compatible: [],
   deps: [],
-  scripts: [],
   
   ...params
 });
@@ -94,4 +94,31 @@ export const schemaTreeGetFiles = (schema:LoadedSchema) => {
       return file.split(root).join('');
     })
   };
+}
+
+
+export const schemaValidate = (schema:Schema):string|true => {
+  if(!schemaValidateName(schema.name)) {
+    return `Invalid schema name`;
+  }
+
+  if(!schema.compatible.length) {
+    return `No compatible frameworks`;
+  }
+
+  if(!schema.version || !schema.version.trim().length) {
+    return `Missing Version Number`;
+  }
+
+  for(let i = 0; i < schema.compatible.length; i++) {
+    const fw = schema.compatible[i];
+    if(frameworkValidate(fw)) continue;
+    return `Invalid framework \"${fw}\"`
+  }
+  
+  return true;
+}
+
+export const schemaGetAll = () => {
+  return fileGetAllComponents().map(name => ({ name } as SchemaIdentifier));
 }

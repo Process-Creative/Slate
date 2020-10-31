@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "start": "ts-node src/index"
+    "start": "ts-node src/index",
+    "sign": "ts-node src/index sign"
   },
   "bin": {
     "slate-components": "./cli/index.js"

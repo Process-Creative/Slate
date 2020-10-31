@@ -12,6 +12,7 @@ install:
 script:
 - yarn test
 before_deploy:
+- yarn sign
 - yarn tsc
 deploy:
   provider: script

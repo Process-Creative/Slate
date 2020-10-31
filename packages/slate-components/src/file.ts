@@ -99,7 +99,7 @@ type CopyParams = {
     sourceRoot:string, source:string, dest:string, destRoot:string
   }) => void 
 };
-export const filesCopy = (params:CopyParams) => {
+export const fileCopy = (params:CopyParams) => {
   const destRoot = fileGetThemeOutputDirectory(params.theme);
   params.files.forEach(file => {
     const source = path.join(params.root, file);
@@ -117,4 +117,13 @@ export const filesCopy = (params:CopyParams) => {
     fs.copyFileSync(source, dest);
     params.onFile({ sourceRoot: params.root, source, dest, destRoot });
   })
+}
+
+export const fileGetAllComponents = () => {
+  return fs.readdirSync(PATH_COMPONENTS);
+}
+
+export const fileWriteSignature = (p:{ schema:Schema, signature:string }) => {
+  const dir = fileGetSchemaPath(p.schema);
+  fs.writeFileSync(path.join(dir, 'README.md'), p.signature);
 }
