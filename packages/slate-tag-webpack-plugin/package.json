@@ -1,0 +1,13 @@
+{
+  "name": "@process-creative/slate-tag-webpack-plugin",
+  "version": "2.1.8",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate-v2.git",
+    "directory": "packages/slate-tag-webpack-plugin"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  }
+}
