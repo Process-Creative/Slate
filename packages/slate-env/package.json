@@ -1,13 +1,13 @@
 {
   "name": "@process-creative/slate-env",
-  "version": "2.1.35",
+  "version": "2.1.36",
   "main": "dist/index.js",
   "scripts": {
     "build:production": "tsc -p .",
     "tsc": "npm run build:production"
   },
   "dependencies": {
-    "@process-creative/slate-config": "2.1.35",
+    "@process-creative/slate-config": "2.1.36",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {

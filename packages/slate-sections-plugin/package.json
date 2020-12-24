@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-sections-plugin",
-  "version": "2.1.35",
+  "version": "2.1.36",
   "main": "index.js",
   "dependencies": {
     "fs-extra": "^9.0.1",

@@ -1,10 +1,10 @@
 {
   "name": "@process-creative/slate-sync",
-  "version": "2.1.35",
+  "version": "2.1.36",
   "main": "index.js",
   "dependencies": {
-    "@process-creative/slate-config": "2.1.35",
-    "@process-creative/slate-env": "2.1.35",
+    "@process-creative/slate-config": "2.1.36",
+    "@process-creative/slate-env": "2.1.36",
     "@shopify/themekit": "^1.1.6",
     "chalk": "4.1.0",
     "figures": "^3.2.0",
