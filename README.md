@@ -71,3 +71,7 @@ will not be absolute.
 - Remove Browser Sync and replace with something more appropriate
 - Segment builds by environments, this will allow for multiple builds to run
 concurrently.
+
+## Testing
+Testing is automatically done by travis. Currently unit tests are limited to 
+only ensuring `package.json` files are setup correctly.
