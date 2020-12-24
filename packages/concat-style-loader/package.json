@@ -1,10 +1,10 @@
 {
   "name": "@process-creative/concat-style-loader",
-  "version": "2.1.8",
+  "version": "2.1.33",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/Process-Creative/slate-v2.git",
+    "url": "ssh://git@github.com/Process-Creative/slate.git",
     "directory": "packages/concat-style-loader"
   },
   "publishConfig": {

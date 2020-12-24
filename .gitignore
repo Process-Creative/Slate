@@ -57,6 +57,16 @@ packages/slate-theme/config/shopify.yml
 .vscode/
 package-lock.json
 wallaby.js
+.env
+.env*
+**/cypress/videos/
+**/cypress/screenshots/
+**/cypress/plugins/
+**/cypress/support/
+**/cypress/fixtures
+**/cypress/integration
+**/slate-theme/results/
+cypress.json
 
 # Docs #
 ######################

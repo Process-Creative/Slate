@@ -1,0 +1,19 @@
+{%- if variant == blank -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+{%- endif -%}
+
+{%- capture productData -%}
+  {%- render 'json.product' with { product: product } -%}
+{%- endcapture -%}
+
+{% if product.has_only_default_variant -%}
+  <input type="hidden" value="{{ variant.id }}" name="id"
+    data-product="{{ productData | escape }}"
+  />
+{%- else -%}
+  <select name="id" data-product="{{ productData | escape }}">
+    {%- for var in product.variants -%}
+      <option value="{{ var.id }}">{{ var.title | escape }}</option>
+    {%- endfor -%}
+  </select>
+{%- endif %}

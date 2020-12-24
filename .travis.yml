@@ -1,22 +1,27 @@
 language: node_js
 node_js:
-- 14.6.0
+  - 14.6.0
+
 cache:
   yarn: true
   directories:
-  - node_modules
+    - node_modules
+    
 install:
-- npm install -g lerna
-- npm install -g yarn
+  - npm install -g lerna
+  - npm install -g yarn
 - npm run bootstrap
+
 script:
-- yarn test
+  - yarn test
+before_deploy:
+  - yarn tsc
+
 deploy:
   provider: script
   script: bash .travis/deploy.sh
   skip_cleanup: true
-  on:
-    branch: master
+
 env:
   global:
-    secure: d9C/yjxT4VbZS5efXOMWKpqC5t8ETbWftRe+uq3pCR8jJ4BsiAaX7gxct6Eajk8uG2QoOb+teNYvQlNj74jEd2wcp2U/ZYx8ZpgIa5ibsGN1vQ6lZd0+Ubv8GrazatA0uP9Du21LytIwUEQDEv8nLZND8o1v4DtN1gEAGtwxpLyd2zY9jIfFwxARZeNAmwMQ9YbxY/ojK5iIBsIqpyEw/Ag3NIunaE60Ce0VIJWhKgvPFRNp63aYqOoxHKLr7z2xaUAnhKdCyhPkC++zyfzeD/1rneG/Az2srVFNOhira0zNTymjFPx9AHs+V6YUHrEXe4+m3y5m07KhImxKEVjkGtuofOEEpnvr3DnFeWyZUZOdb2Vm9aLEqtG5GLNiJI6klyo0HAwp9FLhI22LGy1C8y3T/3rNA4UbQ/hn3f4x/uowJQu9tC/sQA7ptqPpWAeHBrSTfG4NGPB1tPGYK/fxg+iU9rMcYV9dccu4+hO81ZXKN4Er7uyzAj1J3VkAmNmeAuB+Trobw4eQMevsXpa2KnNAfRmwJ+cQn7lgUoHLSy1/twizC0t2JlvgtUDq+J8PjAUjB+xMVXq8HsN62N1fbGbt5fiiedrfrWh0LxX8n8K78PZ1tTUYW6pVwqJYE+ubB4fHnzLropFXDU0E2d6Vybv+4bj1316O3NJKVodBMfQ=
+    secure: kmxGMhRG0QGml1UkOeUFD4ib4yaN3lNO1nGH7Fbnbd1JAabD8+x61Acv3hmb3lN/eNedJGj3DtS2IIG/UPS0trHWJ8oTN5a04pGuKwx0jtTSq4ULlHJK8NJTSDHoNqi5iJxtZqUYWb5uXKvgtAN+g8cSpPmRUINxzCnZ+wISOCmr0vwShs6SXlRuaw2iekiGFTf1OYRLkEQmdSPG39P8atwiGo+PvIM5TaKgCLicBTx05gSVxjOnUiAAypnbElTJNcp/QlClgFa9QY/n1Ph7wVf8gQtqTR5KCt/rTVz5OQZblY/oqSWi7vaFZfS2qfAKJ0FbzTZcfP5f2cTGfIpMhLIfFWhTCW4lWFUkX8XkvSbhuymTDzBzwUKlJPZa//T+HbeZwckVoo56WuUBODAfrE/GDHnVmEG9uA7TWfBTkpgHEzGSyzaISdN+ziAYn/W4rLX5CBSrzkO60okGOi4uVBHdz9pyOHEKhjcfZJBaMyZt2POiRUcnqtQsf4zGkANvQu2UvSe4uSi8uArh/xRq5d3TWCKE2raLwHGjd+Tou2VFFn/oLlKfB3U1EidESPEBARubbDu6vGbB8d94IeyZsWz9sXrUFQN3175Ik7hiS3/VI4q5OtHfLVatxJmAmKO8klO1KCxxOipmarpaqNYo6iQ7ImvoBJDXeYMDvHIdnvU=

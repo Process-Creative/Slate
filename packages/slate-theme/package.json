@@ -1,0 +1,31 @@
+{
+  "name": "@process-creative/slate-theme",
+  "version": "2.1.33",
+  "scripts": {
+    "env": "slate-tools env",
+    "start": "slate-tools start",
+    "watch": "slate-tools start --skipFirstDeploy",
+    "build": "slate-tools build",
+    "deploy": "slate-tools build && slate-tools deploy",
+    "zip": "slate-tools build && slate-tools zip",
+    "open": "slate-tools open",
+    "tester": "slate-tools test",
+    "component-install": "slate-components install",
+    "theme-info": "slate-components theme"
+  },
+  "dependencies": {
+    "@process-creative/slate-components": "2.1.33",
+    "@process-creative/slate-tools": "2.1.33",
+    "keen-slider": "^5.2.3",
+    "normalize.css": "^8.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate.git",
+    "directory": "packages/slate-theme"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  }
+}

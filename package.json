@@ -2,24 +2,25 @@
   "name": "slate",
   "private": true,
   "homepage": "https://processcreative.com.au",
-  "bugs": "https://github.com/Process-Creative/slate-v2/issues",
+  "bugs": "https://github.com/Process-Creative/slate/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Process-Creative/slate-v2.git"
+    "url": "https://github.com/Process-Creative/slate.git"
   },
   "scripts": {
     "bootstrap": "yarn install && lerna bootstrap",
     "changelog": "node_modules/.bin/lerna-changelog",
     "clean": "lerna clean",
     "build": "lerna run build",
+    "sign": "lerna run sign",
+    "tsc": "lerna run tsc",
     "check": "lerna run check",
     "test": "jest"
   },
   "devDependencies": {
-    "lerna": "^3.11.0",
-    "lerna-changelog": "^1.0.1",
-    "jest": "^26.2.2"
+    "jest": "^26.2.2",
+    "lerna": "^3.22.1"
   },
   "workspaces": [
     "packages/*"

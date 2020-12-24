@@ -1,19 +1,8 @@
 {
   "lerna": "3.11.0",
-  "version": "2.1.8",
+  "version": "2.1.33",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "changelog": {
-    "repo": "process-creative/slate-v2",
-    "labels": {
-      "enhancement": ":rocket: Enhancement",
-      "bug": ":bug: Bug Fix",
-      "documentation": ":memo: Documentation",
-      "internal": ":house: Internal",
-      "config": ":wrench Config"
-    },
-    "cacheDir": ".changelog"
-  },
   "command": {
     "publish": {
       "registry": "https://npm.pkg.github.com"
