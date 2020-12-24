@@ -7,7 +7,7 @@ npm config set "@process-creative:registry" "https://npm.pkg.github.com/" --glob
 git remote set-url origin https://${GH_TOKEN}@github.com/${OWNER}/slate.git
 git fetch --all
 git checkout master
-yarn lerna version patch --conventional-commits --yes --exact --no-changelog --create-release github
+yarn lerna version patch --conventional-commits --yes --exact --create-release github
 git push --follow-tags
 git checkout master
 
