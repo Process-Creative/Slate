@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const _ = require('lodash');
 
+
 /**
  * Goes through the main schema to get the translation keys and to fill the schema with translations
  *
