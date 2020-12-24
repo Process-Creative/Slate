@@ -10,7 +10,7 @@ cache:
 install:
   - npm install -g lerna
   - npm install -g yarn
-- npm run bootstrap
+  - npm run bootstrap
 
 script:
   - yarn test
