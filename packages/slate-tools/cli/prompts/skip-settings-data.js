@@ -6,7 +6,7 @@ const {argv} = require('yargs');
 const {getIgnoreFilesValue} = require('@process-creative/slate-env');
 const SlateConfig = require('@process-creative/slate-config');
 
-const config = new SlateConfig(require('../../slate-tools.schema'));
+const config = new SlateConfig(require('../../dist/slate-tools.schema'));
 
 const question = {
   type: 'confirm',

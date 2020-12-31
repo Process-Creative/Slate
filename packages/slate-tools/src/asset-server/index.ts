@@ -1,15 +1,34 @@
-const webpack = require('webpack');
-const {createServer} = require('https');
-const createHash = require('crypto').createHash;
-const SlateConfig = require('@process-creative/slate-config');
+import webpack, { Compiler } from 'webpack';
+import { createServer } from 'https';
+import { createHash } from 'crypto';
+import SlateConfig from '@process-creative/slate-config';
+import Client from './client';
+import slateToolsSchema from './../slate-tools.schema';
+import { isHotUpdateFile } from '../tools/hot';
+import { sslKeyCert } from '../tools/ssl';
+import { Server } from 'http';
+import App from './app';
 
-const App = require('./app');
-const Client = require('./client');
-const {sslKeyCert, isHotUpdateFile} = require('../utilities');
-const config = new SlateConfig(require('../../slate-tools.schema'));
+const config = new SlateConfig(slateToolsSchema);
 
-module.exports = class DevServer {
-  constructor(options) {
+type DevServerOptions = {
+  address:string;
+  port:number;
+} & any;
+
+class DevServer {
+  public assetHashes:{[key:string]:any};
+  public address:string;
+  public port:number;
+  public options:DevServerOptions;
+  public compiler:Compiler;
+  public app:App;
+  public client:Client;
+
+  public ssl:ReturnType<typeof sslKeyCert> | undefined;
+  public server:Server;
+
+  constructor(options:DevServerOptions) {
     options.webpackConfig.output.publicPath = `https://${options.address}:${
       options.port
     }/`;
@@ -33,16 +52,15 @@ module.exports = class DevServer {
       this._onCompileDone.bind(this),
     );
     this.ssl = sslKeyCert();
-    this.server = createServer(this.ssl, this.app);
-
+    this.server = createServer(this.ssl, this.app.app);
     this.server.listen(this.port);
   }
 
-  set files(files) {
+  set files(files:any) {
     this.client.files = files;
   }
 
-  set skipDeploy(value) {
+  set skipDeploy(value:any) {
     this.client.skipNextSync = value;
   }
 
@@ -78,28 +96,23 @@ module.exports = class DevServer {
     return oldHash !== newHash;
   }
 
-  _getAssetsToUpload(stats) {
-    const assets = Object.entries(stats.compilation.assets);
+  _getAssetsToUpload(stats:any) {
+    const assets = Object.entries(stats.compilation.assets) as any;
     const chunks = stats.compilation.chunks;
 
     return (
-      assets
-        .filter(([key, asset]) => {
-          return (
-            asset.emitted &&
-            !this._isChunk(key, chunks) &&
-            !isHotUpdateFile(key) &&
-            this._hasAssetChanged(key, asset)
-          );
-        })
-        /* eslint-disable-next-line no-unused-vars */
-        .map(([key, asset]) => {
-          return asset.existsAt.replace(config.get('paths.theme.dist'), '');
-        })
+      assets.filter(([key, asset]) => (
+        asset.emitted &&
+        !this._isChunk(key, chunks) &&
+        !isHotUpdateFile(key) &&
+        this._hasAssetChanged(key, asset)
+      )).map(([key, asset]) => {
+        return asset.existsAt.replace(config.get('paths.theme.dist'), '');
+      })
     );
   }
 
-  _updateAssetHash(key, asset) {
+  _updateAssetHash(key:string, asset:any) {
     const rawSource = asset.source();
     const source = Array.isArray(rawSource) ? rawSource.join('\n') : rawSource;
     const hash = createHash('sha256')
@@ -109,3 +122,5 @@ module.exports = class DevServer {
     return (this.assetHashes[key] = hash);
   }
 };
+
+export = DevServer;

@@ -1,12 +1,11 @@
-const path = require('path');
-const os = require('os');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
-const commonPaths = require('@process-creative/slate-config/common/paths.schema');
+import * as path from 'path';
+import * as os from 'os';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano'
+import commonPaths from '@process-creative/slate-config/common/paths.schema';
 
-module.exports = {
-  ...commonPaths,
-
+//Encapsulating to preserve type definitions
+const slateToolsLocalSchema = {
   // Enable/disable the prompt to skip uploading settings_data.json
   'cli.promptSettings': true,
 
@@ -44,7 +43,7 @@ module.exports = {
   // /node_modules\/(?!(MY-MODULE|ANOTHER-ONE)\/).*/
   //
   // See https://github.com/webpack/webpack/issues/2031 for more details
-  'webpack.babel.exclude': (config) => config.get('webpack.commonExcludes'),
+  'webpack.babel.exclude': config => config.get('webpack.commonExcludes'),
 
   // Paths to exclude for all webpack loaders
   'webpack.commonExcludes': [/node_modules/, /assets\/static/],
@@ -57,22 +56,28 @@ module.exports = {
   // style-loader to inject styles using a <link> tag instead of <style> tag.
   // This causes a FOUC content, which can cause issues with JS that is reading
   // the DOM for styles (width, height, visibility) on page load.
-  'webpack.sourceMap.styles': () => {
-    return process.env.NODE_ENV === 'production';
-  },
+  'webpack.sourceMap.styles': config => process.env.NODE_ENV === 'production',
 
   // Array of PostCSS plugins which is passed to the Webpack PostCSS Loader
-  'webpack.postcss.plugins': (config) => [
+  'webpack.postcss.plugins': config => [
     autoprefixer,
-
-    ...(process.env.NODE_ENV === 'production'
-      ? [cssnano(config.get('webpack.cssnano.settings'))]
-      : []),
+    ...(
+      process.env.NODE_ENV === 'production'
+      ? [ cssnano(config.get('webpack.cssnano.settings')) ]
+      : []
+    )
   ],
 
   // Optimization settings for the cssnano plugin
-  'webpack.cssnano.settings': {zindex: false, reduceIdents: false},
+  'webpack.cssnano.settings': { zindex: false, reduceIdents: false },
 
   // Object which contains entrypoints used in webpack's config.entry key
   'webpack.entrypoints': {},
 };
+
+const slateToolsSchema = {
+  ...commonPaths,
+  ...slateToolsLocalSchema
+} as typeof slateToolsLocalSchema & any;
+
+export = slateToolsSchema;

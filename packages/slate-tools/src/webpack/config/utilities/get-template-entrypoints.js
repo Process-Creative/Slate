@@ -1,7 +1,7 @@
 const path = require('path');
 const SlateConfig = require('@process-creative/slate-config');
 const { getEntryPoints } = require('./get-entrypoints');
-const config = new SlateConfig(require('../../../../slate-tools.schema'));
+const config = new SlateConfig(require('../../../slate-tools.schema'));
 
 module.exports = () => {
   return getEntryPoints({

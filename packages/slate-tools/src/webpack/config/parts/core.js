@@ -4,16 +4,25 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SlateConfig = require('@process-creative/slate-config');
 const SlateSectionsPlugin = require('@process-creative/slate-sections-plugin');
-const config = new SlateConfig(require('../../../../slate-tools.schema'));
+const schema = require('./../../../slate-tools.schema.js');
+const config = new SlateConfig(schema);
 const injectLocalesIntoSettingsSchema = require('../utilities/inject-locales-into-settings-schema');
+
+const PATH_THEME_NODE_MODULES = path.join(config.get('paths.theme'), 'node_modules');
+const PATH_MONOREPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..', '..');
+const PATH_MONOREPO_NODEMODULES = path.resolve(PATH_MONOREPO_ROOT, 'node_modules');
+const PATH_MONOREPO_SLATETOOLS_ROOT = path.resolve(PATH_MONOREPO_ROOT, 'packages', 'slate-tools');
+const PATH_MONOREPO_SLATETOOLS_NODEMOUDLES = path.resolve(PATH_MONOREPO_SLATETOOLS_ROOT, 'node_modules');
+const PATH_MONOREPO_SLATETOOLS_WEBPACK_ROOT = path.resolve(PATH_MONOREPO_SLATETOOLS_ROOT, 'dist', 'webpack');
 
 //Directories
 const modules = [
-  path.join(config.get('paths.theme'), 'node_modules'), //Themes node modules
-  path.resolve(__dirname, '..', '..', '..', '..', '..', '..'),//Monorepo root
-  path.resolve(__dirname, '..', '..'),//Monorepo / slate-tools/tools/webpack/
-  path.resolve(__dirname, '..', '..', '..', '..', '..', '..', 'node_modules'),//Monorepo root / node_modules
-  path.resolve(__dirname, '..', '..', '..', '..', 'node_modules'),//Monorepo / Slate tools / node_modules
+  PATH_THEME_NODE_MODULES,
+  PATH_MONOREPO_ROOT,
+  PATH_MONOREPO_NODEMODULES,
+  PATH_MONOREPO_SLATETOOLS_ROOT,
+  PATH_MONOREPO_SLATETOOLS_NODEMOUDLES,
+  PATH_MONOREPO_SLATETOOLS_WEBPACK_ROOT
 ];
 
 const extractLiquidStyles = new ExtractTextPlugin(

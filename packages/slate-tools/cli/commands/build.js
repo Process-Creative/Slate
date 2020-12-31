@@ -8,7 +8,7 @@ process.env.NODE_ENV = 'production';
  * If the `deploy` argument has been passed, deploy to Shopify when the compilation is done.
  */
 const webpack = require('webpack');
-const webpackConfig = require('../../tools/webpack/config/prod');
+const webpackConfig = require('../../dist/webpack/config/prod');
 const packageJson = require('../../package.json');
 
 webpack(webpackConfig, (err, stats) => {

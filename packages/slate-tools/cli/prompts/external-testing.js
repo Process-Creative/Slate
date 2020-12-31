@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 const figures = require('figures');
 const SlateConfig = require('@process-creative/slate-config');
 
-const config = new SlateConfig(require('../../slate-tools.schema'));
+const config = new SlateConfig(require('../../dist/slate-tools.schema'));
 
 const question = {
   type: 'confirm',

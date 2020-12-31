@@ -2,10 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const SlateConfig = require('@process-creative/slate-config');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const schema = require('./../../../slate-tools.schema.js');
+const config = new SlateConfig(schema);
 
-const config = new SlateConfig(require('../../../../slate-tools.schema'));
-
-const PATH_UTILITIES = path.resolve(__dirname, '..', 'utilities');
+const PATH_UTILITIES = path.resolve(
+  __dirname, '..', '..', '..', '..', 'src', 'webpack', 'config', 'utilities'
+);
 
 module.exports = {
   module: {

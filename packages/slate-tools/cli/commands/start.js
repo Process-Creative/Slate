@@ -16,13 +16,13 @@ const promptContinueIfPublishedTheme = require('../prompts/continue-if-published
 const promptSkipSettingsData = require('../prompts/skip-settings-data');
 const promptExternalTesting = require('../prompts/external-testing');
 
-const AssetServer = require('../../tools/asset-server');
-const DevServer = require('../../tools/dev-server');
-const webpackConfig = require('../../tools/webpack/config/dev');
+const AssetServer = require('../../dist/asset-server');
+const DevServer = require('../../dist/dev-server');
+const webpackConfig = require('../../dist/webpack/config/dev');
 const packageJson = require('../../package.json');
-const {getAvailablePortSeries} = require('../../tools/utilities');
+const { getAvailablePortSeries } = require('../../dist/tools/network');
 
-const config = new SlateConfig(require('../../slate-tools.schema'));
+const config = new SlateConfig(require('../../dist/slate-tools.schema'));
 
 const spinner = ora(chalk.magenta(' Compiling...'));
 

@@ -4,7 +4,7 @@ const archiver = require('archiver');
 const chalk = require('chalk');
 const SlateConfig = require('@process-creative/slate-config');
 
-const config = new SlateConfig(require('../../slate-tools.schema'));
+const config = new SlateConfig(require('../../dist/slate-tools.schema'));
 
 /**
  * Builds a zip based on an array of directories and files. This

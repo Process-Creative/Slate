@@ -1,6 +1,6 @@
 const browserSync = require('browser-sync');
 const {getStoreValue, getThemeIdValue} = require('@process-creative/slate-env');
-const {getSSLKeyPath, getSSLCertPath} = require('../utilities');
+const {getSSLKeyPath, getSSLCertPath} = require('../tools/ssl');
 
 class DevServer {
   constructor(options) {

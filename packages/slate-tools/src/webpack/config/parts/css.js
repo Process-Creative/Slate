@@ -1,6 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SlateConfig = require('@process-creative/slate-config');
-const config = new SlateConfig(require('../../../../slate-tools.schema'));
+const schema = require('./../../../slate-tools.schema.js');
+const config = new SlateConfig(schema);
+
 
 const isDev = process.env.NODE_ENV === 'development';
 

@@ -18,7 +18,9 @@ const getChunkName = require('../get-chunk-name');
 const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
 const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
 const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
-const config = new SlateConfig(require('../../../slate-tools.schema'));
+
+const schema = require('./../../slate-tools.schema.js');
+const config = new SlateConfig(schema);
 
 const { getScriptTemplate } = require('./../templates/script-tags-template');
 const { getStyleTemplate } = require('./../templates/style-tags-template');
