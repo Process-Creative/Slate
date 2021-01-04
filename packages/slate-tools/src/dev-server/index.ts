@@ -1,9 +1,25 @@
-const browserSync = require('browser-sync');
-const {getStoreValue, getThemeIdValue} = require('@process-creative/slate-env');
-const {getSSLKeyPath, getSSLCertPath} = require('../tools/ssl');
+import browserSync, { BrowserSyncInstance } from 'browser-sync';
+import { getStoreValue, getThemeIdValue } from '@process-creative/slate-env';
+import { getSSLKeyPath, getSSLCertPath } from '../tools/ssl';
+
+type DevServerOptions = {
+  port:number;
+  address:string;
+  uiPort:number;
+}
 
 class DevServer {
-  constructor(options) {
+  public bs:BrowserSyncInstance;
+  public target:string;
+  public themeId:string;
+  public port:number;
+  public address:string;
+  public uiPort:number;
+  public proxyTarget:string;
+
+  public server:any|undefined;
+
+  constructor(options:DevServerOptions) {
     this.bs = browserSync.create();
     this.target = `https://${getStoreValue()}`;
     this.themeId = getThemeIdValue();
@@ -12,8 +28,10 @@ class DevServer {
     this.uiPort = options.uiPort;
     this.proxyTarget =
       this.target +
-      (this.themeId === 'live' ? '' : `?preview_theme_id=${this.themeId}`);
+      (this.themeId === 'live' ? '' : `?preview_theme_id=${this.themeId}`)
+    ;
   }
+
   start() {
     const bsConfig = {
       port: this.port,
@@ -40,7 +58,7 @@ class DevServer {
         ],
       },
       https: {key: getSSLKeyPath(), cert: getSSLCertPath()},
-      logLevel: 'silent',
+      logLevel: <const>'silent',
       socket: {
         domain: `https://${this.address}:${this.port}`,
       },

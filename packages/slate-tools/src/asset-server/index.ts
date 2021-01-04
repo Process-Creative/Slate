@@ -2,7 +2,7 @@ import webpack, { Compiler } from 'webpack';
 import { createServer } from 'https';
 import { createHash } from 'crypto';
 import SlateConfig from '@process-creative/slate-config';
-import Client from './client';
+import { Client } from './client';
 import slateToolsSchema from './../slate-tools.schema';
 import { isHotUpdateFile } from '../tools/hot';
 import { sslKeyCert } from '../tools/ssl';
