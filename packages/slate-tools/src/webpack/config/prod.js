@@ -8,10 +8,10 @@ const SlateConfig = require('@process-creative/slate-config');
 const SlateTagPlugin = require('@process-creative/slate-tag-webpack-plugin');
 
 const babel = require('./parts/babel');
-const sass = require('./parts/sass');
-const entry = require('./parts/entry');
+const { partSass } = require('./parts/sass');
+const { partsEntry } = require('./parts/entry');
 const core = require('./parts/core');
-const css = require('./parts/css');
+const { partCss } = require('./parts/css');
 
 const packageJson = require('../../../package.json');
 const { getChunkName } = require('../get-chunk-name');
@@ -27,10 +27,10 @@ const { getStyleTemplate } = require('./../templates/style-tags-template');
 
 module.exports = merge([
   core,
-  entry,
+  partsEntry,
   babel,
-  sass,
-  css,
+  partSass,
+  partCss,
   {
     mode: 'production',
     devtool: 'hidden-source-map',

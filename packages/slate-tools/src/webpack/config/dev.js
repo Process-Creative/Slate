@@ -7,9 +7,9 @@ const SlateConfig = require('@process-creative/slate-config');
 
 const core = require('./parts/core');
 const babel = require('./parts/babel');
-const entry = require('./parts/entry');
-const sass = require('./parts/sass');
-const css = require('./parts/css');
+const { partsEntry } = require('./parts/entry');
+const { partSass } = require('./parts/sass');
+const { partCss } = require('./parts/css');
 
 const { getLayoutEntryPoints } = require('./utilities/get-layout-entrypoints');
 const { getTemplateEntryPoints } = require('./utilities/get-template-entrypoints');
@@ -20,18 +20,18 @@ const { getScriptTemplate } = require('./../templates/script-tags-template');
 const { getStyleTemplate } = require('./../templates/style-tags-template');
 
 // add hot-reload related code to entry chunks
-Object.keys(entry.entry).forEach((name) => {
-  entry.entry[name] = [path.join(__dirname, '../hot-client.js')].concat(
-    entry.entry[name],
+Object.keys(partsEntry.entry).forEach((name) => {
+  partsEntry.entry[name] = [path.join(__dirname, '../hot-client.js')].concat(
+    partsEntry.entry[name],
   );
 });
 
 module.exports = merge([
   core,
-  entry,
+  partsEntry,
   babel,
-  sass,
-  css,
+  partSass,
+  partCss,
   {
     mode: 'development',
 
