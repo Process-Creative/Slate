@@ -1,10 +1,9 @@
-/* eslint-disable */
-const chalk = require('chalk');
-const inquirer = require('inquirer');
-const slateEnv = require('@process-creative/slate-env');
-const {fetchMainThemeId} = require('@process-creative/slate-sync');
-const figures = require('figures');
-const {argv} = require('yargs');
+import chalk from 'chalk';
+import inquirer from 'inquirer';
+import * as slateEnv from '@process-creative/slate-env';
+import { fetchMainThemeId } from '@process-creative/slate-sync';
+import figures from 'figures';
+import { argv } from 'yargs';
 
 const question = {
   type: 'confirm',
@@ -14,13 +13,7 @@ const question = {
   prefix: chalk.yellow(`${figures.warning} `),
 };
 
-/**
- * Prompt the user to confirm if they are about to deploy to the main theme
- *
- * @param   env   String  The environment to check against
- * @return        Promise Reason for abort or empty resolve
- */
-module.exports = async function continueIfPublishedTheme(env) {
+export const continueIfPulishedTheme = async () => {
   if (argv.skipPrompts) {
     return question.default;
   }

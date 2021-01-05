@@ -1,12 +1,13 @@
-const chalk = require('chalk');
-const inquirer = require('inquirer');
-const figures = require('figures');
-const minimatch = require('minimatch');
-const {argv} = require('yargs');
-const {getIgnoreFilesValue} = require('@process-creative/slate-env');
-const SlateConfig = require('@process-creative/slate-config');
+import chalk from'chalk';
+import inquirer from 'inquirer';
+import figures from 'figures';
+import minimatch from 'minimatch';
+import { argv } from 'yargs';
+import { getIgnoreFilesValue } from '@process-creative/slate-env';
+import SlateConfig from '@process-creative/slate-config';
+import slateSchema from './../../src/slate-tools.schema';
 
-const config = new SlateConfig(require('../../dist/slate-tools.schema'));
+const config = new SlateConfig(slateSchema);
 
 const question = {
   type: 'confirm',
@@ -37,7 +38,7 @@ function _filterIgnoredFiles(files) {
   return f(y);
 }
 
-module.exports = async function(files) {
+export const promptSkipSettingsData = async (files) => {
   const ignoredFiles = _filterIgnoredFiles(files);
 
   if (

@@ -2,8 +2,8 @@
   "name": "@process-creative/slate-tools",
   "version": "2.1.36",
   "bin": {
-    "slate-tools": "./cli/index.js",
-    "st": "./cli/index.js"
+    "slate-tools": "./cli/index.ts",
+    "st": "./cli/index.ts"
   },
   "dependencies": {
     "@babel/core": "^7.11.4",
@@ -19,7 +19,9 @@
     "@process-creative/slate-translations": "2.1.36",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
     "@shopify/themekit": "^1.1.6",
+    "@types/archiver": "^5.1.0",
     "@types/browser-sync": "^2.26.1",
+    "@types/cross-spawn": "^6.0.2",
     "@types/mini-css-extract-plugin": "^1.2.2",
     "archiver": "^5.0.0",
     "autoprefixer": "^9.8.6",

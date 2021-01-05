@@ -1,8 +1,9 @@
-#!/usr/bin/env node
-const spawn = require('cross-spawn');
-const chalk = require('chalk');
-const argv = require('minimist')(process.argv.slice(2));
-const slateEnv = require('@process-creative/slate-env');
+#!/usr/bin/env ts-node
+import spawn from 'cross-spawn';
+import chalk from 'chalk';
+import minimist from 'minimist';
+import * as slateEnv from '@process-creative/slate-env';
+const argv = minimist(process.argv.slice(2));
 
 const script = process.argv[2];
 const args = process.argv.slice(3);
@@ -10,11 +11,12 @@ const args = process.argv.slice(3);
 try {
   slateEnv.assign(argv.env);
 } catch (error) {
+  console.error(slateEnv);
   console.log(chalk.red(error));
   process.exit(1);
 }
 
-let result;
+let result:ReturnType<typeof spawn.sync>;
 
 async function init() {
   switch (script) {
@@ -26,9 +28,9 @@ async function init() {
     case 'test':
     case 'open':
       result = spawn.sync(
-        'node',
-        [require.resolve(`./commands/${script}`)].concat(args),
-        {stdio: 'inherit'},
+        'ts-node',
+        [ require.resolve(`./commands/${script}`) ].concat(args),
+        { stdio: 'inherit' },
       );
       process.exit(result.status);
       break;

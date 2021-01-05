@@ -1,11 +1,11 @@
-/* eslint-disable */
-const chalk = require('chalk');
-const ip = require('ip');
-const inquirer = require('inquirer');
-const figures = require('figures');
-const SlateConfig = require('@process-creative/slate-config');
+import chalk from 'chalk';
+import ip from 'ip';
+import inquirer from'inquirer';
+import figures from 'figures';
+import SlateConfig from '@process-creative/slate-config';
+import slateSchema from './../../src/slate-tools.schema';
 
-const config = new SlateConfig(require('../../dist/slate-tools.schema'));
+const config = new SlateConfig(slateSchema);
 
 const question = {
   type: 'confirm',
@@ -14,7 +14,7 @@ const question = {
   default: true,
 };
 
-module.exports = async function promptExternalTesting() {
+export const promptExternalTesting = async () => {
   const external = config.get('network.externalTesting');
   const address = config.get('network.externalTesting.address');
 

@@ -1,5 +1,5 @@
-const { getSlateEnv, getThemePreviewUrl } = require('@process-creative/slate-env');
-const open = require('open');
+import { getSlateEnv, getThemePreviewUrl } from '@process-creative/slate-env';
+import open from 'open';
 
 (async () => {
   const env = getSlateEnv();

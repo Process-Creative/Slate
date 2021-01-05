@@ -27,12 +27,14 @@ export const getFilePath = (name?:string) => {
  * Return default list of env variables with their assigned value, if any.
  * @param values 
  */
-export const getFileContents = (values:string[]) => {
+export const getFileContents = (values?:string[]) => {
   const env = getDefaultSlateEnv();
 
-  for (const key in values) {
-    if (values.hasOwnProperty(key) && env.hasOwnProperty(key)) {
-      env[key] = values[key];
+  if(values) {
+    for (const key in values) {
+      if (values.hasOwnProperty(key) && env.hasOwnProperty(key)) {
+        env[key] = values[key];
+      }
     }
   }
 

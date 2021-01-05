@@ -1,10 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const archiver = require('archiver');
-const chalk = require('chalk');
-const SlateConfig = require('@process-creative/slate-config');
+import * as fs from 'fs';
+import * as path from 'path';
+import archiver = require('archiver');
+import chalk = require('chalk');
 
-const config = new SlateConfig(require('../../dist/slate-tools.schema'));
+import slateSchema from './../../src/slate-tools.schema';
+import SlateConfig  from '@process-creative/slate-config';
+
+const config = new SlateConfig(slateSchema);
 
 /**
  * Builds a zip based on an array of directories and files. This

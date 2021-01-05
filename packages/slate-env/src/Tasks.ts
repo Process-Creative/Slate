@@ -7,7 +7,7 @@ import { setEnvName, SLATE_ENV_VARS } from './Env';
 import { validateStore, validatePassword, validateThemeId } from './Validate';
 
 interface ICreateParams {
-  values:string[];
+  values?:string[];
   name?:string;
   root?:string;
 }

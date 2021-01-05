@@ -2,28 +2,29 @@
 // production vs development builds
 process.env.NODE_ENV = 'development';
 
-const argv = require('minimist')(process.argv.slice(2));
-const figures = require('figures');
-const chalk = require('chalk');
-const ora = require('ora');
-const clearConsole = require('react-dev-utils/clearConsole');
-const ip = require('ip');
-const env = require('@process-creative/slate-env');
-const SlateConfig = require('@process-creative/slate-config');
-const open = require('open');
+import minimist from 'minimist';
+import figures from 'figures';
+import chalk from 'chalk';
+import ora from 'ora';
+import clearConsole from 'react-dev-utils/clearConsole';
+import ip from 'ip';
+import * as env from '@process-creative/slate-env';
+import SlateConfig from '@process-creative/slate-config';
+import open from 'open';
 
-const promptContinueIfPublishedTheme = require('../prompts/continue-if-published-theme');
-const promptSkipSettingsData = require('../prompts/skip-settings-data');
-const promptExternalTesting = require('../prompts/external-testing');
+import { continueIfPulishedTheme } from './../prompts/continue-if-published-theme';
+import {promptSkipSettingsData} from './../prompts/skip-settings-data';
+import {promptExternalTesting} from './../prompts/external-testing';
 
-const AssetServer = require('../../dist/asset-server');
-const { DevServer } = require('../../dist/dev-server');
-const webpackConfig = require('../../dist/webpack/config/dev');
+import AssetServer from '../../src/asset-server';
+import { DevServer } from '../../src/dev-server';
+import webpackConfig from '../../src/webpack/config/dev';
+import { getAvailablePortSeries } from '../../src/tools/network';
+import slateSchema from './../../src/slate-tools.schema';
+
+const argv = minimist(process.argv.slice(2));
 const packageJson = require('../../package.json');
-const { getAvailablePortSeries } = require('../../dist/tools/network');
-
-const config = new SlateConfig(require('../../dist/slate-tools.schema'));
-
+const config = new SlateConfig(slateSchema);
 const spinner = ora(chalk.magenta(' Compiling...'));
 
 let firstSync = true;
@@ -114,7 +115,7 @@ const onClientBeforeSync = async files => {
 
   if (continueIfPublishedTheme === null) {
     try {
-      continueIfPublishedTheme = await promptContinueIfPublishedTheme();
+      continueIfPublishedTheme = await continueIfPulishedTheme();
     } catch (error) {
       console.log(`\n${chalk.red(error)}\n`);
     }
