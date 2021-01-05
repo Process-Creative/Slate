@@ -8,7 +8,7 @@ type DevServerOptions = {
   uiPort:number;
 }
 
-class DevServer {
+export class DevServer {
   public bs:BrowserSyncInstance;
   public target:string;
   public themeId:string;
@@ -80,5 +80,3 @@ class DevServer {
     });
   }
 }
-
-module.exports = DevServer;

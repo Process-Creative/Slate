@@ -1,35 +1,36 @@
-const path = require('path');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import * as path from 'path';
+import webpack from 'webpack';
+import { merge } from 'webpack-merge';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const SlateConfig = require('@process-creative/slate-config');
+import slateSchema from './../../slate-tools.schema';
+import SlateConfig from '@process-creative/slate-config';
 
-const core = require('./parts/core');
-const { partsBabel } = require('./parts/babel');
-const { partsEntry } = require('./parts/entry');
-const { partSass } = require('./parts/sass');
-const { partCss } = require('./parts/css');
+import { partCore } from './parts/core';
+import { partBabel } from './parts/babel';
+import { partEntry } from './parts/entry';
+import { partSass } from './parts/sass';
+import { partCss } from './parts/css';
 
-const { getLayoutEntryPoints } = require('./utilities/get-layout-entrypoints');
-const { getTemplateEntryPoints } = require('./utilities/get-template-entrypoints');
-const { HtmlWebpackIncludeLiquidStylesPlugin } = require('../html-webpack-include-chunks');
-const config = new SlateConfig(require('../../slate-tools.schema'));
+import { getScriptTemplate } from './../templates/script-tags-template';
+import { getStyleTemplate } from './../templates/style-tags-template';
+import { getLayoutEntryPoints } from './utilities/get-layout-entrypoints';
+import { getTemplateEntryPoints } from './utilities/get-template-entrypoints';
+import { HtmlWebpackIncludeLiquidStylesPlugin } from '../html-webpack-include-chunks';
 
-const { getScriptTemplate } = require('./../templates/script-tags-template');
-const { getStyleTemplate } = require('./../templates/style-tags-template');
+const config = new SlateConfig(slateSchema);
 
 // add hot-reload related code to entry chunks
-Object.keys(partsEntry.entry).forEach((name) => {
-  partsEntry.entry[name] = [path.join(__dirname, '../hot-client.js')].concat(
-    partsEntry.entry[name],
+Object.keys(partEntry.entry).forEach((name) => {
+  partEntry.entry[name] = [path.join(__dirname, '../hot-client.js')].concat(
+    partEntry.entry[name],
   );
 });
 
-module.exports = merge([
-  core,
-  partsEntry,
-  partsBabel,
+export = merge([
+  partCore,
+  partEntry,
+  partBabel,
   partSass,
   partCss,
   {
@@ -44,6 +45,7 @@ module.exports = merge([
       new HtmlWebpackPlugin({
         excludeChunks: ['static'],
         filename: `../snippets/tool.script-tags.liquid`,
+        //@ts-ignore
         templateContent: (...params) => getScriptTemplate(...params),
         inject: false,
         minify: {
@@ -58,6 +60,7 @@ module.exports = merge([
       new HtmlWebpackPlugin({
         excludeChunks: ['static'],
         filename: `../snippets/tool.style-tags.liquid`,
+        //@ts-ignore
         templateContent: (...params) => getStyleTemplate(...params),
         inject: false,
         minify: {

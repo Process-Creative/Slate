@@ -1,34 +1,33 @@
-const path = require('path');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin  = require('terser-webpack-plugin');
-const SlateConfig = require('@process-creative/slate-config');
-const SlateTagPlugin = require('@process-creative/slate-tag-webpack-plugin');
+import webpack from 'webpack';
+import { merge } from 'webpack-merge';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import SlateTagPlugin from '@process-creative/slate-tag-webpack-plugin';
 
-const { partsBabel } = require('./parts/babel');
-const { partSass } = require('./parts/sass');
-const { partsEntry } = require('./parts/entry');
-const core = require('./parts/core');
-const { partCss } = require('./parts/css');
+import { partCore } from './parts/core';
+import { partBabel } from './parts/babel';
+import { partEntry } from './parts/entry';
+import { partSass } from './parts/sass';
+import { partCss } from './parts/css';
+import { chunkGetName } from './../get-chunk-name';
+
+import { getScriptTemplate } from './../templates/script-tags-template';
+import { getStyleTemplate } from './../templates/style-tags-template';
+import { getLayoutEntryPoints } from './utilities/get-layout-entrypoints';
+import { getTemplateEntryPoints } from './utilities/get-template-entrypoints';
+import { HtmlWebpackIncludeLiquidStylesPlugin } from '../html-webpack-include-chunks';
+
+import slateSchema from './../../slate-tools.schema';
+import SlateConfig from '@process-creative/slate-config';
 
 const packageJson = require('../../../package.json');
-const { getChunkName } = require('../get-chunk-name');
-const { getLayoutEntryPoints } = require('./utilities/get-layout-entrypoints');
-const { getTemplateEntryPoints } = require('./utilities/get-template-entrypoints');
-const { HtmlWebpackIncludeLiquidStylesPlugin } = require('../html-webpack-include-chunks');
+const config = new SlateConfig(slateSchema);
 
-const schema = require('./../../slate-tools.schema.js');
-const config = new SlateConfig(schema);
-
-const { getScriptTemplate } = require('./../templates/script-tags-template');
-const { getStyleTemplate } = require('./../templates/style-tags-template');
-
-module.exports = merge([
-  core,
-  partsEntry,
-  partsBabel,
+export = merge([
+  partCore,
+  partEntry,
+  partBabel,
   partSass,
   partCss,
   {
@@ -47,6 +46,7 @@ module.exports = merge([
       new HtmlWebpackPlugin({
         excludeChunks: ['static'],
         filename: `../snippets/tool.script-tags.liquid`,
+        //@ts-ignore
         templateContent: (...params) => getScriptTemplate(...params),
         inject: false,
         minify: {
@@ -61,6 +61,7 @@ module.exports = merge([
 
       new HtmlWebpackPlugin({
         filename: `../snippets/tool.style-tags.liquid`,
+        //@ts-ignore
         templateContent: (...params) => getStyleTemplate(...params),
         inject: false,
         minify: {
@@ -80,7 +81,7 @@ module.exports = merge([
 
     optimization: {
       splitChunks: {
-        name: getChunkName
+        name: chunkGetName
       },
       minimize: true,
       minimizer: [

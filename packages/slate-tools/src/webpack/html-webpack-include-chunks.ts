@@ -3,12 +3,12 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 type HtmlWebpackIncludeLiquidStylesPluginOptions = any;
 
 export class HtmlWebpackIncludeLiquidStylesPlugin {
-  public options:HtmlWebpackIncludeLiquidStylesPluginOptions;
+  public options?:HtmlWebpackIncludeLiquidStylesPluginOptions;
   public files:any[];
   public compilation:any;
   public chunks:any;
 
-  constructor(options:HtmlWebpackIncludeLiquidStylesPluginOptions) {
+  constructor(options?:HtmlWebpackIncludeLiquidStylesPluginOptions) {
     this.options = options;
     this.files = [];
   }

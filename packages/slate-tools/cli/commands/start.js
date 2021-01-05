@@ -17,7 +17,7 @@ const promptSkipSettingsData = require('../prompts/skip-settings-data');
 const promptExternalTesting = require('../prompts/external-testing');
 
 const AssetServer = require('../../dist/asset-server');
-const DevServer = require('../../dist/dev-server');
+const { DevServer } = require('../../dist/dev-server');
 const webpackConfig = require('../../dist/webpack/config/dev');
 const packageJson = require('../../package.json');
 const { getAvailablePortSeries } = require('../../dist/tools/network');

@@ -1,12 +1,13 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const SlateConfig = require('@process-creative/slate-config');
-const SlateSectionsPlugin = require('@process-creative/slate-sections-plugin');
-const schema = require('./../../../slate-tools.schema.js');
+import * as path from 'path';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import SlateConfig from '@process-creative/slate-config';
+import SlateSectionsPlugin from '@process-creative/slate-sections-plugin';
+import { injectLocalesIntoSettingsSchema } from '../utilities/inject-locales-into-settings-schema';
+
+import schema from './../../../slate-tools.schema';
 const config = new SlateConfig(schema);
-const { injectLocalesIntoSettingsSchema } = require('../utilities/inject-locales-into-settings-schema');
 
 const PATH_THEME_NODE_MODULES = path.join(config.get('paths.theme'), 'node_modules');
 const PATH_MONOREPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..', '..');
@@ -29,7 +30,7 @@ const extractLiquidStyles = new ExtractTextPlugin(
   '[name].styleLiquid.scss.liquid',
 );
 
-module.exports = {
+export const partCore = {
   context: config.get('paths.theme.src'),
 
   output: {

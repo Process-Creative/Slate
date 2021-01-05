@@ -4,7 +4,7 @@ import { getTemplateEntryPoints } from '../utilities/get-template-entrypoints';
 import schema from './../../../slate-tools.schema';
 const config = new SlateConfig(schema);
 
-export const partsEntry = {
+export const partEntry = {
   entry: Object.assign(
     {},
     getLayoutEntryPoints(),

@@ -8,7 +8,7 @@ const PATH_UTILITIES = path.resolve(
   __dirname, '..', '..', '..', '..', 'src', 'webpack', 'config', 'utilities'
 );
 
-export const partsBabel = {
+export const partBabel = {
   module: {
     rules: [
       {
