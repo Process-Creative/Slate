@@ -7,7 +7,7 @@ const TerserPlugin  = require('terser-webpack-plugin');
 const SlateConfig = require('@process-creative/slate-config');
 const SlateTagPlugin = require('@process-creative/slate-tag-webpack-plugin');
 
-const babel = require('./parts/babel');
+const { partsBabel } = require('./parts/babel');
 const { partSass } = require('./parts/sass');
 const { partsEntry } = require('./parts/entry');
 const core = require('./parts/core');
@@ -28,7 +28,7 @@ const { getStyleTemplate } = require('./../templates/style-tags-template');
 module.exports = merge([
   core,
   partsEntry,
-  babel,
+  partsBabel,
   partSass,
   partCss,
   {

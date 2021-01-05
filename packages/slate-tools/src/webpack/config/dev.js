@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SlateConfig = require('@process-creative/slate-config');
 
 const core = require('./parts/core');
-const babel = require('./parts/babel');
+const { partsBabel } = require('./parts/babel');
 const { partsEntry } = require('./parts/entry');
 const { partSass } = require('./parts/sass');
 const { partCss } = require('./parts/css');
@@ -29,7 +29,7 @@ Object.keys(partsEntry.entry).forEach((name) => {
 module.exports = merge([
   core,
   partsEntry,
-  babel,
+  partsBabel,
   partSass,
   partCss,
   {

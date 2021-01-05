@@ -1,15 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const SlateConfig = require('@process-creative/slate-config');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const schema = require('./../../../slate-tools.schema.js');
+import * as path from 'path'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import schema from './../../../slate-tools.schema';
+import SlateConfig from '@process-creative/slate-config';
 const config = new SlateConfig(schema);
 
 const PATH_UTILITIES = path.resolve(
   __dirname, '..', '..', '..', '..', 'src', 'webpack', 'config', 'utilities'
 );
 
-module.exports = {
+export const partsBabel = {
   module: {
     rules: [
       {
@@ -37,11 +36,14 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      // logger: { infrastructure: 'silent', issues: 'silent', devServer: true },
+      logger: { infrastructure: 'silent', issues: 'silent', devServer: true },
       typescript: {
         configFile: path.resolve(PATH_UTILITIES, 'tsconfig.json'),
         mode: 'write-references',
-        logger: { infrastructure: 'silent', issues: 'console', devServer: true },
+
+        //@ts-ignore
+        logger: { infrastructure: 'silent', issues: 'console', devServer: true }, // This is spec, don't know why it's complaining
+
         configOverwrite: {
           include: [
             `${config.get('paths.theme.src')}/**/*`,
