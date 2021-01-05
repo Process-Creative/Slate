@@ -11,8 +11,8 @@ const entry = require('./parts/entry');
 const sass = require('./parts/sass');
 const css = require('./parts/css');
 
-const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
-const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
+const { getLayoutEntryPoints } = require('./utilities/get-layout-entrypoints');
+const { getTemplateEntryPoints } = require('./utilities/get-template-entrypoints');
 const { HtmlWebpackIncludeLiquidStylesPlugin } = require('../html-webpack-include-chunks');
 const config = new SlateConfig(require('../../slate-tools.schema'));
 
@@ -51,8 +51,8 @@ module.exports = merge([
           removeAttributeQuotes: false,
         },
         isDevServer: true,
-        liquidTemplates: getTemplateEntrypoints(),
-        liquidLayouts: getLayoutEntrypoints(),
+        liquidTemplates: getTemplateEntryPoints(),
+        liquidLayouts: getLayoutEntryPoints(),
       }),
 
       new HtmlWebpackPlugin({
@@ -65,8 +65,8 @@ module.exports = merge([
           removeAttributeQuotes: false,
         },
         isDevServer: true,
-        liquidTemplates: getTemplateEntrypoints(),
-        liquidLayouts: getLayoutEntrypoints(),
+        liquidTemplates: getTemplateEntryPoints(),
+        liquidLayouts: getLayoutEntryPoints(),
       }),
 
       new HtmlWebpackIncludeLiquidStylesPlugin(),

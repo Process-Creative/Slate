@@ -15,8 +15,8 @@ const css = require('./parts/css');
 
 const packageJson = require('../../../package.json');
 const { getChunkName } = require('../get-chunk-name');
-const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
-const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
+const { getLayoutEntryPoints } = require('./utilities/get-layout-entrypoints');
+const { getTemplateEntryPoints } = require('./utilities/get-template-entrypoints');
 const { HtmlWebpackIncludeLiquidStylesPlugin } = require('../html-webpack-include-chunks');
 
 const schema = require('./../../slate-tools.schema.js');
@@ -55,8 +55,8 @@ module.exports = merge([
           removeAttributeQuotes: false,
           preserveLineBreaks: true,
         },
-        liquidTemplates: getTemplateEntrypoints(),
-        liquidLayouts: getLayoutEntrypoints(),
+        liquidTemplates: getTemplateEntryPoints(),
+        liquidLayouts: getLayoutEntryPoints(),
       }),
 
       new HtmlWebpackPlugin({
@@ -69,8 +69,8 @@ module.exports = merge([
           removeAttributeQuotes: false,
           preserveLineBreaks: true,
         },
-        liquidTemplates: getTemplateEntrypoints(),
-        liquidLayouts: getLayoutEntrypoints(),
+        liquidTemplates: getTemplateEntryPoints(),
+        liquidLayouts: getLayoutEntryPoints(),
       }),
 
       new HtmlWebpackIncludeLiquidStylesPlugin(),

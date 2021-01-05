@@ -6,7 +6,7 @@ const SlateConfig = require('@process-creative/slate-config');
 const SlateSectionsPlugin = require('@process-creative/slate-sections-plugin');
 const schema = require('./../../../slate-tools.schema.js');
 const config = new SlateConfig(schema);
-const injectLocalesIntoSettingsSchema = require('../utilities/inject-locales-into-settings-schema');
+const { injectLocalesIntoSettingsSchema } = require('../utilities/inject-locales-into-settings-schema');
 
 const PATH_THEME_NODE_MODULES = path.join(config.get('paths.theme'), 'node_modules');
 const PATH_MONOREPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..', '..');

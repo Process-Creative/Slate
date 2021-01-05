@@ -1,7 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
-const getEntryPoints = ({ liquidDir, scriptsDir, entryType }) => {
+type GetEntryPointsParams = {
+  liquidDir:string
+  scriptsDir:string;
+  entryType:'layout'|'templates'
+}
+export const getEntryPoints = (params:GetEntryPointsParams) => {
+  const { liquidDir, scriptsDir, entryType } = params;
   const entries = {};
 
   //Scan the liquid directory for liquid files
@@ -33,7 +39,3 @@ const getEntryPoints = ({ liquidDir, scriptsDir, entryType }) => {
 
   return entries;
 }
-
-module.exports = {
-  getEntryPoints
-};

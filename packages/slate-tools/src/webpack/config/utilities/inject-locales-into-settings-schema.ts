@@ -1,11 +1,10 @@
-const fs = require('fs-extra');
-const path = require('path');
+import * as fs from 'fs-extra';
+import * as path from 'path';
 const {
-  createSchemaContentWithLocales,
-  combineLocales,
+  createSchemaContentWithLocales, combineLocales,
 } = require('@process-creative/slate-translations');
 
-module.exports = async function(content, filePath) {
+export const injectLocalesIntoSettingsSchema = async (content:any, filePath:any) => {
   if (path.basename(filePath) !== 'settings_schema.json') {
     return content;
   }
@@ -13,9 +12,11 @@ module.exports = async function(content, filePath) {
   const localesFolder = path.resolve(path.dirname(filePath), 'locales');
   const combinedLocales = (await fs.exists(localesFolder))
     ? await combineLocales(localesFolder)
-    : null;
+    : null
+  ;
 
   return combinedLocales
     ? createSchemaContentWithLocales(combinedLocales, filePath)
-    : content;
+    : content
+  ;
 };
