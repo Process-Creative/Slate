@@ -1,6 +1,6 @@
-const { getTemplate } = require('./generate-tags-template');
+import { getTemplate, GetTemplateParams } from './generate-tags-template';
 
-const getScriptTemplate = ({ htmlWebpackPlugin }) => {
+export const getScriptTemplate = ({ htmlWebpackPlugin }:GetTemplateParams) => {
   const { liquidTemplates, liquidLayouts, isDevServer } = htmlWebpackPlugin.options;
   return getTemplate({
     liquidTemplates, liquidLayouts, isDevServer,
@@ -8,7 +8,3 @@ const getScriptTemplate = ({ htmlWebpackPlugin }) => {
     genTemplate: ({ src }) => `<script type="text/javascript" src="${src}" defer></script>`
   });
 }
-
-module.exports = {
-  getScriptTemplate
-};

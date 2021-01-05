@@ -1,7 +1,14 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-class HtmlWebpackIncludeLiquidStylesPlugin {
-  constructor(options) {
+type HtmlWebpackIncludeLiquidStylesPluginOptions = any;
+
+export class HtmlWebpackIncludeLiquidStylesPlugin {
+  public options:HtmlWebpackIncludeLiquidStylesPluginOptions;
+  public files:any[];
+  public compilation:any;
+  public chunks:any;
+
+  constructor(options:HtmlWebpackIncludeLiquidStylesPluginOptions) {
     this.options = options;
     this.files = [];
   }
@@ -13,7 +20,7 @@ class HtmlWebpackIncludeLiquidStylesPlugin {
     );
   }
 
-  onCompilation(compilation) {
+  onCompilation(compilation:any) {
     this.compilation = compilation;
 
     // HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tap(
@@ -51,5 +58,3 @@ class HtmlWebpackIncludeLiquidStylesPlugin {
     // });
   }
 }
-
-module.exports = HtmlWebpackIncludeLiquidStylesPlugin;

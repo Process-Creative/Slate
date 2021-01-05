@@ -14,10 +14,10 @@ const core = require('./parts/core');
 const css = require('./parts/css');
 
 const packageJson = require('../../../package.json');
-const getChunkName = require('../get-chunk-name');
+const { getChunkName } = require('../get-chunk-name');
 const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
 const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
-const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
+const { HtmlWebpackIncludeLiquidStylesPlugin } = require('../html-webpack-include-chunks');
 
 const schema = require('./../../slate-tools.schema.js');
 const config = new SlateConfig(schema);

@@ -5,7 +5,21 @@ const ifHasConditionScript = params => {
   {%- endif -%}`;
 }
 
-const getTemplate = params => {
+
+
+export type GenTemplateParams = {
+  files:string[];
+  liquidTemplates:any[];
+  liquidLayouts:any[];
+  isDevServer:boolean;
+  genTemplate:any
+};
+
+export type GetTemplateParams = {
+  htmlWebpackPlugin:any & { options:GenTemplateParams };
+};
+
+export const getTemplate = (params:GenTemplateParams) => {
   const { files, liquidTemplates, liquidLayouts, isDevServer, genTemplate } = params;
   return files.reduce((x,file) => {
     const basename = file.split('/').reverse()[0];
@@ -45,8 +59,4 @@ const getTemplate = params => {
     }
     return x;
   }, '');
-}
-
-module.exports = {
-  getTemplate
 }

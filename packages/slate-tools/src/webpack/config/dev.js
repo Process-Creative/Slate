@@ -13,7 +13,7 @@ const css = require('./parts/css');
 
 const getLayoutEntrypoints = require('./utilities/get-layout-entrypoints');
 const getTemplateEntrypoints = require('./utilities/get-template-entrypoints');
-const HtmlWebpackIncludeLiquidStylesPlugin = require('../html-webpack-include-chunks');
+const { HtmlWebpackIncludeLiquidStylesPlugin } = require('../html-webpack-include-chunks');
 const config = new SlateConfig(require('../../slate-tools.schema'));
 
 const { getScriptTemplate } = require('./../templates/script-tags-template');
