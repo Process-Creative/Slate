@@ -3,7 +3,7 @@ import { merge } from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import SlateTagPlugin from '@process-creative/slate-tag-webpack-plugin';
+import { SlateTagWebpackPlugin } from '@process-creative/slate-tag-webpack-plugin';
 
 import { partCore } from './parts/core';
 import { partBabel } from './parts/babel';
@@ -76,7 +76,7 @@ export = merge([
 
       new HtmlWebpackIncludeLiquidStylesPlugin(),
 
-      new SlateTagPlugin(packageJson.version),
+      new SlateTagWebpackPlugin(packageJson.version),
     ],
 
     optimization: {
