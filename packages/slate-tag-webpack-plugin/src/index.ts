@@ -2,7 +2,7 @@ const SETTINGS_SCHEMA_PATH = '../config/settings_schema.json';
 const THEME_INFO_PANEL = 'theme_info';
 
 const  findThemeInfoPanel = (schema:any) => {
-  if (!Array.isArray(schema)) {
+  if(!Array.isArray(schema)) {
     return null;
   }
 

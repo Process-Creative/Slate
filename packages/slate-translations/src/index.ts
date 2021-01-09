@@ -1,6 +1,6 @@
-const fs = require('fs-extra');
-const path = require('path');
-const _ = require('lodash');
+import * as fs from 'fs/promises';
+import * as path from 'path';
+import * as  _ from 'lodash';
 
 
 /**
@@ -10,22 +10,20 @@ const _ = require('lodash');
  * @param {*} mainSchemaPath The path to the main schema (schema.json)
  * @returns
  */
-async function createSchemaContentWithLocales(localizedSchema, mainSchemaPath) {
-  // eslint-disable-next-line func-style
-  const traverse = async (obj) => {
-    const objectKeys = Object.keys(obj);
-    await Promise.all(
-      objectKeys.map(async (key) => {
-        if (typeof obj[key].t === 'string') {
-          obj[key] = await _getLocalizedValues(obj[key].t, localizedSchema);
-        } else if (typeof obj[key] === 'object') {
-          await traverse(obj[key]);
-        }
-      }),
-    );
+export const createSchemaContentWithLocales = async (localizedSchema:object, mainSchemaPath:string) => {
+  const traverse = async (obj:object) => {
+    await Promise.all(Object.keys(obj).map(async key => {
+      if (typeof obj[key].t === 'string') {
+        obj[key] = await _getLocalizedValues(obj[key].t, localizedSchema);
+      } else if (typeof obj[key] === 'object') {
+        await traverse(obj[key]);
+      }
+    }));
     return JSON.stringify(obj, null, 2);
   };
-  const mainSchema = await fs.readJSON(mainSchemaPath, 'utf-8');
+
+  const mainSchemaRaw = await fs.readFile(mainSchemaPath, 'utf-8');
+  const mainSchema = JSON.parse(mainSchemaRaw)
   return traverse(mainSchema);
 }
 
@@ -35,7 +33,7 @@ async function createSchemaContentWithLocales(localizedSchema, mainSchemaPath) {
  * @param {*} localesPath Absolute path to the locales folder /sections/section-name/locales/
  * @returns
  */
-async function combineLocales(localesPath) {
+export const combineLocales = async (localesPath:string) => {
   const localesFiles = await fs.readdir(localesPath);
   const jsonFiles = localesFiles.filter((fileName) =>
     fileName.endsWith('.json'),
@@ -62,23 +60,12 @@ async function combineLocales(localesPath) {
  * @param {*} localizedSchema Object containing all the translations in locales
  * @returns Object with index for every language in the locales folder
  */
-async function _getLocalizedValues(key, localizedSchema) {
+async function _getLocalizedValues(key:string, localizedSchema:object) {
   const combinedTranslationsObject = {};
 
-  await Promise.all(
-    // eslint-disable-next-line array-callback-return
-    Object.keys(localizedSchema).map((language) => {
-      combinedTranslationsObject[language] = _.get(
-        localizedSchema[language],
-        key,
-      );
-    }),
-  );
+  await Promise.all(Object.keys(localizedSchema).map(lang => {
+    combinedTranslationsObject[lang] = _.get(localizedSchema[lang], key);
+  }));
 
   return combinedTranslationsObject;
 }
-
-module.exports = {
-  createSchemaContentWithLocales,
-  combineLocales,
-};
