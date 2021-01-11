@@ -1,7 +1,11 @@
 {
   "name": "@process-creative/slate-config",
   "version": "2.1.36",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "scripts": {
+    "tsc": "tsc -p .",
+    "build": "npm run tsc"
+  },
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/Process-Creative/slate.git",
@@ -10,5 +14,12 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/Process-Creative",
     "access": "restricted"
+  },
+  "devDependencies": {
+    "utility-types": "^3.10.0"
+  },
+  "dependencies": {
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.1.3"
   }
 }

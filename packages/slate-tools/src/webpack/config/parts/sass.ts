@@ -1,8 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import SlateConfig from '@process-creative/slate-config';
-import schema from './../../../slate-tools.schema';
-
-const config = new SlateConfig(schema);
+import { slateToolsConfig } from '../../../schema';
 const isDev = process.env.NODE_ENV === 'development';
 
 export const partSass = {
@@ -20,7 +17,7 @@ export const partSass = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: config.get('webpack.sourceMap.styles'),
+              sourceMap: slateToolsConfig.get('webpack.sourceMap.styles'),
               modules: {
                 compileType: 'icss',
               }
@@ -32,15 +29,15 @@ export const partSass = {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              sourceMap: config.get('webpack.sourceMap.styles'),
-              plugins: config.get('webpack.postcss.plugins'),
+              sourceMap: slateToolsConfig.get('webpack.sourceMap.styles'),
+              plugins: slateToolsConfig.get('webpack.postcss.plugins'),
             },
           },
 
           // SCSS / SASS Loader
           {
             loader: 'sass-loader',
-            options: {sourceMap: config.get('webpack.sourceMap.styles')},
+            options: {sourceMap: slateToolsConfig.get('webpack.sourceMap.styles')},
           },
         ]
       }

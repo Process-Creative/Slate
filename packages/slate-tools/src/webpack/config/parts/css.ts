@@ -1,8 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import SlateConfig from '@process-creative/slate-config';
-import schema from './../../../slate-tools.schema';
-
-const config = new SlateConfig(schema);
+import { slateToolsConfig } from '../../../schema';
 const isDev = process.env.NODE_ENV === 'development';
 
 export const partCss = {
@@ -33,7 +30,7 @@ export const partCss = {
             options: {
               ident: 'postcss',
               sourceMap: !isDev,
-              plugins: config.get('webpack.postcss.plugins'),
+              plugins: slateToolsConfig.get('webpack.postcss.plugins'),
             },
           }
         ]

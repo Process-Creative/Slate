@@ -52,7 +52,8 @@ export const setEnvName = (name?:string) => {
     }
   }
 
-  process.env[config.get('env.keys.name')] = envName;
+  const x = config.get('env.keys.name');
+  process.env[x] = envName;
 }
 
 export const getSlateEnv = () => {

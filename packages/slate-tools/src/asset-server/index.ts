@@ -1,15 +1,12 @@
 import webpack, { Compiler } from 'webpack';
 import { createServer } from 'https';
 import { createHash } from 'crypto';
-import SlateConfig from '@process-creative/slate-config';
 import { Client } from './client';
-import slateToolsSchema from './../slate-tools.schema';
 import { isHotUpdateFile } from '../tools/hot';
 import { sslKeyCert } from '../tools/ssl';
 import { Server } from 'http';
 import App from './app';
-
-const config = new SlateConfig(slateToolsSchema);
+import { slateToolsConfig } from '../schema';
 
 type DevServerOptions = {
   address:string;
@@ -107,7 +104,7 @@ class DevServer {
         !isHotUpdateFile(key) &&
         this._hasAssetChanged(key, asset)
       )).map(([key, asset]) => {
-        return asset.existsAt.replace(config.get('paths.theme.dist'), '');
+        return asset.existsAt.replace(slateToolsConfig.get('paths.theme.dist'), '');
       })
     );
   }

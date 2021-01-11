@@ -9,7 +9,6 @@ import ora from 'ora';
 import clearConsole from 'react-dev-utils/clearConsole';
 import ip from 'ip';
 import * as env from '@process-creative/slate-env';
-import SlateConfig from '@process-creative/slate-config';
 import open from 'open';
 
 import { continueIfPulishedTheme } from './../prompts/continue-if-published-theme';
@@ -20,11 +19,10 @@ import AssetServer from '../../src/asset-server';
 import { DevServer } from '../../src/dev-server';
 import webpackConfig from '../../src/webpack/config/dev';
 import { getAvailablePortSeries } from '../../src/tools/network';
-import slateSchema from './../../src/slate-tools.schema';
+import { slateToolsConfig } from '../../src/schema';
 
 const argv = minimist(process.argv.slice(2));
 const packageJson = require('../../package.json');
-const config = new SlateConfig(slateSchema);
 const spinner = ora(chalk.magenta(' Compiling...'));
 
 let firstSync = true;
@@ -35,12 +33,12 @@ let devServer;
 let previewUrl;
 
 Promise.all([
-  getAvailablePortSeries(config.get('network.startPort'), 3),
+  getAvailablePortSeries(slateToolsConfig.get('network.startPort'), 3),
   promptExternalTesting(),
 ])
   .then(([ports, external]) => {
     const address = external
-      ? config.get('network.externalTesting.address') || ip.address()
+      ? slateToolsConfig.get('network.externalTesting.address') || ip.address()
       : 'localhost';
 
     assetServer = new AssetServer({

@@ -1,8 +1,6 @@
 import * as path from 'path'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import schema from './../../../slate-tools.schema';
-import SlateConfig from '@process-creative/slate-config';
-const config = new SlateConfig(schema);
+import { slateToolsConfig } from '../../../schema';
 
 const PATH_UTILITIES = path.resolve(
   __dirname, '..', '..', '..', '..', 'src', 'webpack', 'config', 'utilities'
@@ -13,7 +11,7 @@ export const partBabel = {
     rules: [
       {
         test: /\.js$|\.ts$/,
-        exclude: config.get('webpack.babel.exclude'),
+        exclude: slateToolsConfig.get('webpack.babel.exclude'),
         use: {
           loader: 'babel-loader',
           options: {
@@ -46,7 +44,7 @@ export const partBabel = {
 
         configOverwrite: {
           include: [
-            `${config.get('paths.theme.src')}/**/*`,
+            `${slateToolsConfig.get('paths.theme.src')}/**/*`,
             path.resolve(PATH_UTILITIES, 'empty.d.ts') //Add an empty definition file to satisfy Typescript for projects without TS
           ]
         },

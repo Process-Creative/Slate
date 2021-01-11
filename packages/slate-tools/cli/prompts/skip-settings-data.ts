@@ -4,10 +4,7 @@ import figures from 'figures';
 import minimatch from 'minimatch';
 import { argv } from 'yargs';
 import { getIgnoreFilesValue } from '@process-creative/slate-env';
-import SlateConfig from '@process-creative/slate-config';
-import slateSchema from './../../src/slate-tools.schema';
-
-const config = new SlateConfig(slateSchema);
+import { slateToolsConfig } from '../../src/schema';
 
 const question = {
   type: 'confirm',
@@ -44,7 +41,7 @@ export const promptSkipSettingsData = async (files) => {
   if (
     _includesSettingsData(ignoredFiles) ||
     !_includesSettingsData(files) ||
-    !config.get('cli.promptSettings') ||
+    !slateToolsConfig.get('cli.promptSettings') ||
     argv.skipPrompts
   ) {
     return Promise.resolve(question.default);

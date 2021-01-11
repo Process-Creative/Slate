@@ -2,10 +2,7 @@ import chalk from 'chalk';
 import ip from 'ip';
 import inquirer from'inquirer';
 import figures from 'figures';
-import SlateConfig from '@process-creative/slate-config';
-import slateSchema from './../../src/slate-tools.schema';
-
-const config = new SlateConfig(slateSchema);
+import { slateToolsConfig } from './../../src/schema';
 
 const question = {
   type: 'confirm',
@@ -15,8 +12,8 @@ const question = {
 };
 
 export const promptExternalTesting = async () => {
-  const external = config.get('network.externalTesting');
-  const address = config.get('network.externalTesting.address');
+  const external = slateToolsConfig.get('network.externalTesting');
+  const address = slateToolsConfig.get('network.externalTesting.address');
 
   if (external && address) {
     return external;

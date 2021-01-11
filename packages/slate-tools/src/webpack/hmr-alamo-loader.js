@@ -1,10 +1,8 @@
-/* eslint-disable no-underscore-dangle */
-const SlateConfig = require('@process-creative/slate-config');
-const config = new SlateConfig(require('../slate-tools.schema'));
+const { slateToolsConfig } = require('./../schema');
 
-const jsEntries = Object.keys(config.get('webpack.entrypoints')).reduce(
+const jsEntries = Object.keys(slateToolsConfig.get('webpack.entrypoints')).reduce(
   (carry, key) => {
-    const entry = config.get('webpack.entrypoints')[key];
+    const entry = slateToolsConfig.get('webpack.entrypoints')[key];
     const entryArray = Array.isArray(entry) ? entry : [entry];
     const jsEntryArray = entryArray.filter((version) =>
       version.endsWith('.js'),

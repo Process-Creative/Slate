@@ -3,9 +3,6 @@ import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-import slateSchema from './../../slate-tools.schema';
-import SlateConfig from '@process-creative/slate-config';
-
 import { partCore } from './parts/core';
 import { partBabel } from './parts/babel';
 import { partEntry } from './parts/entry';
@@ -17,8 +14,7 @@ import { getStyleTemplate } from './../templates/style-tags-template';
 import { getLayoutEntryPoints } from './utilities/get-layout-entrypoints';
 import { getTemplateEntryPoints } from './utilities/get-template-entrypoints';
 import { HtmlWebpackIncludeLiquidStylesPlugin } from '../html-webpack-include-chunks';
-
-const config = new SlateConfig(slateSchema);
+import { slateToolsConfig } from '../../schema';
 
 // add hot-reload related code to entry chunks
 Object.keys(partEntry.entry).forEach((name) => {
@@ -75,5 +71,5 @@ export = merge([
       new HtmlWebpackIncludeLiquidStylesPlugin(),
     ],
   },
-  config.get('webpack.extend'),
+  slateToolsConfig.get('webpack.extend'),
 ]);

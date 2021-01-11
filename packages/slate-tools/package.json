@@ -5,11 +5,14 @@
     "slate-tools": "./cli/index.ts",
     "st": "./cli/index.ts"
   },
+  "scripts": {
+    "build": "npm run tsc",
+    "tsc": "tsc -p ."
+  },
   "dependencies": { 
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
-    "@process-creative/concat-style-loader": "2.1.36",
     "@process-creative/slate-config": "2.1.36",
     "@process-creative/slate-env": "^2.1.36",
     "@process-creative/slate-sections-plugin": "2.1.36",

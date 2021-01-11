@@ -2,11 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import archiver = require('archiver');
 import chalk = require('chalk');
-
-import slateSchema from './../../src/slate-tools.schema';
-import SlateConfig  from '@process-creative/slate-config';
-
-const config = new SlateConfig(slateSchema);
+import { slateToolsConfig } from '../../src/schema';
 
 /**
  * Builds a zip based on an array of directories and files. This
@@ -14,18 +10,18 @@ const config = new SlateConfig(slateSchema);
  */
 
 const zipName = (
-  fs.existsSync(config.get('paths.theme.packageJson'))
-  ? require(config.get('paths.theme.packageJson')).name
+  fs.existsSync(slateToolsConfig.get('paths.theme.packageJson'))
+  ? require(slateToolsConfig.get('paths.theme.packageJson')).name
   : 'theme-zip'
 ).split('/').pop();
-const zipPath = getZipPath(config.get('paths.theme'), zipName, 'zip');
+const zipPath = getZipPath(slateToolsConfig.get('paths.theme'), zipName, 'zip');
 const output = fs.createWriteStream(zipPath);
 const archive = archiver('zip');
 
-if (!fs.existsSync(config.get('paths.theme.dist'))) {
+if (!fs.existsSync(slateToolsConfig.get('paths.theme.dist'))) {
   console.log(
     chalk.red(
-      `${config.get('paths.theme.dist')} was not found. \n` +
+      `${slateToolsConfig.get('paths.theme.dist')} was not found. \n` +
         'Please run the Slate Build script before running Slate Zip',
     ),
   );
@@ -50,7 +46,7 @@ archive.on('error', (err) => {
 });
 
 archive.pipe(output);
-archive.directory(config.get('paths.theme.dist'), '/');
+archive.directory(slateToolsConfig.get('paths.theme.dist'), '/');
 archive.finalize();
 
 function getZipPath(dir, name, ext) {

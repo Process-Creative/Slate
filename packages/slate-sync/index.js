@@ -3,9 +3,7 @@ const figures = require('figures');
 const https = require('https');
 const themekit = require('@shopify/themekit').command;
 const slateEnv = require('@process-creative/slate-env');
-const SlateConfig = require('@process-creative/slate-config');
-
-const config = new SlateConfig(require('./slate-sync.schema'));
+const { config } = require('./schema.js')
 
 let deploying = false;
 let filesToDeploy = [];

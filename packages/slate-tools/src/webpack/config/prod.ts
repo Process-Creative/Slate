@@ -17,12 +17,9 @@ import { getStyleTemplate } from './../templates/style-tags-template';
 import { getLayoutEntryPoints } from './utilities/get-layout-entrypoints';
 import { getTemplateEntryPoints } from './utilities/get-template-entrypoints';
 import { HtmlWebpackIncludeLiquidStylesPlugin } from '../html-webpack-include-chunks';
-
-import slateSchema from './../../slate-tools.schema';
-import SlateConfig from '@process-creative/slate-config';
+import { slateToolsConfig } from '../../schema';
 
 const packageJson = require('../../../package.json');
-const config = new SlateConfig(slateSchema);
 
 export = merge([
   partCore,
@@ -91,5 +88,5 @@ export = merge([
       ],
     },
   },
-  config.get('webpack.extend'),
+  slateToolsConfig.get('webpack.extend'),
 ]);
