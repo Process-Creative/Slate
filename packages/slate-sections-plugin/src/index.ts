@@ -1,34 +1,41 @@
-const fs = require('fs-extra');
-const path = require('path');
-const { RawSource } = require('webpack-sources');
+import { promises as fs } from 'fs';
+import * as path from 'path';
+import { RawSource } from 'webpack-sources';
 
 const PLUGIN_NAME = 'Slate Sections Plugin';
 
-module.exports = class sectionsPlugin {
-  constructor(options = {}) {
+type SlateSectionsPluginOptions = {
+  from?:string;
+  to?:string;
+}
+
+export class SlateSectionsPlugin {
+  public options:SlateSectionsPluginOptions;
+
+  constructor(options:SlateSectionsPluginOptions = {}) {
     this.options = this._validateOptions(options);
   }
 
-  apply(compiler) {
+  apply(compiler:any) {
     compiler.hooks.emit.tapPromise(PLUGIN_NAME, this.addLocales.bind(this));
   }
 
-  async addFile({ compilation, compilationOutput, filePath, file }) {
+  async addFile({ compilation, compilationOutput, filePath, file }:any) {
     const source = path.resolve(filePath, file);
     const outputKey = this._getOutputKey(source, compilationOutput);
     compilation.assets[outputKey] = await this._getLiquidSource(source);
   }
 
-  addFiles(params) {
+  addFiles(params:any) {
     const { files, filePath } = params;
+
     return Promise.all(files.map(async file => {
       const absFile = path.resolve(filePath, file);
       const fileStat = await fs.stat(absFile);
-      if (fileStat.isDirectory()) {
-        let dirFiles = fs.readdirSync(absFile, { withFileTypes: true }).map(f => {
-          return f.name;
-        });
 
+      if (fileStat.isDirectory()) {
+        const filesRaw = await fs.readdir(absFile, { withFileTypes: true });
+        const dirFiles = filesRaw.map(f => f.name);
         return this.addFiles({ ...params, files: dirFiles, filePath: absFile });
       }
 
@@ -36,20 +43,20 @@ module.exports = class sectionsPlugin {
     }));
   }
 
-  async addLocales(compilation) {
+  async addLocales(compilation:any) {
     const files = await fs.readdir(this.options.from);
     const compilationOutput = compilation.compiler.outputPath;
 
     // Add sections folder to webpack context
     compilation.contextDependencies.add(this.options.from);
 
-    return this.addFiles({
+    return await this.addFiles({
       compilation, compilationOutput, files,
       filePath: path.resolve(this.options.from)
     });
   }
 
-  _validateOptions(options) {
+  _validateOptions(options:SlateSectionsPluginOptions) {
     if (!options.hasOwnProperty('from') || typeof options.from !== 'string') {
       throw TypeError('Missing or Invalid From Option');
     }
@@ -66,7 +73,7 @@ module.exports = class sectionsPlugin {
    * @param {string} relativePathFromSections The relative path from the source sections directory
    * @returns The output file name of the liquid file.
    */
-  _getOutputFileName(relativePathFromSections) {
+  _getOutputFileName(relativePathFromSections:string) {
     return path.basename(relativePathFromSections);
   }
 
@@ -79,7 +86,7 @@ module.exports = class sectionsPlugin {
    * @returns The key thats needed to provide the Compilation object the correct location to output
    * Sources
    */
-  _getOutputKey(liquidSourcePath, compilationOutput) {
+  _getOutputKey(liquidSourcePath:string, compilationOutput:any) {
     const relativePathFromSections = path.relative(
       this.options.from,
       liquidSourcePath,
@@ -102,7 +109,7 @@ module.exports = class sectionsPlugin {
    * @param {*} sourcePath Absolute path to liquid file
    * @returns RawSource object with the contents of the file
    */
-  async _getLiquidSource(sourcePath) {
+  async _getLiquidSource(sourcePath:string) {
     const liquidContent = await fs.readFile(sourcePath, 'utf-8');
     return new RawSource(liquidContent);
   }

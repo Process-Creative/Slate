@@ -2,8 +2,8 @@ import * as path from 'path';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import SlateSectionsPlugin from '@process-creative/slate-sections-plugin';
 import { slateToolsConfig } from '../../../schema';
+import { SlateSectionsPlugin } from '@process-creative/slate-sections-plugin';
 
 const PATH_THEME_NODE_MODULES = path.join(slateToolsConfig.get('paths.theme'), 'node_modules');
 const PATH_MONOREPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..', '..');
