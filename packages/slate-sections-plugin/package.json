@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-sections-plugin",
-  "version": "2.1.36",
+  "version": "2.1.37",
   "main": "./dist/index.js",
   "scripts": {
     "build": "npm run tsc",

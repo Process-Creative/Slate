@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-config",
-  "version": "2.1.36",
+  "version": "2.1.37",
   "main": "./dist/index.js",
   "scripts": {
     "tsc": "tsc -p .",
