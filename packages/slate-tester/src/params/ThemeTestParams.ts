@@ -3,7 +3,7 @@ import * as path from 'path';
 import { FullSiteTestParams } from '..';
 import { validate, getSlateEnv } from '@process-creative/slate-env';
 import { prompt } from 'inquirer';
-import * as  minimist from 'minimist';
+import minimist from 'minimist';
 
 export const PATH_THEME = path.resolve('.');
 export const PATH_THEME_INFO_JS = path.resolve(PATH_THEME, 'slate-tester.js');

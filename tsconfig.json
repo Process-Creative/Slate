@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "CommonJS",
     "sourceMap": true,
     "declaration": true,
     "outDir": "./dist/",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
     "typeRoots": [ "./node_modules/@types" ],
     "jsx": "react"
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+  "include": [],
+  "exclude": ["node_modules"]
 }

@@ -1,6 +1,5 @@
 import * as program from 'commander';
-import { fstat } from 'fs/promises';
-import { fileGetSchemaContents, fileReadSchema, fileWriteSignature } from '../file';
+import { fileReadSchema, fileWriteSignature } from '../file';
 import { schemaGetAll, schemaLoadTree, schemaTreeGetFiles, schemaValidate } from '../schema';
 program
   .command('sign')
