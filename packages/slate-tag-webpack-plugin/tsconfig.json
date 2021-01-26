@@ -1,9 +1,15 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist/"
+    "target": "ESNext",
+    "module": "commonjs",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist/",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "typeRoots": [ "./node_modules/@types" ],
+    "jsx": "react"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": [ "./src/**/*.ts" ],
+  "exclude": ["node_modules"]
 }
