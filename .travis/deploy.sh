@@ -19,6 +19,4 @@ done
 echo "registry=https://npm.pkg.github.com/" > ".npmrc"
 echo "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" > ".npmrc"
 
-yarn lerna run tsc
-
 yarn lerna publish from-package --yes --registry //npm.pkg.github.com
