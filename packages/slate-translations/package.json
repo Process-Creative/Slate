@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-translations",
-  "version": "2.1.37",
+  "version": "2.1.38",
   "main": "./dist/index.js",
   "dependencies": {
     "lodash": "^4.17.11",
