@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env ts-node-script
 import spawn from 'cross-spawn';
 import chalk from 'chalk';
 import minimist from 'minimist';
