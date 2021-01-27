@@ -3,10 +3,15 @@ import spawn from 'cross-spawn';
 import chalk from 'chalk';
 import minimist from 'minimist';
 import * as slateEnv from '@process-creative/slate-env';
-const argv = minimist(process.argv.slice(2));
+import * as fs from 'fs';
+import * as path from 'path';
 
+const PATH_TSCONFIG = path.join(__dirname, '..', 'tsconfig.json');
+
+const argv = minimist(process.argv.slice(2));
 const script = process.argv[2];
 const args = process.argv.slice(3);
+const tsconfig = JSON.parse(fs.readFileSync(PATH_TSCONFIG, 'utf-8'));
 
 try {
   slateEnv.assign(argv.env);
@@ -29,7 +34,10 @@ async function init() {
     case 'open':
       result = spawn.sync(
         'ts-node',
-        [ require.resolve(`./commands/${script}`) ].concat(args),
+        [
+          '--compiler-options', JSON.stringify(tsconfig.compilerOptions),
+          require.resolve(`./commands/${script}`)
+        ].concat(args),
         { stdio: 'inherit' },
       );
       process.exit(result.status);
