@@ -32,16 +32,9 @@ async function init() {
     case 'env':
     case 'test':
     case 'open':
-      result = spawn.sync(
-        'ts-node',
-        [
-          '--compiler-options', JSON.stringify(tsconfig.compilerOptions),
-          require.resolve(`./commands/${script}`)
-        ].concat(args),
-        { stdio: 'inherit' },
-      );
-      process.exit(result.status);
+      require(`./commands/${script}`);
       break;
+      
     case 'test':
       result = spawn.sync('../node_modules/jest/bin/jest.js', [].concat(args), {
         stdio: 'inherit',

@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { replace, upload } from '@process-creative/slate-sync';
 import { continueIfPulishedTheme } from '../prompts/continue-if-published-theme';
 const argv = minimist(process.argv.slice(2));
-const packageJson = require('../../package.json');
+const packageJson = require('./../../../package.json');
 
 const deploy = argv.replace ? replace : upload;
 

@@ -4,7 +4,7 @@ import figures from 'figures';
 import minimatch from 'minimatch';
 import { argv } from 'yargs';
 import { getIgnoreFilesValue } from '@process-creative/slate-env';
-import { slateToolsConfig } from '../../src/schema';
+import { slateToolsConfig } from './../../schema';
 
 const question = {
   type: 'confirm',
