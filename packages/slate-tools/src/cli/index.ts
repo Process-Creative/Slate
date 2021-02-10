@@ -6,7 +6,7 @@ import * as slateEnv from '@process-creative/slate-env';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const PATH_TSCONFIG = path.join(__dirname, '..', 'tsconfig.json');
+const PATH_TSCONFIG = path.join(__dirname, '..', '..', 'tsconfig.json');
 
 const argv = minimist(process.argv.slice(2));
 const script = process.argv[2];

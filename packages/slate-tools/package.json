@@ -2,8 +2,7 @@
   "name": "@process-creative/slate-tools",
   "version": "2.1.38",
   "bin": {
-    "slate-tools": "./cli/index.ts",
-    "st": "./cli/index.ts"
+    "slate-tools": "./src/cli/index.ts"
   },
   "scripts": {
     "build": "npm run tsc",
