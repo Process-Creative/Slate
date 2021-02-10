@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ip from 'ip';
 import inquirer from'inquirer';
 import figures from 'figures';
-import { slateToolsConfig } from './../../src/schema';
+import { slateToolsConfig } from './../../schema';
 
 const question = {
   type: 'confirm',

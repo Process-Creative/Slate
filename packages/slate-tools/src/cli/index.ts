@@ -6,7 +6,7 @@ import * as slateEnv from '@process-creative/slate-env';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const PATH_TSCONFIG = path.join(__dirname, '..', 'tsconfig.json');
+const PATH_TSCONFIG = path.join(__dirname, '..', '..', 'tsconfig.json');
 
 const argv = minimist(process.argv.slice(2));
 const script = process.argv[2];
@@ -32,16 +32,9 @@ async function init() {
     case 'env':
     case 'test':
     case 'open':
-      result = spawn.sync(
-        'ts-node',
-        [
-          '--compiler-options', JSON.stringify(tsconfig.compilerOptions),
-          require.resolve(`./commands/${script}`)
-        ].concat(args),
-        { stdio: 'inherit' },
-      );
-      process.exit(result.status);
+      require(`./commands/${script}`);
       break;
+      
     case 'test':
       result = spawn.sync('../node_modules/jest/bin/jest.js', [].concat(args), {
         stdio: 'inherit',

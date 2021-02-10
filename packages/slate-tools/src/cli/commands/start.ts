@@ -15,14 +15,14 @@ import { continueIfPulishedTheme } from './../prompts/continue-if-published-them
 import {promptSkipSettingsData} from './../prompts/skip-settings-data';
 import {promptExternalTesting} from './../prompts/external-testing';
 
-import AssetServer from '../../src/asset-server';
-import { DevServer } from '../../src/dev-server';
-import webpackConfig from '../../src/webpack/config/dev';
-import { getAvailablePortSeries } from '../../src/tools/network';
-import { slateToolsConfig } from '../../src/schema';
+import AssetServer from './../../asset-server';
+import { DevServer } from './../../dev-server';
+import webpackConfig from '../../webpack/config/dev';
+import { getAvailablePortSeries } from './../../tools/network';
+import { slateToolsConfig } from './../../schema';
 
 const argv = minimist(process.argv.slice(2));
-const packageJson = require('../../package.json');
+const packageJson = require('./../../../package.json');
 const spinner = ora(chalk.magenta(' Compiling...'));
 
 let firstSync = true;

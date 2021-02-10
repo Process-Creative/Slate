@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import archiver = require('archiver');
 import chalk = require('chalk');
-import { slateToolsConfig } from '../../src/schema';
+import { slateToolsConfig } from './../../schema';
 
 /**
  * Builds a zip based on an array of directories and files. This
