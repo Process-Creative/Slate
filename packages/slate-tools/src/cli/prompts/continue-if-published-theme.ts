@@ -21,7 +21,7 @@ export const continueIfPulishedTheme = async () => {
   const publishedThemeId = await fetchMainThemeId();
   const currentThemeId = slateEnv.getThemeIdValue();
 
-  if (
+  if(
     currentThemeId !== 'live' &&
     currentThemeId !== publishedThemeId.toString()
   ) {
@@ -29,7 +29,7 @@ export const continueIfPulishedTheme = async () => {
   }
 
   console.log();
-  const answer = await inquirer.prompt([question]);
+  const answer:{continueWithDeploy:boolean} = await inquirer.prompt([question]);
 
   return answer.continueWithDeploy;
 };

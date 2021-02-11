@@ -11,7 +11,6 @@ const PATH_TSCONFIG = path.join(__dirname, '..', '..', 'tsconfig.json');
 const argv = minimist(process.argv.slice(2));
 const script = process.argv[2];
 const args = process.argv.slice(3);
-const tsconfig = JSON.parse(fs.readFileSync(PATH_TSCONFIG, 'utf-8'));
 
 try {
   slateEnv.assign(argv.env);

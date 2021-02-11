@@ -5,7 +5,7 @@ import express, { Express } from 'express';
 import { Compiler } from 'webpack';
 import { isHotUpdateFile } from '../tools/hot';
 
-class App {
+export class App {
   public app:Express;
   public webpackDevMiddleware:ReturnType<typeof webpackDevMiddleware>;
   public webpackHotMiddleware:ReturnType<typeof webpackHotMiddleware>; 
@@ -14,10 +14,7 @@ class App {
     this.app = express();
     this.webpackDevMiddleware = webpackDevMiddleware(compiler, {
       logLevel: 'silent',
-      // reload: true,
-      writeToDisk: (filePath) => {
-        return !isHotUpdateFile(filePath);
-      },
+      writeToDisk: filePath => !isHotUpdateFile(filePath)
     });
 
     this.webpackHotMiddleware = webpackHotMiddleware(compiler, {
@@ -29,5 +26,3 @@ class App {
     this.app.use(this.webpackHotMiddleware);
   }
 };
-
-export = App

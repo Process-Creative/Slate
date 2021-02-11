@@ -11,7 +11,7 @@ import webpack from 'webpack';
 import webpackConfig from './../../webpack/config/prod';
 const packageJson = require('./../../../package.json');
 
-webpack(webpackConfig, (err, stats) => {
+webpack(webpackConfig, (err,stats) => {
   if (err) throw err;
   
   process.stdout.write(

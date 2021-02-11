@@ -5,7 +5,7 @@ import { Client } from './client';
 import { isHotUpdateFile } from '../tools/hot';
 import { sslKeyCert } from '../tools/ssl';
 import { Server } from 'http';
-import App from './app';
+import { App } from './app';
 import { slateToolsConfig } from '../schema';
 
 type DevServerOptions = {
@@ -26,9 +26,7 @@ class DevServer {
   public server:Server;
 
   constructor(options:DevServerOptions) {
-    options.webpackConfig.output.publicPath = `https://${options.address}:${
-      options.port
-    }/`;
+    options.webpackConfig.output.publicPath = `https://${options.address}:${options.port}/`;
 
     this.assetHashes = {};
     this.address = options.address;
