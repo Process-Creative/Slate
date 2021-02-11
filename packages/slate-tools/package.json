@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tools",
-  "version": "2.1.40",
+  "version": "2.1.41",
   "bin": {
     "slate-tools": "./src/cli/index.ts"
   },
