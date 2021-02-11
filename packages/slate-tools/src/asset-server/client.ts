@@ -1,4 +1,4 @@
-import { SyncHook, AsyncSeriesHook } from 'tapable';
+import { SyncHook, AsyncSeriesHook, Hook } from 'tapable';
 import { sync } from '@process-creative/slate-sync';
 
 type ClientOptions = {
@@ -9,11 +9,11 @@ export class Client {
   public files:string[];
   public skipSync:boolean;
   public hooks:{
-    beforeSync:any,
-    sync:any,
-    syncDone:any,
-    afterSync:any,
-    syncSkipped:any
+    beforeSync:AsyncSeriesHook<any,any>,
+    sync:SyncHook<any,any>,
+    syncDone:SyncHook<any,any>,
+    afterSync:AsyncSeriesHook<any,any>,
+    syncSkipped:SyncHook<any,any>
   };
 
   constructor(options?:ClientOptions) {
@@ -21,15 +21,10 @@ export class Client {
     this.files = [];
     this.skipSync = false;
     this.hooks = {
-      //@ts-ignore
       beforeSync: new AsyncSeriesHook([ 'files', 'stats' ]),
-      //@ts-ignore
       sync: new SyncHook([ 'files', 'stats' ]),
-      //@ts-ignore
       syncDone: new SyncHook([ 'files', 'stats' ]),
-      //@ts-ignore
       afterSync: new AsyncSeriesHook([ 'files','stats' ]),
-      //@ts-ignore
       syncSkipped: new SyncHook([ 'files', 'stats']),
     };
 

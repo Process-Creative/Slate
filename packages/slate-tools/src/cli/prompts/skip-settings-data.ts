@@ -13,29 +13,25 @@ const question = {
   default: false,
 };
 
-function _includesSettingsData(files) {
-  const settingsData = files.filter((file) =>
-    file.endsWith('settings_data.json'),
-  );
-  return settingsData.length > 0;
-}
+const _includesSettingsData = (files:string[]) => (
+  files.filter(file => file.endsWith('settings_data.json')).length > 0
+);
 
-function _filterIgnoredFiles(files) {
+const _filterIgnoredFiles = (files:string[]) => {
   const envIgnoreGlobs = getIgnoreFilesValue().split(':');
-  let y = envIgnoreGlobs.map((glob) => {
-    if (glob[0] !== '/') glob = `/${glob}`;
-
+  const y = envIgnoreGlobs.map(glob => {
+    if(glob[0] !== '/') glob = `/${glob}`;
     return files.filter(minimatch.filter(glob));
   });
 
-  const f = x => x.reduce((x,y) => {
-    return [...x, ...(Array.isArray(y) ? f(y) : [y])]
-  }, []);
-
-  return f(y);
+  type T = string|T[];
+  const rdce = (x:T[]) => x.reduce((x,y) => [ ...x,
+    ...(Array.isArray(y) ? rdce(y) : [y])
+  ], []);
+  return rdce(y);
 }
 
-export const promptSkipSettingsData = async (files) => {
+export const promptSkipSettingsData = async (files:string[]) => {
   const ignoredFiles = _filterIgnoredFiles(files);
 
   if (

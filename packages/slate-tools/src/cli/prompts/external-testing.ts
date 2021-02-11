@@ -24,18 +24,19 @@ export const promptExternalTesting = async () => {
       `\n${chalk.yellow(
         figures.warning
       )}  It looks like you are connected to the internet with the IP address,
-   '${chalk.green(
-     ip.address()
-   )}', which is publically accessible. This could result
-   in security vulnerabilities to your development machine if you want to test
-   your dev store from an external device, e.g. your phone. We recommend you
-   proceed with external testing disabled until you are connected to the internet
-   with a private IP address, e.g. connected to a router which assigns your
-   device a private IP.\n`
+      '${chalk.green(
+        ip.address()
+      )}', which is publically accessible. This could result
+      in security vulnerabilities to your development machine if you want to test
+      your dev store from an external device, e.g. your phone. We recommend you
+      proceed with external testing disabled until you are connected to the internet
+      with a private IP address, e.g. connected to a router which assigns your
+      device a private IP.\n`
     );
 
-    const answer = await inquirer.prompt([question]);
-
+    const answer:{ externalTesting:boolean } = await inquirer.prompt([
+      question
+    ]);
     return !answer.externalTesting;
   }
 
