@@ -6,7 +6,6 @@ import minimist from 'minimist';
 import figures from 'figures';
 import chalk from 'chalk';
 import ora from 'ora';
-import clearConsole from 'react-dev-utils/clearConsole';
 import ip from 'ip';
 import * as env from '@process-creative/slate-env';
 import open from 'open';

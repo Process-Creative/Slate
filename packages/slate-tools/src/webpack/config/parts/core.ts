@@ -1,7 +1,5 @@
 import * as path from 'path';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import { slateToolsConfig } from '../../../schema';
 import { SlateSectionsPlugin } from '@process-creative/slate-sections-plugin';
 
@@ -21,10 +19,6 @@ const modules = [
   PATH_MONOREPO_SLATETOOLS_NODEMOUDLES,
   PATH_MONOREPO_SLATETOOLS_WEBPACK_ROOT
 ];
-
-const extractLiquidStyles = new ExtractTextPlugin(
-  '[name].styleLiquid.scss.liquid',
-);
 
 export const partCore = {
   context: slateToolsConfig.get('paths.theme.src'),

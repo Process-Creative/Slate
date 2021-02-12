@@ -13,11 +13,11 @@ const question = {
   default: false,
 };
 
-const _includesSettingsData = (files:string[]) => (
+const includesSettingsData = (files:string[]) => (
   files.filter(file => file.endsWith('settings_data.json')).length > 0
 );
 
-const _filterIgnoredFiles = (files:string[]) => {
+const filterIgnoredFiles = (files:string[]) => {
   const envIgnoreGlobs = getIgnoreFilesValue().split(':');
   const y = envIgnoreGlobs.map(glob => {
     if(glob[0] !== '/') glob = `/${glob}`;
@@ -32,11 +32,11 @@ const _filterIgnoredFiles = (files:string[]) => {
 }
 
 export const promptSkipSettingsData = async (files:string[]) => {
-  const ignoredFiles = _filterIgnoredFiles(files);
+  const ignoredFiles = filterIgnoredFiles(files);
 
   if (
-    _includesSettingsData(ignoredFiles) ||
-    !_includesSettingsData(files) ||
+    includesSettingsData(ignoredFiles) ||
+    !includesSettingsData(files) ||
     !slateToolsConfig.get('cli.promptSettings') ||
     argv.skipPrompts
   ) {

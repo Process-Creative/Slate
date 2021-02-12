@@ -1,26 +1,31 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack';
+import { Assets, Chunk } from '../asset-server';
 
 type HtmlWebpackIncludeLiquidStylesPluginOptions = any;
 
+export interface HtmlPluginData {
+  assets: Assets;
+}
 export class HtmlWebpackIncludeLiquidStylesPlugin {
   public options?:HtmlWebpackIncludeLiquidStylesPluginOptions;
-  public files:any[];
-  public compilation:any;
-  public chunks:any;
+  public files:string[];
+  public compilation:webpack.compilation.Compilation;
+  public chunks:Chunk[];
 
   constructor(options?:HtmlWebpackIncludeLiquidStylesPluginOptions) {
     this.options = options;
     this.files = [];
   }
 
-  apply(compiler) {
+  apply(compiler: webpack.Compiler) {
     compiler.hooks.compilation.tap(
       'htmlWebpackIncludeChunksPlugin',
       this.onCompilation.bind(this),
     );
   }
 
-  onCompilation(compilation:any) {
+  onCompilation(compilation:webpack.compilation.Compilation) {
     this.compilation = compilation;
 
     // HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tap(
@@ -34,11 +39,11 @@ export class HtmlWebpackIncludeLiquidStylesPlugin {
     // );
   }
 
-  onAlterChunks(...chunks) {
+  onAlterChunks(...chunks: Chunk[]) {
     this.chunks = chunks;
   }
 
-  onBeforeHtmlGeneration(htmlPluginData) {
+  onBeforeHtmlGeneration(htmlPluginData: HtmlPluginData) {
     // console.log(htmlPluginData);
     // const assets = htmlPluginData.assets;
     // const publicPath = assets.publicPath;
