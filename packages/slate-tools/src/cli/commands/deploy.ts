@@ -7,7 +7,7 @@ const packageJson = require('./../../../package.json');
 
 const deploy = argv.replace ? replace : upload;
 
-continueIfPulishedTheme().then((answer) => {
+continueIfPulishedTheme().then((answer: boolean) => {
   if (!answer) {
     process.exit(0);
   }

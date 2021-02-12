@@ -1,23 +1,21 @@
-import { SyncHook, AsyncSeriesHook, Hook } from 'tapable';
+import { SyncHook, AsyncSeriesHook } from 'tapable';
 import { sync } from '@process-creative/slate-sync';
-
-type ClientOptions = {
-} & any;
+import webpack from 'webpack';
+export interface ClientHooks {
+  beforeSync:AsyncSeriesHook<(string[] | webpack.Stats)[]>,
+  sync:SyncHook<(string[] | webpack.Stats)[]>,
+  syncDone:SyncHook<(string[] | webpack.Stats)[]>,
+  afterSync:AsyncSeriesHook<(string[] | webpack.Stats)[]>,
+  syncSkipped:SyncHook<(string[] | webpack.Stats)[]>
+}
 
 export class Client {
-  public options:ClientOptions;
   public files:string[];
   public skipSync:boolean;
-  public hooks:{
-    beforeSync:AsyncSeriesHook<any,any>,
-    sync:SyncHook<any,any>,
-    syncDone:SyncHook<any,any>,
-    afterSync:AsyncSeriesHook<any,any>,
-    syncSkipped:SyncHook<any,any>
-  };
-
-  constructor(options?:ClientOptions) {
-    this.options = { ...(options||{}) };
+  public skipNextSync: boolean;
+  public hooks: ClientHooks;
+  
+  constructor() {
     this.files = [];
     this.skipSync = false;
     this.hooks = {
@@ -28,17 +26,15 @@ export class Client {
       syncSkipped: new SyncHook([ 'files', 'stats']),
     };
 
-    //@ts-ignore
     this.skipNextSync = false;
   }
 
-  async sync(files, stats) {
+  async sync(files: string[], stats: webpack.Stats) {
     this.files = files;
 
     await this.hooks.beforeSync.promise(this.files, stats);
 
     if (this.files.length === 0) {
-      //@ts-ignore
       this.skipNextSync = true;
     }
 
@@ -51,12 +47,6 @@ export class Client {
     }
 
     this.hooks.afterSync.promise(this.files, stats);
-
-    //@ts-ignore
     this.skipNextSync = false;
-  }
-
-  skipNextSync() {
-    this.skipSync = true;
   }
 };

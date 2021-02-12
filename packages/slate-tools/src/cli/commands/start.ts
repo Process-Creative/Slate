@@ -15,7 +15,7 @@ import { continueIfPulishedTheme } from './../prompts/continue-if-published-them
 import {promptSkipSettingsData} from './../prompts/skip-settings-data';
 import {promptExternalTesting} from './../prompts/external-testing';
 
-import AssetServer from './../../asset-server';
+import { AssetServer } from './../../asset-server';
 import { DevServer } from './../../dev-server';
 import webpackConfig from '../../webpack/config/dev';
 import { getAvailablePortSeries } from './../../tools/network';
