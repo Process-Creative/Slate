@@ -47,6 +47,7 @@ export interface Assets {
  */
 export interface Chunk {
   id: string;
+  name: string;
   names: string[]
   files: string[]
 }

@@ -14,11 +14,11 @@ const question = {
 };
 
 export const continueIfPulishedTheme = async () => {
-  if (argv.skipPrompts) {
+  if (argv.skipPrompts as boolean) {
     return question.default;
   }
 
-  const publishedThemeId = await fetchMainThemeId();
+  const publishedThemeId = await fetchMainThemeId() as string;
   const currentThemeId = slateEnv.getThemeIdValue();
 
   if(

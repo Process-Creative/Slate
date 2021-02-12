@@ -1,6 +1,7 @@
 import * as crypto  from 'crypto';
+import { Chunk } from '../asset-server';
 
-export const chunkGetName = (module:any, chunks:any[], cacheGroup:any) => {
+export const chunkGetName = (module:string, chunks:Chunk[], cacheGroup:string) => {
   let containsLayout = false;
 
   const names = chunks.map((chunk) => {
