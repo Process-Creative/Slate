@@ -30,6 +30,8 @@ client.subscribe((event) => {
         .map(kvp => kvp.join('='))
         .join('&')
       ;
+
+      console.log('bruv');
       
       setTimeout(() => window.location.search = newSearch, 2000);
     }

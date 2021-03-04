@@ -47,11 +47,6 @@ export const partCore = {
   module: {
     rules: [
       {
-        test: /\.js|\.ts$/,
-        exclude: slateToolsConfig.get('webpack.commonExcludes'),
-        loader: 'hmr-alamo-loader',
-      },
-      {
         test: /\.(eot|ttf|woff|woff2|otf)$/,
         exclude: /node_modules/,
         use: [

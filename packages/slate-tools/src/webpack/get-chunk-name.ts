@@ -1,5 +1,5 @@
 import * as crypto  from 'crypto';
-import { Chunk } from '../asset-server';
+import { Chunk } from '../server/asset-server';
 
 export const chunkGetName = (module:string, chunks:Chunk[], cacheGroup:string) => {
   let containsLayout = false;

@@ -1,11 +1,11 @@
 import webpack, { Compiler } from 'webpack';
 import { createServer } from 'https';
 import { createHash } from 'crypto';
-import { Client } from './client';
-import { isHotUpdateFile } from '../tools/hot';
-import { sslKeyCert } from '../tools/ssl';
+import { MiddlewareHooks } from './middleware-hooks';
+import { isHotUpdateFile } from '../utils/hot';
+import { sslKeyCert } from '../utils/ssl';
 import { Server } from 'http';
-import { App } from './app';
+import { MiddlewareServer } from './middleware-server';
 import { slateToolsConfig } from '../schema';
 
 type AssetServerOptions = {
@@ -60,8 +60,8 @@ export class AssetServer {
   public port:number;
   public options:AssetServerOptions;
   public compiler:Compiler;
-  public app:App;
-  public client:Client;
+  public app:MiddlewareServer;
+  public client:MiddlewareHooks;
 
   public ssl?:ReturnType<typeof sslKeyCert>;
   public server:Server;
@@ -74,8 +74,8 @@ export class AssetServer {
     this.options = options;
     this.port = options.port;
     this.compiler = webpack(options.webpackConfig);
-    this.app = new App(this.compiler);
-    this.client = new Client();
+    this.app = new MiddlewareServer(this.compiler);
+    this.client = new MiddlewareHooks();
     this.client.hooks.afterSync.tap(
       'HotMiddleWare',
       this.onAfterSync.bind(this),

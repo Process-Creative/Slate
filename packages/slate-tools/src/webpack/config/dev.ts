@@ -18,9 +18,9 @@ import { slateToolsConfig } from '../../schema';
 
 // add hot-reload related code to entry chunks
 Object.keys(partEntry.entry).forEach((name) => {
-  partEntry.entry[name] = [path.join(__dirname, '../hot-client.js')].concat(
-    partEntry.entry[name],
-  );
+  partEntry.entry[name] = [
+    path.join(__dirname, '..', '..', '..', 'public', 'hot-client.js')
+  ].concat(partEntry.entry[name]);
 });
 
 export = merge([

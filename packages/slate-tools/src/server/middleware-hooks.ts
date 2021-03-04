@@ -9,7 +9,7 @@ export interface ClientHooks {
   syncSkipped:SyncHook<(string[] | webpack.Stats)[]>
 }
 
-export class Client {
+export class MiddlewareHooks {
   public files:string[];
   public skipSync:boolean;
   public skipNextSync: boolean;
