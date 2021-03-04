@@ -10,13 +10,13 @@ import { partBabel } from './parts/babel';
 import { partEntry } from './parts/entry';
 import { partSass } from './parts/sass';
 import { partCss } from './parts/css';
-import { chunkGetName } from './../get-chunk-name';
+import { chunkGetName } from '../../utils/get-chunk-name';
 
 import { getScriptTemplate } from './../templates/script-tags-template';
 import { getStyleTemplate } from './../templates/style-tags-template';
 import { getLayoutEntryPoints } from './utilities/get-layout-entrypoints';
 import { getTemplateEntryPoints } from './utilities/get-template-entrypoints';
-import { HtmlWebpackIncludeLiquidStylesPlugin } from '../html-webpack-include-chunks';
+import { HtmlWebpackIncludeLiquidStylesPlugin } from '../plugin/html-webpack-include-chunks';
 import { slateToolsConfig } from '../../schema';
 
 const packageJson = require('../../../package.json');
