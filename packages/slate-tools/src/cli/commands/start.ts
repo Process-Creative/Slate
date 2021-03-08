@@ -6,7 +6,6 @@ import minimist from 'minimist';
 import figures from 'figures';
 import chalk from 'chalk';
 import ora from 'ora';
-import clearConsole from 'react-dev-utils/clearConsole';
 import ip from 'ip';
 import * as env from '@process-creative/slate-env';
 import open from 'open';
@@ -15,22 +14,22 @@ import { continueIfPulishedTheme } from './../prompts/continue-if-published-them
 import {promptSkipSettingsData} from './../prompts/skip-settings-data';
 import {promptExternalTesting} from './../prompts/external-testing';
 
-import AssetServer from './../../asset-server';
-import { DevServer } from './../../dev-server';
+import { AssetServer } from '../../server/asset-server';
+import { DevServer } from '../../server/dev-server';
 import webpackConfig from '../../webpack/config/dev';
-import { getAvailablePortSeries } from './../../tools/network';
+import { getAvailablePortSeries } from '../../utils/network';
 import { slateToolsConfig } from './../../schema';
+import webpack from 'webpack';
 
 const argv = minimist(process.argv.slice(2));
-const packageJson = require('./../../../package.json');
 const spinner = ora(chalk.magenta(' Compiling...'));
 
 let firstSync = true;
 let skipSettingsData = null;
 let continueIfPublishedTheme = null;
-let assetServer;
-let devServer;
-let previewUrl;
+let assetServer: AssetServer;
+let devServer: DevServer;
+let previewUrl: string;
 
 Promise.all([
   getAvailablePortSeries(slateToolsConfig.get('network.startPort'), 3),
@@ -76,7 +75,7 @@ function onCompilerCompile() {
   spinner.start();
 }
 
-function onCompilerDone(stats) {
+function onCompilerDone(stats: webpack.Stats) {
   const statsJson = stats.toJson({}, true);
 
   spinner.stop();
@@ -92,7 +91,7 @@ function onCompilerDone(stats) {
   if (statsJson.warnings.length) {
     console.log(chalk.yellow('Compiled with warnings.\n'));
 
-    statsJson.warnings.forEach((message) => {
+    statsJson.warnings.forEach((message: string) => {
       console.log(`${message}\n`);
     });
   }
@@ -105,7 +104,7 @@ function onCompilerDone(stats) {
   }
 }
 
-const onClientBeforeSync = async files => {
+const onClientBeforeSync = async (files: string[]) => {
   if(firstSync && argv.skipFirstDeploy) {
     assetServer.skipDeploy = true;
     return;
@@ -131,7 +130,7 @@ const onClientBeforeSync = async files => {
 }
 
 function onClientSyncSkipped() {
-  if (!(firstSync && argv.skipFirstDeploy)) return;
+  if (!(firstSync && argv.skipFirstDeploy as boolean)) return;
   
   console.log(
     `\n${chalk.blue(
@@ -149,7 +148,7 @@ function onClientSyncDone() {
   // console.log(`${chalk.green(figures.tick)}  Files uploaded successfully!`);
 }
 
-const logPreviewInformation = (devServer) => {
+const logPreviewInformation = (devServer: DevServer) => {
   const urls = devServer.server.options.get('urls');
 
   console.log();

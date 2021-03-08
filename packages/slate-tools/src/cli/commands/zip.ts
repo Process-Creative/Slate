@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import archiver = require('archiver');
-import chalk = require('chalk');
+import archiver from 'archiver';
+import chalk from 'chalk';
 import { slateToolsConfig } from './../../schema';
 
 /**
@@ -49,7 +49,7 @@ archive.pipe(output);
 archive.directory(slateToolsConfig.get('paths.theme.dist'), '/');
 archive.finalize();
 
-function getZipPath(dir, name, ext) {
+function getZipPath(dir: string, name: string, ext: string) {
   const proposedPath = path.resolve(dir, `${name}.${ext}`);
   if (!fs.existsSync(proposedPath)) {
     return proposedPath;

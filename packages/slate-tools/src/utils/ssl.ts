@@ -2,7 +2,12 @@ import { readFileSync, existsSync } from 'fs';
 import * as path from 'path';
 import { slateToolsConfig } from '../schema';
 
-export const sslKeyCert = () => {
+export type SSLKeyCert = {
+  key: Buffer;
+  cert: Buffer;
+}
+
+export const sslKeyCert = (): SSLKeyCert => {
   const key = readFileSync(getSSLKeyPath());
   const cert = readFileSync(getSSLCertPath());
 

@@ -1,23 +1,35 @@
-const ifHasConditionScript = params => {
+import HtmlWebpackPlugin from "html-webpack-plugin";
+
+export type GenTemplateParams = {
+  files:string[];
+  isDevServer:boolean;
+  condition?: string;
+  value?: string;
+  src?: string;
+  liquidTemplates: {
+    [key: string]: string;
+  };
+  liquidLayouts: {
+    [key: string]: string;
+  };
+  genTemplate: (generateTemplates: GenTemplateParams) => string;
+};
+
+export type GetTemplateParams = {
+  htmlWebpackPlugin: HtmlWebpackPlugin & { options:GenTemplateParams } & {
+    files: {
+      css: string[];
+      js: string[];
+    }
+  };
+};
+
+const ifHasConditionScript = (params: GenTemplateParams) => {
   const { condition, value, genTemplate } = params;
   return `{%- if ${condition} == '${value}' -%}
     ${genTemplate(params)}
   {%- endif -%}`;
 }
-
-
-
-export type GenTemplateParams = {
-  files:string[];
-  liquidTemplates:any[];
-  liquidLayouts:any[];
-  isDevServer:boolean;
-  genTemplate:any
-};
-
-export type GetTemplateParams = {
-  htmlWebpackPlugin:any & { options:GenTemplateParams };
-};
 
 export const getTemplate = (params:GenTemplateParams) => {
   const { files, liquidTemplates, liquidLayouts, isDevServer, genTemplate } = params;

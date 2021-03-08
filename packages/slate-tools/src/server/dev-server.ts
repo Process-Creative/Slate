@@ -1,6 +1,7 @@
 import browserSync, { BrowserSyncInstance } from 'browser-sync';
 import { getStoreValue, getThemeIdValue } from '@process-creative/slate-env';
-import { getSSLKeyPath, getSSLCertPath } from '../tools/ssl';
+import { getSSLKeyPath, getSSLCertPath } from '../utils/ssl';
+import { Request, Response, NextFunction } from 'express';
 
 type DevServerOptions = {
   port:number;
@@ -40,7 +41,7 @@ export class DevServer {
       reloadOnRestart: true,
       proxy: {
         target: this.proxyTarget,
-        middleware: (req, res, next) => {
+        middleware: (req: Request, res: Response, next: NextFunction) => {
           // Shopify sites with redirection enabled for custom domains force redirection
           // to that domain. `?_fd=0` prevents that forwarding.
           // ?pb=0 hides the Shopify preview bar
@@ -51,7 +52,7 @@ export class DevServer {
           next();
         },
         proxyRes: [
-          function(proxyRes) {
+          function(proxyRes: Response & { headers: { [key: string]: any } }) {
             // disable HSTS. Slate might force us to use HTTPS but having HSTS on local dev makes it impossible to do other non-Slate dev.
             delete proxyRes.headers['strict-transport-security'];
           },
@@ -68,7 +69,7 @@ export class DevServer {
       snippetOptions: {
         rule: {
           match: /<head[^>]*>/i,
-          fn(snippet, match) {
+          fn(snippet: string, match: string) {
             return match + snippet;
           },
         },

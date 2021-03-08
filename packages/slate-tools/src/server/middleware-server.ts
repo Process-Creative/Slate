@@ -3,9 +3,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import corsMiddleware from 'cors';
 import express, { Express } from 'express';
 import { Compiler } from 'webpack';
-import { isHotUpdateFile } from '../tools/hot';
+import { isHotUpdateFile } from '../utils/hot';
 
-export class App {
+export class MiddlewareServer {
   public app:Express;
   public webpackDevMiddleware:ReturnType<typeof webpackDevMiddleware>;
   public webpackHotMiddleware:ReturnType<typeof webpackHotMiddleware>; 
