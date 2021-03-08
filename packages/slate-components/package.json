@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-components",
-  "version": "2.1.38",
+  "version": "2.1.42",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index",
