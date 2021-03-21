@@ -11,14 +11,16 @@
     "open": "slate-tools open",
     "tester": "slate-tools test",
     "component-install": "slate-components install",
-    "theme-info": "slate-components theme"
+    "theme-info": "slate-components theme",
+    "test": "npm run build"
   },
   "dependencies": {
     "@process-creative/slate-components": "2.1.42",
     "@process-creative/slate-tools": "2.1.42",
-    "@types/archiver": "^5.1.0",
-    "keen-slider": "^5.2.3",
-    "normalize.css": "^8.0.1"
+    "@types/archiver": "5.1.0",
+    "keen-slider": "5.2.3",
+    "normalize.css": "8.0.1",
+    "@process-creative/slate-theme-tools": "2.0.0"
   },
   "repository": {
     "type": "git",
