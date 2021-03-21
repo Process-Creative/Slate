@@ -1,0 +1,32 @@
+{
+  "name": "@process-creative/slate-theme-tools",
+  "version": "2.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:production": "tsc -p .",
+    "test": "jest .",
+    "tsc": "npm run build:production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate.git",
+    "directory": "packages/slate-theme-tools"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "js-cookie": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.21",
+    "@types/jquery": "^3.3.30",
+    "@types/js-cookie": "^2.2.2",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "typescript": "^3.5.2",
+    "utility-types": "^3.10.0"
+  }
+}
