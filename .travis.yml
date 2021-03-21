@@ -12,6 +12,8 @@ install:
   - npm install -g yarn
   - yarn bootstrap
 
+before_script:
+  - yarn tsc
 script:
   - yarn test
 before_deploy:
