@@ -1,7 +1,7 @@
 {
   "name": "@process-creative/slate-env",
   "version": "2.1.38",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build:production": "tsc -p .",
     "tsc": "npm run build:production"
