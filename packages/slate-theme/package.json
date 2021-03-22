@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
-  "version": "2.1.42",
+  "version": "2.1.44",
   "scripts": {
     "env": "slate-tools env",
     "start": "slate-tools start",
@@ -16,11 +16,18 @@
   },
   "dependencies": {
     "@process-creative/slate-components": "2.1.42",
+<<<<<<< HEAD
     "@process-creative/slate-tools": "2.1.42",
     "@types/archiver": "5.1.0",
     "keen-slider": "5.2.3",
     "normalize.css": "8.0.1",
     "@process-creative/slate-theme-tools": "2.0.0"
+=======
+    "@process-creative/slate-tools": "2.1.44",
+    "@types/archiver": "^5.1.0",
+    "keen-slider": "^5.2.3",
+    "normalize.css": "^8.0.1"
+>>>>>>> e29405fdcedce1ef34a9e9967ac5609123c9979f
   },
   "repository": {
     "type": "git",
