@@ -17,7 +17,6 @@
     "@process-creative/slate-sections-plugin": "2.1.38",
     "@process-creative/slate-sync": "2.1.38",
     "@process-creative/slate-tag-webpack-plugin": "2.1.38",
-    "@process-creative/slate-tester": "2.1.38",
     "@process-creative/slate-translations": "2.1.38",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
     "@shopify/themekit": "^1.1.6",
