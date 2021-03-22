@@ -1,0 +1,27 @@
+{
+  "name": "@process-creative/slate-ajax-collection",
+  "version": "2.1.45",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:production": "tsc -p .",
+    "tsc": "npm run build:production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/Process-Creative/slate.git",
+    "directory": "packages/slate-ajax-collection"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Process-Creative",
+    "access": "restricted"
+  },
+  "dependencies": {
+    "@process-creative/slate-theme-tools": "2.1.45",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.29",
+    "@types/node": "^14.0.19",
+    "typescript": "^3.9.6"
+  }
+}
