@@ -16,11 +16,9 @@
     "sign": "lerna run sign",
     "tsc": "lerna run tsc",
     "check": "lerna run check",
-    "test": "jest"
+    "test": "lerna run test"
   },
   "devDependencies": {
-    "jest": "^26.2.2",
-    "lerna": "^3.22.1"
   },
   "workspaces": [
     "packages/*"
