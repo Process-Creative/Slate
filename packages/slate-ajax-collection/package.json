@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-ajax-collection",
-  "version": "2.1.45",
+  "version": "2.1.46",
   "main": "dist/index.js",
   "scripts": {
     "build:production": "tsc -p .",
