@@ -5,7 +5,7 @@ import { Framework } from './framework';
 
 const PACKAGE_SLATE2 = '@process-creative/slate-tools';
 const PACKAGE_SLATE1_0 = '@shopify/slate'; 
-const PACKAGE_PC_SLATE_TOOLS = '@process-creative/pc-slate-tools';
+const PACKAGE_PC_SLATE_TOOLS = '@process-creative/slate-theme-tools';
 
 export type ThemeInfo = {
   framework:Framework;
