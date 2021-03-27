@@ -63,8 +63,8 @@ renamed to be more appropriate soon
 ## Roadmap
 Bellow is our roadmap, it's in an "ideal" order but priorities do shift and this
 will not be absolute.
-- Resolve known bugs and update packages to the new decade.
-- Try and rewrite some of the modules in TypeScript and normalize the codebase
+- ~~Resolve known bugs and update packages to the new decade.~~
+- ~~Try and rewrite some of the modules in TypeScript and normalize the codebase~~
 - Restore a slate.config.js or similar method of customising the build
 - Write some documentation and Unit tests
 - Build some common libraries and tools that are being written multiple times

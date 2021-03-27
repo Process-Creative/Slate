@@ -1,8 +1,7 @@
 import chalk from 'chalk';
-import figures from 'figures';
 import * as https from 'https';
-import themekit from '@shopify/themekit';
-import slateEnv from '@process-creative/slate-env';
+import { command as ThemekitCommand } from '@shopify/themekit';
+import * as slateEnv from '@process-creative/slate-env';
 import { config } from './config';
 
 let deploying = false;
@@ -49,12 +48,17 @@ const validateEnvValues = () => {
 const generateConfigFlags = () => {
   validateEnvValues();
 
-  const flags = {
+  const flags:{
+    password:string;
+    themeId:string;
+    store:string;
+    env:string;
+    timeout?:string;
+  } = {
     password: slateEnv.getPasswordValue(),
     themeId: slateEnv.getThemeIdValue(),
     store: slateEnv.getStoreValue(),
-    env: slateEnv.getEnvNameValue(),
-    timeout: undefined as undefined|string
+    env: slateEnv.getEnvNameValue()
   };
 
   if (slateEnv.getTimeoutValue()) {
@@ -89,7 +93,7 @@ const deploy = async (replace:boolean=false, files:string[]=[]) => {
 
 /** Executes the configuration command. */
 const promiseThemekitConfig = async () => {
-  return await themekit(
+  return await ThemekitCommand(
     'configure',
     { ...generateConfigFlags(), ignoredFiles: generateIgnoreFlags() },
     { cwd: config.get('paths.theme.dist') }
@@ -97,7 +101,7 @@ const promiseThemekitConfig = async () => {
 };
 
 const promiseThemekitDeploy = async (cmd:string, replace:boolean, files:string[]) => {
-  const deployment = await themekit(
+  const deployment = await ThemekitCommand(
     cmd,
     {
       noUpdateNotifier: true,
