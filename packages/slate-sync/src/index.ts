@@ -1,53 +1,62 @@
-const chalk = require('chalk');
-const figures = require('figures');
-const https = require('https');
-const themekit = require('@shopify/themekit').command;
-const slateEnv = require('@process-creative/slate-env');
-const { config } = require('./schema.js')
+import chalk from 'chalk';
+import figures from 'figures';
+import * as https from 'https';
+import themekit from '@shopify/themekit';
+import slateEnv from '@process-creative/slate-env';
+import { config } from './config';
 
 let deploying = false;
 let filesToDeploy = [];
 
-function maybeDeploy() {
-  if (deploying) {
-    return Promise.reject(new Error('Deploy already in progress.'));
-  }
+/**
+ * Deploys only if deployment is necessary. Throws an error if already mid
+ * deployment.
+ * 
+ * @returns A promise that resolves when deployment is complete. 
+ */
+const maybeDeploy = async () => {
+  if (deploying) new Error('Deploy already in progress.');
 
   if (filesToDeploy.length) {
     const files = [...filesToDeploy];
     filesToDeploy = [];
-    return deploy('deploy', false, files);
+    return await deploy(false, files);
   }
-
-  return Promise.resolve();
 }
 
-function _validateEnvValues() {
+/**
+ * Validates slate environment variables, if failed the program will terminate.
+ */
+const validateEnvValues = () => {
   const result = slateEnv.validate();
+  if(result.isValid) return;
 
-  if (!result.isValid) {
-    console.log(
-      chalk.red(
-        `Some values in environment '${slateEnv.getEnvNameValue()}' are invalid:`,
-      ),
-    );
-    result.errors.forEach((error) => {
-      console.log(chalk.red(`- ${error}`));
-    });
+  console.log(chalk.red(
+    `Some values in environment '${slateEnv.getEnvNameValue()}' are invalid:`,
+  ));
+  result.errors.forEach((error) => {
+    console.log(chalk.red(`- ${error}`));
+  });
 
-    process.exit(1);
-  }
+  process.exit(1);
 }
 
-function _generateConfigFlags() {
-  _validateEnvValues();
+/**
+ * Generates Configuration flags to send to themekit.
+ * 
+ * @returns Theme Kit ready command line flags.
+ */
+const generateConfigFlags = () => {
+  validateEnvValues();
 
   const flags = {
     password: slateEnv.getPasswordValue(),
     themeId: slateEnv.getThemeIdValue(),
     store: slateEnv.getStoreValue(),
     env: slateEnv.getEnvNameValue(),
+    timeout: undefined as undefined|string
   };
+
   if (slateEnv.getTimeoutValue()) {
     flags.timeout = slateEnv.getTimeoutValue();
   }
@@ -56,74 +65,48 @@ function _generateConfigFlags() {
   return flags;
 }
 
-function _generateIgnoreFlags() {
+/**
+ * Generates the array of ignore flags to supply to themekit.
+ * 
+ * @returns Array of ignored file patterns.
+ */
+const generateIgnoreFlags = () => {
   const ignoreFiles = slateEnv.getIgnoreFilesValue().split(':');
-  const flags = [];
-
-  ignoreFiles.forEach((pattern) => {
-    if (pattern.length > 0) {
-      flags.push(pattern);
-    }
-  });
-
-  return flags;
+  return ignoreFiles.filter(pattern => pattern.length);
 }
 
 /**
  * Deploy to Shopify using themekit.
- *
- * @param   cmd     String    The command to run
- * @param   files   Array     An array of files to deploy
- * @return          Promise
  */
-async function deploy(cmd = '', replace = false, files = []) {
-  if (!cmd === 'deploy') {
-    throw new Error(`shopify-deploy.deploy() first argument must be "deploy"`);
-  }
-
+const deploy = async (replace:boolean=false, files:string[]=[]) => {
   deploying = true;
-
-  // console.log(chalk.magenta(`\n${figures.arrowUp}  Uploading to Shopify...\n`));
-
-  try {
-    await promiseThemekitConfig();
-    await promiseThemekitDeploy(cmd, replace, files);
-  } catch (error) {
-    console.error(`${cmd}`, error);
-  }
-
+  await promiseThemekitConfig();
+  await promiseThemekitDeploy('deploy', replace, files);
   deploying = false;
 
   return maybeDeploy;
 }
 
-async function promiseThemekitConfig() {
-  const configure = await themekit(
+/** Executes the configuration command. */
+const promiseThemekitConfig = async () => {
+  return await themekit(
     'configure',
-    {
-      ..._generateConfigFlags(),
-      ignoredFiles: _generateIgnoreFlags(),
-    },
-    {
-      cwd: config.get('paths.theme.dist'),
-    },
+    { ...generateConfigFlags(), ignoredFiles: generateIgnoreFlags() },
+    { cwd: config.get('paths.theme.dist') }
   );
-  return configure;
-}
+};
 
-async function promiseThemekitDeploy(cmd, replace, files) {
+const promiseThemekitDeploy = async (cmd:string, replace:boolean, files:string[]) => {
   const deployment = await themekit(
     cmd,
     {
       noUpdateNotifier: true,
-      ..._generateConfigFlags(),
-      files: [...files],
+      ...generateConfigFlags(),
+      files: [ ...files ],
       noDelete: !replace,
       'allow-live': true
     },
-    {
-      cwd: config.get('paths.theme.dist'),
-    },
+    { cwd: config.get('paths.theme.dist') }
   );
   return deployment;
 }
@@ -134,8 +117,8 @@ async function promiseThemekitDeploy(cmd, replace, files) {
  * @param   env   String  The environment to check against
  * @return        Promise Reason for abort or the main theme ID
  */
-function fetchMainThemeId() {
-  _validateEnvValues();
+export const fetchMainThemeId = () => {
+  validateEnvValues();
 
   return new Promise((resolve, reject) => {
     https.get(
@@ -144,15 +127,11 @@ function fetchMainThemeId() {
         path: '/admin/themes.json',
         auth: `:${slateEnv.getPasswordValue}`,
         agent: false,
-        headers: {
-          'X-Shopify-Access-Token': slateEnv.getPasswordValue(),
-        },
+        headers: { 'X-Shopify-Access-Token': slateEnv.getPasswordValue() },
       },
-      (res) => {
+      res => {
         let body = '';
-
         res.on('data', (datum) => (body += datum));
-
         res.on('end', () => {
           const parsed = JSON.parse(body);
 
@@ -204,24 +183,11 @@ function fetchMainThemeId() {
   });
 }
 
-module.exports = {
-  sync(files = []) {
-    if (!files.length) {
-      return Promise.reject(new Error('No files to deploy.'));
-    }
-
-    filesToDeploy = [...new Set([...filesToDeploy, ...files])];
-
-    return maybeDeploy();
-  },
-
-  replace() {
-    return deploy('deploy', true);
-  },
-
-  upload() {
-    return deploy('deploy', false);
-  },
-
-  fetchMainThemeId,
+export const sync = async (files:string[] = []) => {
+  if (!files.length) new Error('No files to deploy.');
+  filesToDeploy = [ ...new Set([ ...filesToDeploy, ...files ]) ];
+  return await maybeDeploy();
 };
+
+export const replace = () => deploy(true);
+export const upload = () => deploy(false);
