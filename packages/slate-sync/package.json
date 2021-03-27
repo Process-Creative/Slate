@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-sync",
-  "version": "2.1.45",
+  "version": "2.1.47",
   "main": "dist/index.js",
   "scripts": {
     "build:production": "tsc -p .",
