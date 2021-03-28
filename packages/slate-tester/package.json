@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tester",
-  "version": "2.1.45",
+  "version": "2.1.49",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/cli/test",
@@ -17,7 +17,7 @@
     "access": "restricted"
   },
   "dependencies": {
-    "@process-creative/slate-env": "2.1.45",
+    "@process-creative/slate-env": "2.1.49",
     "inquirer": "^7.3.3",
     "minimist": "^1.2.5",
     "rimraf": "^3.0.2",
