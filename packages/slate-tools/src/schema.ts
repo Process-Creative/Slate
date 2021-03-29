@@ -3,8 +3,9 @@ import * as os from 'os';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano'
 import { SchemaPaths, SCHEMA_PATHS, slateConfigCreate, slateSchemaCreate } from '@process-creative/slate-config';
+import { SchemaEnv, SCHEMA_ENV } from '@process-creative/slate-env';
 
-export type SchemaTools = SchemaPaths & {
+export type SchemaTools = SchemaPaths & SchemaEnv & {
   /** Enable/disable the prompt to skip uploading settings_data.json */
   'cli.promptSettings':boolean;
 
@@ -86,7 +87,7 @@ export type SchemaTools = SchemaPaths & {
 
 //Encapsulating to preserve type definitioxns
 export const SCHEMA_TOOLS = slateSchemaCreate<SchemaTools>(config => ({
-  ...SCHEMA_PATHS(config),
+  ...SCHEMA_ENV(config),
   
   'cli.promptSettings': true,
 

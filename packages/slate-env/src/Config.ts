@@ -52,6 +52,30 @@ export type SchemaEnv = SchemaPaths & {
    * Timeout upload is
    */
   'env.keys.timeout':string;
+
+  /** Distribution directory of theme */
+  'paths.theme.dist':string;
+
+  /** Distribution assets directory */
+  'paths.theme.dist.assets':string;
+
+  /** Distribution assets directory */
+  'paths.theme.dist.config':string;
+
+  /** Distribution of theme liquid layout files */
+  'paths.theme.dist.layout':string;
+
+  /** Distribution snippets directory */
+  'paths.theme.dist.snippets':string;
+
+  /** Distribution snippets directory */
+  'paths.theme.dist.locales':string;
+
+  /** Distribution sections directory */
+  'paths.theme.dist.sections':string;
+
+  /** Distribution templates directory */
+  'paths.theme.dist.templates':string;
 }
 
 export const SCHEMA_ENV = slateSchemaCreate<SchemaEnv>(config => ({
@@ -70,6 +94,33 @@ export const SCHEMA_ENV = slateSchemaCreate<SchemaEnv>(config => ({
   'env.keys.themeId': 'SLATE_THEME_ID',
   'env.keys.ignoreFiles': 'SLATE_IGNORE_FILES',
   'env.keys.timeout': 'SLATE_TIMEOUT',
+
+  'paths.theme.dist': () => {
+    const dir = path.join(config.get('paths.theme'), 'dist');
+    const name = process.env[config.get('env.keys.name')] || 'default';
+    return path.join(dir, name);
+  },
+
+  'paths.theme.dist.assets': () =>
+    path.join(config.get('paths.theme.dist'), 'assets'),
+
+  'paths.theme.dist.config': () =>
+    path.join(config.get('paths.theme.dist'), 'config'),
+
+  'paths.theme.dist.layout': () =>
+    path.join(config.get('paths.theme.dist'), 'layout'),
+
+  'paths.theme.dist.snippets': () =>
+    path.join(config.get('paths.theme.dist'), 'snippets'),
+
+  'paths.theme.dist.locales': () =>
+    path.join(config.get('paths.theme.dist'), 'locales'),
+
+  'paths.theme.dist.sections': () =>
+    path.join(config.get('paths.theme.dist'), 'sections'),
+
+  'paths.theme.dist.templates': () =>
+    path.join(config.get('paths.theme.dist'), 'templates'),
 }));
 
 export const config = slateConfigCreate(SCHEMA_ENV);
