@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
-  "version": "2.1.52",
+  "version": "2.1.53",
   "scripts": {
     "env": "slate-tools env",
     "start": "slate-tools start",
@@ -17,7 +17,7 @@
   "dependencies": {
     "@process-creative/slate-components": "2.1.51",
     "@process-creative/slate-theme-tools": "2.1.51",
-    "@process-creative/slate-tools": "2.1.52",
+    "@process-creative/slate-tools": "2.1.53",
     "keen-slider": "5.2.3",
     "normalize.css": "8.0.1"
   },
