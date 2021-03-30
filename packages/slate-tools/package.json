@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tools",
-  "version": "2.1.49",
+  "version": "2.1.50",
   "bin": {
     "slate-tools": "./src/cli/index.ts"
   },
@@ -12,11 +12,11 @@
     "@babel/core": "7.13.8",
     "@babel/preset-env": "7.13.9",
     "@babel/preset-typescript": "7.13.0",
-    "@process-creative/slate-config": "2.1.49",
-    "@process-creative/slate-env": "2.1.49",
-    "@process-creative/slate-sections-plugin": "2.1.38",
-    "@process-creative/slate-sync": "2.1.49",
-    "@process-creative/slate-tag-webpack-plugin": "2.1.38",
+    "@process-creative/slate-config": "2.1.50",
+    "@process-creative/slate-env": "2.1.50",
+    "@process-creative/slate-sections-plugin": "2.1.50",
+    "@process-creative/slate-sync": "2.1.50",
+    "@process-creative/slate-tag-webpack-plugin": "2.1.50",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
     "@types/archiver": "5.1.0",
     "@types/autoprefixer": "9.7.2",

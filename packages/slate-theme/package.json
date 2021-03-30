@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme",
-  "version": "2.1.49",
+  "version": "2.1.50",
   "scripts": {
     "env": "slate-tools env",
     "start": "slate-tools start",
@@ -15,9 +15,9 @@
     "test": "npm run build"
   },
   "dependencies": {
-    "@process-creative/slate-components": "2.1.46",
-    "@process-creative/slate-theme-tools": "2.1.45",
-    "@process-creative/slate-tools": "2.1.49",
+    "@process-creative/slate-components": "2.1.50",
+    "@process-creative/slate-theme-tools": "2.1.50",
+    "@process-creative/slate-tools": "2.1.50",
     "keen-slider": "5.2.3",
     "normalize.css": "8.0.1"
   },
