@@ -1,5 +1,5 @@
 export const refreshCheckout = () => {
-  return new Promise((resolve,reject) => {
+  return new Promise<void>((resolve,reject) => {
     try {
       window['OrderSummaryUpdater'].prototype.refresh(() => {
         resolve();

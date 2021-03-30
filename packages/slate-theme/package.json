@@ -18,9 +18,8 @@
     "@process-creative/slate-components": "2.1.46",
     "@process-creative/slate-theme-tools": "2.1.45",
     "@process-creative/slate-tools": "2.1.49",
-    "@types/archiver": "^5.1.0",
-    "keen-slider": "^5.2.3",
-    "normalize.css": "^8.0.1"
+    "keen-slider": "5.2.3",
+    "normalize.css": "8.0.1"
   },
   "repository": {
     "type": "git",
