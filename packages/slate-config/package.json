@@ -20,7 +20,7 @@
     "utility-types": "3.10.0"
   },
   "dependencies": {
-    "tsc": "1.20150623.0+f2044a901165a2a97813772353b57dd9ed4796ca",
-    "typescript": "4.2.2"
+    "tsc": "^1.20150623.0+f2044a901165a2a97813772353b57dd9ed4796ca",
+    "typescript": "^4.2.2"
   }
 }

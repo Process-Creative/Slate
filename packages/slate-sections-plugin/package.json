@@ -19,7 +19,7 @@
     "access": "restricted"
   },
   "devDependencies": {
-    "tsc": "1.20150623",
-    "typescript": "4.2.2"
+    "tsc": "^1.20150623",
+    "typescript": "^4.2.2"
   }
 }
