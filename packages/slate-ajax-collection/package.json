@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-ajax-collection",
-  "version": "2.1.46",
+  "version": "2.1.50",
   "main": "dist/index.js",
   "scripts": {
     "build:production": "tsc -p .",
@@ -16,7 +16,7 @@
     "access": "restricted"
   },
   "dependencies": {
-    "@process-creative/slate-theme-tools": "2.1.45",
+    "@process-creative/slate-theme-tools": "2.1.50",
     "jquery": "3.6.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tag-webpack-plugin",
-  "version": "2.1.38",
+  "version": "2.1.50",
   "main": "./dist/index.js",
   "repository": {
     "type": "git",
