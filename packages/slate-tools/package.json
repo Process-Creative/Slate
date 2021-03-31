@@ -2,7 +2,7 @@
   "name": "@process-creative/slate-tools",
   "version": "2.1.52",
   "bin": {
-    "slate-tools": "./src/cli/index.ts"
+    "slate-tools": "./dist/cli/index.js"
   },
   "scripts": {
     "build": "npm run tsc",
@@ -53,7 +53,7 @@
     "fs-extra": "9.0.1",
     "html-loader": "1.3.2",
     "html-webpack-include-assets-plugin": "2.0.0",
-    "html-webpack-plugin": "4.5.2",
+    "html-webpack-plugin": "4.5.0",
     "img-loader": "3.0.1",
     "inquirer": "7.3.3",
     "ip": "1.1.5",
