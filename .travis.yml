@@ -11,9 +11,9 @@ install:
   - npm install -g lerna
   - npm install -g yarn
   - yarn bootstrap
-
-before_script:
   - yarn tsc
+  - yarn bootstrap
+
 script:
   - yarn test
 before_deploy:
