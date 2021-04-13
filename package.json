@@ -16,7 +16,8 @@
     "sign": "lerna run sign",
     "tsc": "lerna run tsc",
     "check": "lerna run check",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "binlink": "lerna link"
   },
   "devDependencies": {
   },
