@@ -1,6 +1,6 @@
 import { slateToolsConfig } from '../../../schema';
-import { getLayoutEntryPoints } from '../utilities/get-layout-entrypoints';
-import { getTemplateEntryPoints } from '../utilities/get-template-entrypoints';
+import { getLayoutEntryPoints } from '../../utilities/get-layout-entrypoints';
+import { getTemplateEntryPoints } from '../../utilities/get-template-entrypoints';
 
 export const partEntry = {
   entry: {

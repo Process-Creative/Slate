@@ -14,9 +14,7 @@
     "@babel/preset-typescript": "7.13.0",
     "@process-creative/slate-config": "2.1.51",
     "@process-creative/slate-env": "2.1.51",
-    "@process-creative/slate-sections-plugin": "2.1.51",
     "@process-creative/slate-sync": "2.1.51",
-    "@process-creative/slate-tag-webpack-plugin": "2.1.51",
     "@shopify/html-webpack-liquid-asset-tags-plugin": "1.0.0-beta.11",
     "@types/archiver": "5.1.0",
     "@types/autoprefixer": "9.7.2",
@@ -83,6 +81,7 @@
     "webpack-dev-middleware": "3.7.3",
     "webpack-hot-middleware": "2.25.0",
     "webpack-merge": "5.7.3",
+    "webpack-sources": "1.4.3",
     "write-file-webpack-plugin": "4.5.1",
     "yamljs": "0.3.0",
     "yargs": "15.4.1"
