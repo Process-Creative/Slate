@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.55](https://github.com/Process-Creative/slate/compare/v2.1.54...v2.1.55) (2021-04-14)
+
+**Note:** Version bump only for package @process-creative/slate-tools
+
+
+
+
+
 ## [2.1.54](https://github.com/Process-Creative/slate/compare/v2.1.53...v2.1.54) (2021-04-13)
 
 **Note:** Version bump only for package @process-creative/slate-tools
