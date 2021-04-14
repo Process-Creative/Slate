@@ -1,10 +1,9 @@
 import * as path from 'path'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { slateToolsConfig } from '../../../schema';
+import { PATH_SLATE_TOOLS_SRC } from '../../../utils/paths';
 
-const PATH_UTILITIES = path.resolve(
-  __dirname, '..', '..', '..', '..', 'src', 'webpack', 'config', 'utilities'
-);
+const PATH_UTILITIES = path.resolve(PATH_SLATE_TOOLS_SRC, 'webpack', 'utilities');
 
 export const partBabel = {
   module: {

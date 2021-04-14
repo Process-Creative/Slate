@@ -9,7 +9,7 @@ import { partBabel } from './parts/babel';
 import { partEntry } from './parts/entry';
 import { partSass } from './parts/sass';
 import { partCss } from './parts/css';
-import { chunkGetName } from '../../utils/get-chunk-name';
+import { chunkGetName } from '../utilities/get-chunk-name';
 
 import { getScriptTemplate } from './../templates/script-tags-template';
 import { getStyleTemplate } from './../templates/style-tags-template';

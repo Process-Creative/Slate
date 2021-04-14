@@ -14,8 +14,8 @@ import { continueIfPulishedTheme } from './../prompts/continue-if-published-them
 import {promptSkipSettingsData} from './../prompts/skip-settings-data';
 import {promptExternalTesting} from './../prompts/external-testing';
 
-import { AssetServer } from '../../server/asset-server';
-import { DevServer } from '../../server/dev-server';
+import { AssetServer } from '../../webpack/server/asset-server';
+import { DevServer } from '../../webpack/server/dev-server';
 import webpackConfig from '../../webpack/config/dev';
 import { getAvailablePortSeries } from '../../utils/network';
 import { slateToolsConfig } from './../../schema';
