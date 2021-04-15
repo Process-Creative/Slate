@@ -14,8 +14,8 @@ import minimist from 'minimist';
 import chalk from 'chalk';
 import { continueIfPulishedTheme } from '../prompts/continue-if-published-theme';
 import { replace, upload } from '../../shopify/sync';
-import { validate } from '../../config/tasks';
-import { getEnvNameValue } from '../../config/value';
+import { validate } from '../../env/tasks';
+import { getEnvNameValue } from '../../env/value';
 
 const argv = minimist(process.argv.slice(2));
 

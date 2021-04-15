@@ -3,7 +3,7 @@ import inquirer from 'inquirer';
 import figures from 'figures';
 import { argv } from 'yargs';
 import { fetchMainThemeId } from '../../shopify/sync';
-import { getThemeIdValue } from '../../config/value';
+import { getThemeIdValue } from '../../env/value';
 
 const question = {
   type: 'confirm',

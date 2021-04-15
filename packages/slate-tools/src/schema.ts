@@ -2,7 +2,9 @@ import * as path from 'path';
 import * as os from 'os';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano'
-import { SchemaPaths, SCHEMA_PATHS, slateConfigCreate, slateSchemaCreate } from '@process-creative/slate-config';
+import { SchemaPaths, SCHEMA_PATHS } from './config/path';
+import { slateSchemaCreate } from './config/schema';
+import { slateConfigCreate } from './config/config';
 
 export type SchemaTools = SchemaPaths & {
   /** The filename of the default env file */

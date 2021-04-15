@@ -1,6 +1,6 @@
 import open from 'open';
-import { getSlateEnv } from '../../config/env';
-import { getThemePreviewUrl } from '../../config/utils';
+import { getSlateEnv } from '../../env/env';
+import { getThemePreviewUrl } from '../../env/utils';
 
 (async () => {
   const env = getSlateEnv();

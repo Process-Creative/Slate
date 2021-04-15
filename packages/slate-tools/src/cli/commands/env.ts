@@ -1,5 +1,5 @@
 import minimist from 'minimist';
-import { create } from '../../config/tasks';
+import { create } from '../../env/tasks';
 
 const argv = minimist(process.argv.slice(2));
 

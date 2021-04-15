@@ -1,7 +1,7 @@
 import browserSync, { BrowserSyncInstance } from 'browser-sync';
 import { getSSLKeyPath, getSSLCertPath } from '../../utils/ssl';
 import { Request, Response, NextFunction } from 'express';
-import { getStoreValue, getThemeIdValue } from '../../config/value';
+import { getStoreValue, getThemeIdValue } from '../../env/value';
 
 type DevServerOptions = {
   port:number;

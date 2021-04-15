@@ -2,8 +2,8 @@ import chalk from 'chalk';
 import * as https from 'https';
 import { command as ThemekitCommand } from '@shopify/themekit';
 import { slateToolsConfig } from './../schema';
-import { validate } from '../config/tasks';
-import { getEnvNameValue, getPasswordValue, getThemeIdValue, getStoreValue, getTimeoutValue, getIgnoreFilesValue } from '../config/value';
+import { validate } from '../env/tasks';
+import { getEnvNameValue, getPasswordValue, getThemeIdValue, getStoreValue, getTimeoutValue, getIgnoreFilesValue } from '../env/value';
 
 let deploying = false;
 let filesToDeploy = [];

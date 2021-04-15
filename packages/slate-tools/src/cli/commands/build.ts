@@ -12,8 +12,8 @@ import webpack from 'webpack';
 import webpackConfig from './../../webpack/config/prod';
 import minimist from 'minimist';
 import chalk from 'chalk';
-import { validate } from '../../config/tasks';
-import { getEnvNameValue } from '../../config/value';
+import { validate } from '../../env/tasks';
+import { getEnvNameValue } from '../../env/value';
 
 const argv = minimist(process.argv.slice(2));
 

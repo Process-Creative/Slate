@@ -2,7 +2,7 @@
 import spawn from 'cross-spawn';
 import chalk from 'chalk';
 import minimist from 'minimist';
-import { assign } from '../config/tasks';
+import { assign } from '../env/tasks';
 
 const argv = minimist(process.argv.slice(2));
 const script = process.argv[2];

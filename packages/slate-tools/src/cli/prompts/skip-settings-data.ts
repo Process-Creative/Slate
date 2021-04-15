@@ -4,7 +4,7 @@ import figures from 'figures';
 import minimatch from 'minimatch';
 import { argv } from 'yargs';
 import { slateToolsConfig } from './../../schema';
-import { getIgnoreFilesValue } from '../../config/value';
+import { getIgnoreFilesValue } from '../../env/value';
 
 const question = {
   type: 'confirm',

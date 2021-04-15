@@ -19,7 +19,7 @@ import webpackConfig from '../../webpack/config/dev';
 import { getAvailablePortSeries } from '../../utils/network';
 import { slateToolsConfig } from './../../schema';
 import webpack from 'webpack';
-import { getStoreValue, getThemeIdValue } from '../../config/value';
+import { getStoreValue, getThemeIdValue } from '../../env/value';
 
 const argv = minimist(process.argv.slice(2));
 const spinner = ora(chalk.magenta(' Compiling...'));
