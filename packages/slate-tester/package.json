@@ -17,7 +17,6 @@
     "access": "restricted"
   },
   "dependencies": {
-    "@process-creative/slate-env": "2.1.51",
     "inquirer": "7.3.3",
     "minimist": "1.2.5",
     "rimraf": "2.7.1",
