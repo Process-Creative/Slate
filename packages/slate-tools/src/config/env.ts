@@ -1,7 +1,7 @@
-import { config } from "./Config";
-import { getFileName } from "./File";
+import { getFileName } from "./file";
 import * as path from 'path';
 import * as fs from 'fs';
+import { slateToolsConfig } from "../schema";
 
 export type SlateEnv = {
   SLATE_STORE:string;
@@ -11,19 +11,19 @@ export type SlateEnv = {
 };
 
 export const SLATE_ENV_VARS:string[] = [
-  config.get('env.keys.name'),
-  config.get('env.keys.store'),
-  config.get('env.keys.password'),
-  config.get('env.keys.themeId'),
-  config.get('env.keys.ignoreFiles'),
-  config.get('env.keys.timeout')
+  slateToolsConfig.get('env.keys.name'),
+  slateToolsConfig.get('env.keys.store'),
+  slateToolsConfig.get('env.keys.password'),
+  slateToolsConfig.get('env.keys.themeId'),
+  slateToolsConfig.get('env.keys.ignoreFiles'),
+  slateToolsConfig.get('env.keys.timeout')
 ];
 
 export const DEFAULT_ENV_VARS:string[] = [
-  config.get('env.keys.store'),
-  config.get('env.keys.password'),
-  config.get('env.keys.themeId'),
-  config.get('env.keys.ignoreFiles'),
+  slateToolsConfig.get('env.keys.store'),
+  slateToolsConfig.get('env.keys.password'),
+  slateToolsConfig.get('env.keys.themeId'),
+  slateToolsConfig.get('env.keys.ignoreFiles'),
 ];
 
 /**
@@ -42,17 +42,17 @@ export const getDefaultSlateEnv = () => {
 export const setEnvName = (name?:string) => {
   let envName = name;
   const envFileName = getFileName(name);
-  const envPath = path.resolve(config.get('env.rootDirectory'), envFileName);
+  const envPath = path.resolve(slateToolsConfig.get('env.rootDirectory'), envFileName);
 
   if (typeof name === 'undefined') {
     if (fs.existsSync(envPath)) {
-      envName = config.get('env.defaultEnvName');
+      envName = slateToolsConfig.get('env.defaultEnvName');
     } else {
-      envName = config.get('env.externalEnvName');
+      envName = slateToolsConfig.get('env.externalEnvName');
     }
   }
 
-  const x = config.get('env.keys.name');
+  const x = slateToolsConfig.get('env.keys.name');
   process.env[x] = envName;
 }
 

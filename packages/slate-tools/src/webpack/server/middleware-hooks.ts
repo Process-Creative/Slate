@@ -1,6 +1,6 @@
 import { SyncHook, AsyncSeriesHook } from 'tapable';
-import { sync } from '@process-creative/slate-sync';
 import webpack from 'webpack';
+import { sync } from '../../shopify/sync';
 export interface ClientHooks {
   beforeSync:AsyncSeriesHook<(string[] | webpack.Stats)[]>,
   sync:SyncHook<(string[] | webpack.Stats)[]>,

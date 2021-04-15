@@ -1,8 +1,9 @@
 import chalk from 'chalk';
 import * as https from 'https';
 import { command as ThemekitCommand } from '@shopify/themekit';
-import * as slateEnv from '@process-creative/slate-env';
-import { config } from './config';
+import { slateToolsConfig } from './../schema';
+import { validate } from '../config/tasks';
+import { getEnvNameValue, getPasswordValue, getThemeIdValue, getStoreValue, getTimeoutValue, getIgnoreFilesValue } from '../config/value';
 
 let deploying = false;
 let filesToDeploy = [];
@@ -27,11 +28,11 @@ const maybeDeploy = async () => {
  * Validates slate environment variables, if failed the program will terminate.
  */
 const validateEnvValues = () => {
-  const result = slateEnv.validate();
+  const result = validate();
   if(result.isValid) return;
 
   console.log(chalk.red(
-    `Some values in environment '${slateEnv.getEnvNameValue()}' are invalid:`,
+    `Some values in environment '${getEnvNameValue()}' are invalid:`,
   ));
   result.errors.forEach((error) => {
     console.log(chalk.red(`- ${error}`));
@@ -55,14 +56,14 @@ const generateConfigFlags = () => {
     env:string;
     timeout?:string;
   } = {
-    password: slateEnv.getPasswordValue(),
-    themeId: slateEnv.getThemeIdValue(),
-    store: slateEnv.getStoreValue(),
-    env: slateEnv.getEnvNameValue()
+    password: getPasswordValue(),
+    themeId: getThemeIdValue(),
+    store: getStoreValue(),
+    env: getEnvNameValue()
   };
 
-  if (slateEnv.getTimeoutValue()) {
-    flags.timeout = slateEnv.getTimeoutValue();
+  if (getTimeoutValue()) {
+    flags.timeout = getTimeoutValue();
   }
 
   // Convert object to key value pairs and flatten the array
@@ -75,7 +76,7 @@ const generateConfigFlags = () => {
  * @returns Array of ignored file patterns.
  */
 const generateIgnoreFlags = () => {
-  const ignoreFiles = slateEnv.getIgnoreFilesValue().split(':');
+  const ignoreFiles = getIgnoreFilesValue().split(':');
   return ignoreFiles.filter(pattern => pattern.length);
 }
 
@@ -96,7 +97,7 @@ const promiseThemekitConfig = async () => {
   return await ThemekitCommand(
     'configure',
     { ...generateConfigFlags(), ignoredFiles: generateIgnoreFlags() },
-    { cwd: config.get('paths.theme.dist') }
+    { cwd: slateToolsConfig.get('paths.theme.dist') }
   );
 };
 
@@ -110,7 +111,7 @@ const promiseThemekitDeploy = async (cmd:string, replace:boolean, files:string[]
       noDelete: !replace,
       'allow-live': true
     },
-    { cwd: config.get('paths.theme.dist') }
+    { cwd: slateToolsConfig.get('paths.theme.dist') }
   );
   return deployment;
 }
@@ -127,11 +128,11 @@ export const fetchMainThemeId = () => {
   return new Promise((resolve, reject) => {
     https.get(
       {
-        hostname: slateEnv.getStoreValue(),
+        hostname: getStoreValue(),
         path: '/admin/themes.json',
-        auth: `:${slateEnv.getPasswordValue}`,
+        auth: `:${getPasswordValue}`,
         agent: false,
-        headers: { 'X-Shopify-Access-Token': slateEnv.getPasswordValue() },
+        headers: { 'X-Shopify-Access-Token': getPasswordValue() },
       },
       res => {
         let body = '';

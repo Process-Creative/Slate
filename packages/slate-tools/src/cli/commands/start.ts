@@ -7,7 +7,6 @@ import figures from 'figures';
 import chalk from 'chalk';
 import ora from 'ora';
 import ip from 'ip';
-import * as env from '@process-creative/slate-env';
 import open from 'open';
 
 import { continueIfPulishedTheme } from './../prompts/continue-if-published-theme';
@@ -20,6 +19,7 @@ import webpackConfig from '../../webpack/config/dev';
 import { getAvailablePortSeries } from '../../utils/network';
 import { slateToolsConfig } from './../../schema';
 import webpack from 'webpack';
+import { getStoreValue, getThemeIdValue } from '../../config/value';
 
 const argv = minimist(process.argv.slice(2));
 const spinner = ora(chalk.magenta(' Compiling...'));
@@ -54,7 +54,7 @@ Promise.all([
       address,
     });
 
-    previewUrl = `https://${env.getStoreValue()}?preview_theme_id=${env.getThemeIdValue()}`;
+    previewUrl = `https://${getStoreValue()}?preview_theme_id=${getThemeIdValue()}`;
 
     assetServer.compiler.hooks.compile.tap('CLI', onCompilerCompile);
     assetServer.compiler.hooks.done.tap('CLI', onCompilerDone);
@@ -156,7 +156,7 @@ const logPreviewInformation = (devServer: DevServer) => {
     `${chalk.yellow(
       figures.star,
     )}  You are editing files in theme ${chalk.green(
-      env.getThemeIdValue(),
+      getThemeIdValue(),
     )} on the following store:\n`,
   );
 
