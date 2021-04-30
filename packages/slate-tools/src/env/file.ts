@@ -1,6 +1,6 @@
-import { config } from "./Config";
-import { getDefaultSlateEnv } from "./Env";
+import { getDefaultSlateEnv } from "./env";
 import * as path from 'path';
+import { slateToolsConfig } from "../schema";
 
 /**
  * Return the default env file name, with optional name appended
@@ -8,9 +8,9 @@ import * as path from 'path';
  */
 export const getFileName = (name?:string):string => {
   if (typeof name === 'undefined' || name.trim() === '') {
-    return config.get('env.basename');
+    return slateToolsConfig.get('env.basename');
   }
-  return `${config.get('env.basename')}.${name}`;
+  return `${slateToolsConfig.get('env.basename')}.${name}`;
 }
 
 /**
@@ -19,7 +19,7 @@ export const getFileName = (name?:string):string => {
  */
 export const getFilePath = (name?:string) => {
   const envFileName = getFileName(name);
-  const envPath = path.resolve(config.get('env.rootDirectory'), envFileName);
+  const envPath = path.resolve(slateToolsConfig.get('env.rootDirectory'), envFileName);
   return envPath;
 }
 

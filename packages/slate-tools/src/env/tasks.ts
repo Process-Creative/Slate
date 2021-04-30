@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
-import { config } from './Config';
-import { getFileName, getFileContents, getFilePath } from './File';
-import { setEnvName, SLATE_ENV_VARS } from './Env';
-import { validateStore, validatePassword, validateThemeId } from './Validate';
+import { getFileName, getFileContents, getFilePath } from './file';
+import { setEnvName, SLATE_ENV_VARS } from './env';
+import { validateStore, validatePassword, validateThemeId } from './validate';
+import { slateToolsConfig } from '../schema';
 
 interface ICreateParams {
   values?:string[];
@@ -15,7 +15,7 @@ interface ICreateParams {
 export const create = ({ values, name, root }:ICreateParams) => {
   const envName = getFileName(name);
   const envPath = path.resolve(
-    root || config.get('env.rootDirectory'),
+    root || slateToolsConfig.get('env.rootDirectory'),
     envName,
   );
   const envContents = getFileContents(values);

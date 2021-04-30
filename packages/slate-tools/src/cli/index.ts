@@ -2,16 +2,15 @@
 import spawn from 'cross-spawn';
 import chalk from 'chalk';
 import minimist from 'minimist';
-import * as slateEnv from '@process-creative/slate-env';
+import { assign } from '../env/tasks';
 
 const argv = minimist(process.argv.slice(2));
 const script = process.argv[2];
 const args = process.argv.slice(3);
 
 try {
-  slateEnv.assign(argv.env);
+  assign(argv.env);
 } catch (error) {
-  console.error(slateEnv);
   console.log(chalk.red(error));
   process.exit(1);
 }

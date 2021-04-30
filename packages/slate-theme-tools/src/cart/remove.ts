@@ -1,9 +1,9 @@
-import * as $ from 'jquery';
 import {
   addTask, removeTask, nextTask,
   addFinishTrigger, errorQueue
 } from './queue';
 import { ON_ITEM_REMOVED } from './events';
+import { jq } from '../jquery';
 
 //Promise based
 export const removeFromCart = (line:number) => {
@@ -43,7 +43,7 @@ export const removeFromCartCB = (line:number, callback?:any, errorCallback?:any)
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);

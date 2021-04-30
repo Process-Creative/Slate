@@ -3,8 +3,8 @@ import inquirer from 'inquirer';
 import figures from 'figures';
 import minimatch from 'minimatch';
 import { argv } from 'yargs';
-import { getIgnoreFilesValue } from '@process-creative/slate-env';
 import { slateToolsConfig } from './../../schema';
+import { getIgnoreFilesValue } from '../../env/value';
 
 const question = {
   type: 'confirm',

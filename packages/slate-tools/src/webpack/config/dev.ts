@@ -11,8 +11,8 @@ import { partCss } from './parts/css';
 
 import { getScriptTemplate } from './../templates/script-tags-template';
 import { getStyleTemplate } from './../templates/style-tags-template';
-import { getLayoutEntryPoints } from './utilities/get-layout-entrypoints';
-import { getTemplateEntryPoints } from './utilities/get-template-entrypoints';
+import { getLayoutEntryPoints } from '../utilities/get-layout-entrypoints';
+import { getTemplateEntryPoints } from '../utilities/get-template-entrypoints';
 import { HtmlWebpackIncludeLiquidStylesPlugin } from '../plugin/html-webpack-include-chunks';
 import { slateToolsConfig } from '../../schema';
 

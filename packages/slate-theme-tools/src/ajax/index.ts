@@ -1,8 +1,8 @@
-import * as $ from 'jquery';
+import { jq } from '../jquery/';
 
 export const ajaxRequest = <P,R=any>(url:string, method:string, data?:P, params?:any):Promise<R> => {
   return new Promise((resolve, reject) => {
-    $.ajax({
+    jq.ajax({
       url, method, data: (data||{}), ...(params||{}),
       success: (data:R) => {
         resolve(data);

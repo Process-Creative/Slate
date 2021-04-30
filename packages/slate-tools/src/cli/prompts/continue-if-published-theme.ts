@@ -1,9 +1,9 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import * as slateEnv from '@process-creative/slate-env';
-import { fetchMainThemeId } from '@process-creative/slate-sync';
 import figures from 'figures';
 import { argv } from 'yargs';
+import { fetchMainThemeId } from '../../shopify/sync';
+import { getThemeIdValue } from '../../env/value';
 
 const question = {
   type: 'confirm',
@@ -19,7 +19,7 @@ export const continueIfPulishedTheme = async () => {
   }
 
   const publishedThemeId = await fetchMainThemeId() as string;
-  const currentThemeId = slateEnv.getThemeIdValue();
+  const currentThemeId = getThemeIdValue();
 
   if(
     currentThemeId !== 'live' &&

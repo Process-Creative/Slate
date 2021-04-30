@@ -18,6 +18,7 @@
     "@process-creative/slate-components": "2.1.51",
     "@process-creative/slate-theme-tools": "2.1.51",
     "@process-creative/slate-tools": "2.1.55",
+    "dotenv": "^8.2.0",
     "keen-slider": "5.2.3",
     "normalize.css": "8.0.1"
   },

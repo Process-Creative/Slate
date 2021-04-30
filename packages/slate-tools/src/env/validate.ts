@@ -1,25 +1,25 @@
-import { config } from "./Config";
-import { getStoreValue, getPasswordValue, getThemeIdValue } from "./Value";
+import { slateToolsConfig } from "../schema";
+import { getStoreValue, getPasswordValue, getThemeIdValue } from "./value";
 
 export const validateStore = () => {
   const errors = [];
   const store = getStoreValue();
 
   if (store.length === 0) {
-    errors.push(new Error(`${config.get('env.keys.store')} must not be empty`));
+    errors.push(new Error(`${slateToolsConfig.get('env.keys.store')} must not be empty`));
   } else if (
     store.indexOf('.myshopify.com') < 1 &&
     store.indexOf('.myshopify.io') < 1
   ) {
     errors.push(
       new Error(
-        `${config.get('env.keys.store')} must be a valid .myshopify.com URL`,
+        `${slateToolsConfig.get('env.keys.store')} must be a valid .myshopify.com URL`,
       ),
     );
   } else if (store.slice(-1) === '/') {
     errors.push(
       new Error(
-        `${config.get('env.keys.store')} must not end with a trailing slash`,
+        `${slateToolsConfig.get('env.keys.store')} must not end with a trailing slash`,
       ),
     );
   }
@@ -33,12 +33,12 @@ export const validatePassword = () => {
 
   if (password.length === 0) {
     errors.push(
-      new Error(`${config.get('env.keys.password')} must not be empty`),
+      new Error(`${slateToolsConfig.get('env.keys.password')} must not be empty`),
     );
   } else if (!/^\w+$/.test(password)) {
     errors.push(
       new Error(
-        `${config.get(
+        `${slateToolsConfig.get(
           'env.keys.password',
         )} can only contain numbers and letters`,
       ),
@@ -54,12 +54,12 @@ export const validateThemeId = () => {
 
   if (themeId.length === 0) {
     errors.push(
-      new Error(`${config.get('env.keys.themeId')} must not be empty`),
+      new Error(`${slateToolsConfig.get('env.keys.themeId')} must not be empty`),
     );
   } else if (themeId !== 'live' && !/^\d+$/.test(themeId)) {
     errors.push(
       new Error(
-        `${config.get(
+        `${slateToolsConfig.get(
           'env.keys.themeId',
         )} can be set to 'live' or a valid theme ID containing only numbers`,
       ),

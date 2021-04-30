@@ -10,16 +10,17 @@ process.env.NODE_ENV = 'production';
 */
 import webpack from 'webpack';
 import webpackConfig from './../../webpack/config/prod';
-import * as slateEnv from '@process-creative/slate-env';
 import minimist from 'minimist';
 import chalk from 'chalk';
+import { validate } from '../../env/tasks';
+import { getEnvNameValue } from '../../env/value';
 
 const argv = minimist(process.argv.slice(2));
 
-const result = slateEnv.validate();
+const result = validate();
 if(!result.isValid) {
   console.log(chalk.red(
-    `Some values in environment '${slateEnv.getEnvNameValue()}' are invalid:`,
+    `Some values in environment '${getEnvNameValue()}' are invalid:`,
   ));
   result.errors.forEach((error) => {
     console.log(chalk.red(`- ${error}`));

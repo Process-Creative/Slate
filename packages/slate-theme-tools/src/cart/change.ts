@@ -1,9 +1,9 @@
-import * as $ from 'jquery';
 import {
   addTask, removeTask, nextTask,
   addFinishTrigger, errorQueue
 } from './queue';
 import { ON_ITEM_CHANGED } from './events';
+import { jq } from '../jquery';
 
 type CartChangeByVariant = { variant: string, quantity:number };
 type CartChangeByKey = { key:string, quantity:number };
@@ -53,7 +53,7 @@ export const changeCartCb = (changes:CartChange|CartChange[], callback?:any, err
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);

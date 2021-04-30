@@ -1,7 +1,7 @@
 import browserSync, { BrowserSyncInstance } from 'browser-sync';
-import { getStoreValue, getThemeIdValue } from '@process-creative/slate-env';
-import { getSSLKeyPath, getSSLCertPath } from '../utils/ssl';
+import { getSSLKeyPath, getSSLCertPath } from '../../utils/ssl';
 import { Request, Response, NextFunction } from 'express';
+import { getStoreValue, getThemeIdValue } from '../../env/value';
 
 type DevServerOptions = {
   port:number;

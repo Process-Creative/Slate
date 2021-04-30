@@ -1,10 +1,10 @@
-import * as $ from 'jquery';
 import {
   addTask, removeTask, nextTask,
   addFinishTrigger, errorQueue
 } from './queue';
 import { getCurrentCart, setCurrentCart } from './get';
 import { ON_DETAILS_SET, ON_CART_FETCHED } from './events';
+import { jq } from '../jquery';
 
 export const setCartNote = (note:string) => setCartDetails(undefined, note);
 export const addCartAttributes = (attributes:object[]) => setCartDetails(attributes);
@@ -49,7 +49,7 @@ export const setCartDetailsCB = (attributes?:any[], note?:string, callback?:any,
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);

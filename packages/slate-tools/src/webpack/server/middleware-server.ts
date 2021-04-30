@@ -3,7 +3,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import corsMiddleware from 'cors';
 import express, { Express } from 'express';
 import { Compiler } from 'webpack';
-import { isHotUpdateFile } from '../utils/hot';
+import { isHotUpdateFile } from '../utilities/hot';
 
 export class MiddlewareServer {
   public app:Express;

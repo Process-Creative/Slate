@@ -1,6 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
-import { Assets, Chunk } from '../../server/asset-server';
+import { Assets, Chunk } from '../server/asset-server';
 
 type HtmlWebpackIncludeLiquidStylesPluginOptions = {
   [key: string]: string;

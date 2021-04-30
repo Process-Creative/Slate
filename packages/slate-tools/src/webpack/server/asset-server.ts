@@ -2,11 +2,11 @@ import webpack, { Compiler } from 'webpack';
 import { createServer } from 'https';
 import { createHash } from 'crypto';
 import { MiddlewareHooks } from './middleware-hooks';
-import { isHotUpdateFile } from '../utils/hot';
-import { sslKeyCert } from '../utils/ssl';
+import { isHotUpdateFile } from '../utilities/hot';
+import { sslKeyCert } from '../../utils/ssl';
 import { Server } from 'http';
 import { MiddlewareServer } from './middleware-server';
-import { slateToolsConfig } from '../schema';
+import { slateToolsConfig } from '../../schema';
 
 type AssetServerOptions = {
   env: string;

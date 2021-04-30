@@ -1,5 +1,6 @@
-import { getSlateEnv, getThemePreviewUrl } from '@process-creative/slate-env';
 import open from 'open';
+import { getSlateEnv } from '../../env/env';
+import { getThemePreviewUrl } from '../../env/utils';
 
 (async () => {
   const env = getSlateEnv();

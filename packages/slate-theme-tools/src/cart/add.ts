@@ -1,9 +1,9 @@
-import * as $ from 'jquery';
 import {
   addTask, removeTask, nextTask,
   addFinishTrigger, errorQueue
 } from './queue';
 import { ON_ITEM_ADDED } from './events';
+import { jq } from '../jquery';
 
 export interface LineItemProperties {
   [key:string]:string
@@ -37,7 +37,7 @@ export const cartAdd = (params:{ items:CartAdd[] }) => {
       errorQueue();
     }.bind(o);
     o.task = function() {
-      $.ajax(this);
+      jq.ajax(this);
     }.bind(o);
     addTask(o);
   })
@@ -90,7 +90,7 @@ export const addToCartCB = (variant:number, quantity:number=1, properties?:LineI
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);
