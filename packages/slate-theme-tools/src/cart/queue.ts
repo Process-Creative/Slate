@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import { jq } from '../jquery';
 import { ON_CART_FINISHED, ON_CART_PENDING } from './events';
 
 import { getCartCB } from './get';
@@ -20,7 +20,7 @@ export const addTask = (task) => {
   CART_QUEUE.push(task);
   if(CART_QUEUE.length === 1) {
     //First task
-    $(document).trigger(ON_CART_PENDING);
+    jq(document).trigger(ON_CART_PENDING);
     nextTask();
   }
 };
@@ -53,7 +53,7 @@ export const errorQueue = () => {
     removeTask(e);
   });
 
-  $(document).trigger(ON_CART_FINISHED);
+  jq(document).trigger(ON_CART_FINISHED);
 };
 
 //Trigger Management
@@ -76,10 +76,10 @@ export const nextTask = () => {
   //Is the task list finished?
   if(!CART_QUEUE.length) {
     [...FINISH_TRIGGERS].forEach(trigger => {
-      $(document).trigger(trigger.event, trigger.data);
+      jq(document).trigger(trigger.event, trigger.data);
       removeFinishTrigger(trigger);
     });
-    $(document).trigger(ON_CART_FINISHED);
+    jq(document).trigger(ON_CART_FINISHED);
     return;
   }
 

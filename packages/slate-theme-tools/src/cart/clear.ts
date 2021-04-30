@@ -1,10 +1,10 @@
-import * as $ from 'jquery';
 import {
   addTask, removeTask, nextTask,
   addFinishTrigger, errorQueue
 } from './queue';
 import { setCurrentCart } from './get';
 import { ON_CART_CLEARED, ON_CART_FETCHED } from './events';
+import { jq } from '../jquery';
 
 export const clearCart = () => {
   return new Promise((resolve, reject) => clearCartCB(resolve,reject));
@@ -36,7 +36,7 @@ export const clearCartCB = (callback?:any, errorCallback?:any) => {
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);

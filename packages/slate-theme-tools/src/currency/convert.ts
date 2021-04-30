@@ -1,4 +1,5 @@
 import * as Cookies from 'js-cookie';
+import { jq } from '../jquery';
 export const CURRENCY_COOKIE_NAME = 'currency';
 
 export const getShopCurrency = () => {
@@ -17,7 +18,7 @@ export const setUserCurrency = (currency:string) => {
   if(current === currency) return;
 
   Cookies.set(CURRENCY_COOKIE_NAME, currency);
-  $(document).trigger('onCurrencyChange', currency);
+  jq(document).trigger('onCurrencyChange', currency);
 };
 
 export const convert = (money:number, from?:string, to?:string):number => {

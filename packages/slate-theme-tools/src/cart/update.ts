@@ -1,9 +1,9 @@
-import * as $ from 'jquery';
 import {
   addTask, removeTask, nextTask,
   addFinishTrigger, errorQueue
 } from './queue';
 import { ON_ITEM_UPDATED } from './events';
+import { jq } from '../jquery';
 
 //Promise Flavour
 export const updateCart = (lineIndex:number, quantity:number=1) => {
@@ -45,7 +45,7 @@ export const updateCartCB = (line:number, quantity:number=1, callback?:any, erro
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);

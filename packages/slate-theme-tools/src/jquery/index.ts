@@ -8,3 +8,12 @@ export const jsonFromjQuery = (jQueryElement:JQuery<HTMLElement>) => {
   //Attempt to parse
   return JSON.parse(contents);
 };
+
+export const jqueryGet = ():JQueryStatic|null => {
+  return (
+    window['$'] || window['jQuery'] || window['jquery'] ||
+    window['Checkout']['jQuery'] || window['Checkout']['$']
+  );
+}
+
+export const jq = jqueryGet();

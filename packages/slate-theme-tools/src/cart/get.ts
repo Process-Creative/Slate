@@ -1,6 +1,4 @@
-import * as $ from 'jquery';
-
-import { jsonFromjQuery } from './../jquery/';
+import { jq, jsonFromjQuery } from './../jquery/';
 import { ON_CART_FETCHED } from './events';
 import {
   addTask, removeTask, nextTask,
@@ -20,7 +18,7 @@ export const getCurrentCart = () => {
   if(window[`Cart`] && window[`Cart`].data) return window [`Cart`].data;
 
   //Using JSON+jQuery
-  let cartElement = $('[data-cart-json]');
+  let cartElement = jq('[data-cart-json]');
   if(cartElement.length) return window[`Cart`].data = jsonFromjQuery(cartElement);
 
   //using Ajax...
@@ -65,7 +63,7 @@ export const getCartCB = (callback?:any, errorCallback?:any, params?:object) => 
   }.bind(o);
 
   o.task = function() {
-    $.ajax(this);
+    jq.ajax(this);
   }.bind(o);
 
   addTask(o);
