@@ -16,16 +16,32 @@ export const PATH_COMPONENT_PARTS = [
 ]
 
 //Methods
-
+/**
+ * Returns the directory that a specific schema belongs to.
+ * 
+ * @param schema The Schema Identifier to get the directory of. 
+ * @returns The absolute directory of the component.
+ */
 export const fileGetSchemaPath = (schema:SchemaIdentifier|Schema) => {
   return path.join(PATH_COMPONENTS, schema.name);
 }
 
+/**
+ * Returns the schema file path for a given schema identifier
+ * 
+ * @param schema The Schema Identifier to locate. 
+ * @returns The schema.json file path for this schema.
+ */
 export const fileGetSchemaFile = (schema:SchemaIdentifier) => {
   const dir = fileGetSchemaPath(schema);
   return path.join(dir, FILE_SCHEMA);
 }
 
+/**
+ * Writes the provided schema to the schema path that the file belongs to.
+ * 
+ * @param schema Schema to write.
+ */
 export const fileWriteSchema = (schema:Schema) => {
   const dir = fileGetSchemaPath(schema);
   const file = fileGetSchemaFile(schema);
@@ -33,6 +49,12 @@ export const fileWriteSchema = (schema:Schema) => {
   fs.writeFileSync(file, JSON.stringify(schema, null, 2));
 }
 
+/**
+ * Reads the schema for a given schema identifier.
+ * 
+ * @param schema The schema to load and parse.
+ * @returns The loaded and parsed schema.
+ */
 export const fileReadSchema = (schema:SchemaIdentifier) => {
   const file = fileGetSchemaFile(schema);
   if(!fs.existsSync(file)) return null;
@@ -42,6 +64,7 @@ export const fileReadSchema = (schema:SchemaIdentifier) => {
 type SearchIdentifiersParams = {
   filter?:(params:{ dirName:string, dir:string, stats:fs.Stats })=>boolean
 }
+/** @deprecated */
 export const fileSearchIdentifiers = (params?:SearchIdentifiersParams) => {
   let filter = params && params.filter ? params.filter : ()=>true
 
@@ -58,8 +81,19 @@ export const fileSearchIdentifiers = (params?:SearchIdentifiersParams) => {
   });
 }
 
+/**
+ * Returns the path to the working theme directory.
+ * 
+ * @returns The working theme directory.
+ */
 export const fileGetThemeWorking = () => PATH_OUTPUT;
 
+/**
+ * Returns the list of contents for a given schema.
+ * 
+ * @param schema Schema to get the contents of.
+ * @returns The contents of the schema.
+ */
 export const fileGetSchemaContents = (schema:Schema) => {
   const getFiles = (params:{ root:string, subPaths:string[] }) => {
     const files:string[] = [];
@@ -88,6 +122,12 @@ export const fileGetSchemaContents = (schema:Schema) => {
   };
 }
 
+/**
+ * Gets the output directory of the component based on the theme information.
+ * 
+ * @param theme Information about the theme.
+ * @returns The directory where the output will be stored.
+ */
 export const fileGetThemeOutputDirectory = (theme:ThemeInfo) => {
   if(theme.framework === 'themekit') return path.resolve(PATH_OUTPUT);
   return path.resolve(PATH_OUTPUT, 'src');
@@ -99,6 +139,10 @@ type CopyParams = {
     sourceRoot:string, source:string, dest:string, destRoot:string
   }) => void 
 };
+/**
+ * Copy files from a root and subdir context into a theme.
+ * @param params Information about what and where to copy
+ */
 export const fileCopy = (params:CopyParams) => {
   const destRoot = fileGetThemeOutputDirectory(params.theme);
   params.files.forEach(file => {
@@ -119,10 +163,19 @@ export const fileCopy = (params:CopyParams) => {
   })
 }
 
-export const fileGetAllComponents = () => {
+/**
+ * Retreives a list of all components.
+ * @returns The list of all components
+ */
+export const fileGetAllComponents = (dir?:string):string[] => {
   return fs.readdirSync(PATH_COMPONENTS);
 }
 
+/**
+ * Write a signature string to the schema's signature file.
+ * 
+ * @param p Information about the schema and signature.
+ */
 export const fileWriteSignature = (p:{ schema:Schema, signature:string }) => {
   const dir = fileGetSchemaPath(p.schema);
   fs.writeFileSync(path.join(dir, 'README.md'), p.signature);

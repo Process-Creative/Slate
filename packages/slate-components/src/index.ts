@@ -6,5 +6,6 @@ import './cli/install';
 import './cli/theme';
 import './cli/validate';
 import './cli/sign';
+import './cli/list';
 
 program.parse(process.argv);
