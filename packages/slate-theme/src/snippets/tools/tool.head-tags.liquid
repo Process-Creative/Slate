@@ -1,10 +1,6 @@
-{%- comment -%} Copyright Snippet {%- endcomment -%}
-{%- render 'tool.copyright' -%}
-
 {%- comment -%} Browser detailed Meta Information {%- endcomment -%}
 <meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="canonical" href="{{ canonical_url }}" />
 
 {%- comment -%} DNS Prefetching {%- endcomment -%}
@@ -28,18 +24,15 @@
 {%- endif -%}
 <title>{{ seo_title | strip }}</title>
 
-
 {%- comment -%}Conditionally based meta tags{%- endcomment -%}
 {%- if page_description -%}
   <meta name="description" content="{{ page_description | escape }}" />
 {%- endif -%}
 
-
 {%- comment -%} Favicon {%- endcomment -%}
 {%- if settings.favicon != blank -%}
   <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
 {%- endif -%}
-
 
 {%- comment -%} Stylesheets {%- endcomment -%}
 {%- render 'tool.style-tags' with layout: 'theme' -%}
