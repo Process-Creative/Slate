@@ -1,0 +1,63 @@
+<nav class="c-topbar" data-topbar>
+  {% liquid
+    capture slides
+      for block in section.blocks
+        if block.settings.title == blank
+          continue
+        endif
+        
+        echo '<div class="c-topbar__carousel-slide '
+        unless forloop.first
+          echo 'has-js'
+        endunless
+        echo '">'
+
+        if block.settings.url == blank
+          echo '<span>'
+          echo block.settings.title | escape
+          echo '</span>'
+        else
+          echo '<a href="' | append: block.settingsurl | append: '">'
+          echo block.settings.title | escape
+          echo '</a>'
+        endif
+
+        echo '</div>'
+      endfor
+    endcapture
+
+    if slides != blank
+      echo '<div class="c-topbar__carousel" data-topbar-carousel>'
+      echo slides
+      echo '</div>'
+    endif
+  %}
+
+  <div>
+  </div>
+</nav>
+
+{% schema %}
+  {
+    "name": "Promotion Bar",
+    "blocks": [
+      {
+        "name": "Promo Slide",
+        "type": "text",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text",
+            "default": "Promotion message"
+          },
+          {
+            "id": "url",
+            "label": "Link",
+            "type": "url"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
