@@ -1,4 +1,5 @@
 import { Carousel, carouselInit } from "../../objects/widgets/carousel";
+import './topbar.scss';
 
 const SELECTOR_CONTAINER = '[data-topbar]';
 const SELECTOR_CAROUSEL = '[data-topbar-carousel]';

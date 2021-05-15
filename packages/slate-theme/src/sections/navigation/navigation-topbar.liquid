@@ -34,12 +34,28 @@
   %}
 
   <div>
+    {% liquid
+      assign menu = linklists[section.settings.menu]
+      for link in menu.links
+        echo '<a href="' | append: link.url | append: '">'
+        echo link.title | escape
+        echo '</a>'
+      endfor
+    %}
   </div>
 </nav>
 
 {% schema %}
   {
     "name": "Promotion Bar",
+    "settings": [
+      {
+        "id": "menu",
+        "label": "Menu",
+        "type": "link_list",
+        "default": "main-menu"
+      }
+    ],
     "blocks": [
       {
         "name": "Promo Slide",
