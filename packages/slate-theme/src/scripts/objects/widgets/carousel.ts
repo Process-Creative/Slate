@@ -57,6 +57,7 @@ export const carouselInit = (p:CarouselInitParams) => {
       slides.push(containerChildCast);
     });
   }
+  if(slides.length < 2) return;
   slides.forEach(s => s.classList.add(classSlide));
 
   // State system. Keen's state system is horrible so we use this as a patch

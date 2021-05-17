@@ -1,0 +1,42 @@
+/*
+  Target above a specific screen size (inclusive).
+*/
+@mixin t-media--up($size) {
+  @if map-has-key($s-screen--breakpoints-up, $size) {
+    $dec: map-get($s-screen--breakpoints-up, $size);
+    @media only screen and #{$dec} {
+      @content;
+    }
+  } @else {
+    @warn 'No Up Breakpoint for "#{$size}".';
+  }
+}
+
+/*
+  Target below a specific screen size (non-inclusive).
+*/
+@mixin t-media--down($size) {
+  @if map-has-key($s-screen--breakpoints-down, $size) {
+    $dec: map-get($s-screen--breakpoints-down, $size);
+    @media only screen and #{$dec} {
+      @content;
+    }
+  } @else {
+    @warn 'No Down Breakpoint for "#{$size}".';
+  }
+}
+
+/*
+  Target a specific screen size. Any definitions between this size and the 
+  next size up will be applied
+*/
+@mixin t-media--only($size) {
+  @if map-has-key($s-screen--breakpoints-only, $size) {
+    $dec: map-get($s-screen--breakpoints-only, $size);
+    @media only screen and #{$dec} {
+      @content;
+    }
+  } @else {
+    @warn 'No Only Breakpoint for "#{$size}".';
+  }
+}

@@ -1,47 +1,51 @@
 <nav class="c-topbar" data-topbar>
-  {% liquid
-    capture slides
-      for block in section.blocks
-        if block.settings.title == blank
-          continue
-        endif
-        
-        echo '<div class="c-topbar__carousel-slide '
-        unless forloop.first
-          echo 'has-js'
-        endunless
-        echo '">'
-
-        if block.settings.url == blank
-          echo '<span>'
-          echo block.settings.title | escape
-          echo '</span>'
-        else
-          echo '<a href="' | append: block.settingsurl | append: '">'
-          echo block.settings.title | escape
-          echo '</a>'
-        endif
-
-        echo '</div>'
-      endfor
-    endcapture
-
-    if slides != blank
-      echo '<div class="c-topbar__carousel" data-topbar-carousel>'
-      echo slides
-      echo '</div>'
-    endif
-  %}
-
-  <div>
+  <div class="c-topbar__inner">
     {% liquid
-      assign menu = linklists[section.settings.menu]
-      for link in menu.links
-        echo '<a href="' | append: link.url | append: '">'
-        echo link.title | escape
-        echo '</a>'
-      endfor
+      capture slides
+        for block in section.blocks
+          if block.settings.title == blank
+            continue
+          endif
+          
+          echo '<div class="'
+          unless forloop.first
+            echo 'has-js'
+          endunless
+          echo '">'
+
+          if block.settings.url == blank
+            echo '<span>'
+            echo block.settings.title | escape
+            echo '</span>'
+          else
+            echo '<a href="' | append: block.settingsurl | append: '">'
+            echo block.settings.title | escape
+            echo '</a>'
+          endif
+
+          echo '</div>'
+        endfor
+      endcapture
     %}
+
+    {% if slides != blank %}
+      <div class="c-topbar__promo">
+        <div data-topbar-carousel>
+          {{ slides }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="c-topbar__menu">
+      {% liquid
+        assign menu = linklists[section.settings.menu]
+        for link in menu.links
+          echo '<a href="' | append: link.url | append: '">'
+          echo link.title | escape
+          echo '</a>'
+        endfor
+      %}
+    </div>
   </div>
 </nav>
 

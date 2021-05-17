@@ -1,6 +1,49 @@
 @import '/styles/base';
 
+$c-topbar--background: $s-color--secondary;
+
 .c-topbar {
-  background: $s-color--secondary;
-  padding: 10px;
+  background: $c-topbar--background;
+  padding:$s-gutter--fixed-small $s-gutter--fluid-small;
+
+  &__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  
+  &__promo {
+    text-align: center;
+    position: relative;
+    max-width: 100%;
+
+    &:after,&:before {
+      content: '';
+      position: absolute;
+      width: 2rem;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(to right,
+        $c-topbar--background,
+        rgba($c-topbar--background, 0)
+      );
+      z-index: 2;
+    }
+
+    &:after { left: auto; right: 0; transform: scaleX(-100%); }
+  }
+
+  &__menu {
+    display: none;
+  }
+
+  &__promo + &__menu {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
