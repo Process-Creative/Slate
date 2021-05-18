@@ -98,6 +98,7 @@ type GenPictureParams = {
 };
 
 export const pictureGenerate = (params:GenPictureParams) => {
+  const ratios = [ 1, 2 ]; //x4 ratio not used for now due to device inconsistency
   let buffer = `<picture>`;
 
   //@deprecated
@@ -127,10 +128,19 @@ export const pictureGenerate = (params:GenPictureParams) => {
         buffer += `(${isLast?'min':'max'}-width:${w}px)`;
       }
       buffer += `" ${params.lazy&&params.lazy.dataSrc?'data-src':'src'}="`;
-      buffer += getImageUrl(params.src, size.size);
-      buffer += `${versionNumber? `?v=${versionNumber}` : ``}"`;
+
+      //Generate src for each image ratio
+      ratios.forEach((r,y) => {
+        let imageSize = size.size;
+        if(typeof size.size === 'number') imageSize = size.size * r;
+        buffer += getImageUrl(params.src, imageSize);
+        buffer += `${versionNumber? `?v=${versionNumber}` : ``}"`;
+        if(r != 1) buffer += ` ${r}x`;
+        if(y < (ratios.length-1)) buffer += ', ';
+      });
+
       if(params.alt) buffer += `alt="${params.alt}" `;
-      if(params.lazy && params.lazy.dataSizes) buffer += `data-sies="auto" `;
+      if(params.lazy && params.lazy.dataSizes) buffer += `data-sizes="auto" `;
       buffer += '/>';
     });
   }
