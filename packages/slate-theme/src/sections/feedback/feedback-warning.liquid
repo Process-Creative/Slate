@@ -1,0 +1,21 @@
+{% comment %}
+  Warning's section.
+    Designed for you to display various error types, some examples below;
+  
+  - No Javascript
+  - No Cookies (GDPR)
+  - Old Browser
+{% endcomment %}
+<noscript>
+  <div class="c-warning is-medium is-visible">
+    <span class="c-warning__title">Warning</span>
+    <p class="c-warning__body">
+      Your browser does not support JavaScript, or it has been disabled.
+      {{ shop.name }} may not work properly without JavaScript enabled.
+      <a href="https://www.enable-javascript.com/" target="_blank">
+        Follow these instructions
+      </a>
+      to enable JavaScript in your web browser.
+    </p>
+  </div>
+</noscript>

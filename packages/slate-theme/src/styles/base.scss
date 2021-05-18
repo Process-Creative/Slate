@@ -1,12 +1,13 @@
 @charset "UTF-8";
 
-
 //Settings
 @import './settings/animation';
 @import './settings/color';
 @import './settings/font';
 @import './settings/gutter';
 @import './settings/responsive';
+
+@import './settings/_border';
 
 //Tools
 @import './tools/animation';

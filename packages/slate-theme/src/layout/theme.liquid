@@ -6,13 +6,14 @@
   </head>
   
   <body>
-    {% section 'navigation-topbar' %}
-    {% section 'navigation-header' %}
+    {%- section 'navigation-topbar' -%}
+    {%- section 'navigation-header' -%}
 
     <main role="main" class="c-main" id="MainContent">
       {{ content_for_layout }}
     </main>
 
     {%- render 'tool.body-end-tags' -%}
+    {%- section 'feedback-warning' -%}
   </body>
 </html>

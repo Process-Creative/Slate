@@ -1,0 +1,15 @@
+@import '/styles/base';
+
+.c-warning {
+  background: $s-color--primary;
+  border: $s-border--thin-secondary;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  padding: $s-gutter--fixed-small $s-gutter--fluid-small;
+  text-align: center;
+
+  &__body {
+    margin-bottom: 0;
+  }
+}
