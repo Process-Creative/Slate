@@ -4,7 +4,7 @@ $c-topbar--background: $s-color--secondary;
 
 .c-topbar {
   background: $c-topbar--background;
-  padding:$s-gutter--fixed-small $s-gutter--fluid-small;
+  padding: 0 $s-gutter--fluid-small;
 
   &__inner {
     position: relative;
@@ -21,6 +21,7 @@ $c-topbar--background: $s-color--secondary;
 
     &-carousel {
       position: relative;
+      padding: $s-gutter--fixed-small 0;
 
       &:after,&:before {
         content: '';
@@ -41,8 +42,15 @@ $c-topbar--background: $s-color--secondary;
     &-left,&-right {
       flex-grow: 0;
       flex-shrink: 0;
-      width: 1rem;
+      padding: 0.5rem;
+
+      @include t-anim--transition(padding);
     }
+
+    &-left:hover { padding-right: 0.75rem; padding-left: 0.25rem; }
+    &-left:active { padding-right: 0.6rem; padding-left: 0.4rem; }
+    &-right:hover { padding-left: 0.75rem; padding-right: 0.25rem; }
+    &-right:active { padding-left: 0.6rem; padding-right: 0.4rem; }
   }
 
   &__menu {

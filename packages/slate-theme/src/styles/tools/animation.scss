@@ -1,0 +1,8 @@
+@mixin t-anim--transition($properties, $time: $s-anim--time-short, $ease: $s-anim--ease-out, $delay: '') {
+  transition-timing-function: $ease;
+  transition-duration: $time;
+  transition-property: $properties;
+  @if $delay != '' {
+    transition-delay: $delay;
+  }
+}

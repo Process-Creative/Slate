@@ -1,0 +1,10 @@
+//Animation Timings (durations of animations)
+$s-anim--time-short: 0.2s;
+$s-anim--time-med: 0.6s;
+$s-anim--time-slow: 1.5s;
+$s-anim--time-default: $s-anim--time-short;
+
+//Animation Easing Curves (how the animations ramp up/down, feel)
+$s-anim--ease-in: cubic-bezier(0.7, 0, 0.84, 0);//EXPO
+$s-anim--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$s-anim--ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
