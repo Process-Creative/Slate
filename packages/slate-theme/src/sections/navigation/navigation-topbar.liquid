@@ -30,9 +30,15 @@
 
     {% if slides != blank %}
       <div class="c-topbar__promo">
-        <div data-topbar-carousel>
+        <button type="button" class="c-topbar__promo-left has-js" data-topbar-left>
+          {%- render 'icon.arrow-left' -%}
+        </button>
+        <div class="c-topbar__promo-carousel" data-topbar-carousel>
           {{ slides }}
         </div>
+        <button type="button" class="c-topbar__promo-right has-js" data-topbar-right>
+          {%- render 'icon.arrow-right' -%}
+        </button>
       </div>
     {% endif %}
 

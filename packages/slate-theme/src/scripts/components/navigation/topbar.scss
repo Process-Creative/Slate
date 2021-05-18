@@ -16,24 +16,33 @@ $c-topbar--background: $s-color--secondary;
   
   &__promo {
     text-align: center;
-    position: relative;
     max-width: 100%;
+    display: flex;
 
-    &:after,&:before {
-      content: '';
-      position: absolute;
-      width: 2rem;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: linear-gradient(to right,
-        $c-topbar--background,
-        rgba($c-topbar--background, 0)
-      );
-      z-index: 2;
+    &-carousel {
+      position: relative;
+
+      &:after,&:before {
+        content: '';
+        position: absolute;
+        width: 2rem;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: linear-gradient(to right,
+          $c-topbar--background,
+          rgba($c-topbar--background, 0)
+        );
+        z-index: 2;
+      }
+      &:after { left: auto; right: 0; transform: scaleX(-100%); }
     }
 
-    &:after { left: auto; right: 0; transform: scaleX(-100%); }
+    &-left,&-right {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 1rem;
+    }
   }
 
   &__menu {
@@ -45,5 +54,11 @@ $c-topbar--background: $s-color--secondary;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  @include t-media--up($s-screen--small) {
+    &__menu {
+      display: block;
+    }
   }
 }

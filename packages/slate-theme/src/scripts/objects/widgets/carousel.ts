@@ -111,6 +111,7 @@ export const carouselInit = (p:CarouselInitParams) => {
 
   // Construct the slider
   keenSlider = new KeenSlider(container, {
+    ...sliderOptions, 
     dragStart: () => autoplayStateSet(false),
     dragEnd: () => autoplayStateSet(sliderOptions.autoplayEnabled),
     slideChanged: slider => classUpdate(slider),
@@ -173,6 +174,9 @@ export const carouselInit = (p:CarouselInitParams) => {
 
   return {
     keenSlider, slides, keenRefresh, state,
-    isDestroyed: () => state.destroyed
+    isDestroyed: () => state.destroyed,
+
+    next: () => keenSlider.next(),
+    prev: () => keenSlider.prev()
   }
 }
