@@ -7,9 +7,9 @@
             continue
           endif
           
-          echo '<div class="'
+          echo '<div class="o-paragraph--2'
           unless forloop.first
-            echo 'has-js'
+            echo ' has-js'
           endunless
           echo '">'
 
@@ -43,6 +43,9 @@
     {% endif %}
 
     <div class="c-topbar__menu">
+      <div class="c-topbar__menu-icon">
+        {%- render 'icon.phone' -%}
+      </div>
       {% liquid
         assign menu = linklists[section.settings.menu]
         for link in menu.links

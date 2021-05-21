@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 $s-gutter--fluid-small;
+  padding: 0 $s-gutter--fluid-xsmall;
 
   border: $s-border--thin-secondary;
   border-top: none;
@@ -51,5 +51,9 @@
     align-items: center;
     border-radius: 100%;
     &.is-hidden { opacity: 0; }
+  }
+
+  @include t-media--up($s-screen--medium) {
+    padding: 0 $s-gutter--fluid-medium;
   }
 }

@@ -5,7 +5,7 @@ $c-topbar--background: $s-color--primary;
 .c-topbar {
   background: $c-topbar--background;
   border: $s-border--thin-secondary;
-  padding: 0 $s-gutter--fluid-small;
+  padding: 0 $s-gutter--fluid-xsmall;
 
   &__inner {
     position: relative;
@@ -13,16 +13,16 @@ $c-topbar--background: $s-color--primary;
     flex-direction: column;
     align-items: center;
   }
-
   
   &__promo {
     text-align: center;
     max-width: 100%;
     display: flex;
+    align-items: center;
 
     &-carousel {
       position: relative;
-      padding: $s-gutter--fixed-small 0;
+      padding: $s-gutter--fixed-xsmall 0;
 
       &:after,&:before {
         content: '';
@@ -31,11 +31,10 @@ $c-topbar--background: $s-color--primary;
         height: 100%;
         top: 0;
         left: 0;
-        background: linear-gradient(to right,
-          $c-topbar--background,
-          rgba($c-topbar--background, 0)
-        );
         z-index: 2;
+        background: linear-gradient(to right,
+          $c-topbar--background, rgba($c-topbar--background, 0)
+        );
       }
       &:after { left: auto; right: 0; transform: scaleX(-100%); }
     }
@@ -44,10 +43,13 @@ $c-topbar--background: $s-color--primary;
       flex-grow: 0;
       flex-shrink: 0;
       padding: 0.5rem;
-      width: 1.5rem;
+      width: 1.9375rem;
+      height: 1.9375rem;
       line-height: 0;
 
       @include t-anim--transition(padding);
+
+      svg { width: 100%; height: 100%; }
     }
 
     &-left:hover { padding-right: 0.75rem; padding-left: 0.25rem; }
@@ -58,6 +60,12 @@ $c-topbar--background: $s-color--primary;
 
   &__menu {
     display: none;
+
+    &-icon {
+      width: 1.3125rem;
+      line-height: 0;
+      margin-right: 0.625rem;
+    }
   }
 
   &__promo + &__menu {
@@ -67,9 +75,14 @@ $c-topbar--background: $s-color--primary;
     transform: translateY(-50%);
   }
 
-  @include t-media--up($s-screen--small) {
+  @include t-media--up($s-screen--small) {    
     &__menu {
       display: flex;
+      align-items: center;
     }
+  }
+  
+  @include t-media--up($s-screen--medium) {
+    padding: 0 $s-gutter--fluid-medium;
   }
 }
