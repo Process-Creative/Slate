@@ -3,6 +3,10 @@
     "meta": {
       "tags": "Tagged \"{{ tags }}\"",
       "page": "Page {{ page }}"
+    },
+    
+    "navigation": {
+      "search": "Search"
     }
   }
 }

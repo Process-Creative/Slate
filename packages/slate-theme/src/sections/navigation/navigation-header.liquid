@@ -1,12 +1,141 @@
-<header>
-  <div>
+{%- comment -%} Variables {%- endcomment -%}
+{%- liquid
+  assign mobileMenu = linklists[section.settings.mobileMenu]
+  assign desktopMenu = linklists[section.settings.desktopMenu] | default: mobileMenu
+  assign mobileMenu = mobileMenu | default: desktopMenu
+-%}
+
+<header class="c-header" data-header>
+  {%- comment -%} Mobile Nav Trigger {%- endcomment -%}
+  <div class="c-header__left">
+    <button type="button" class="c-header__hamburger" data-header-toggle>
+      {%- render 'icon.hamburger' -%}
+    </button>
+
+    <a class="c-header__search" href="{{ routes.search_url }}"
+      title="{{ 'general.navigation.search' | t }}"
+    >
+      {%- render 'icon.hourglass' -%}
+    </a>
   </div>
 
-  <div>
+  {%- comment -%} Desktop Nav {%- endcomment -%}
+  {%- render 'navigation.main-menu' with { menu: desktopMenu, blocks: section.blocks } -%}
+
+  {%- comment -%} Site Logo {%- endcomment -%}
+  <a href="{{ routes.root_url }}" class="c-header__logo" ti tle="{{ shop.title | escape }}">
     {%- render 'object.logo' -%}
-  </div>
+  </a>
 
-  <div>
+  {%- comment -%} Right Icons {%- endcomment -%}
+  <div class="c-header__right">
+    {%- if section.settings.wishlist != blank -%}
+      <a href="{{ section.settings.wishlist }}" class="c-header__wishlist"
+        data-header-wishlist
+      >
+        {%- render 'icon.heart' -%}
+      </a>
+    {%- endif -%}
 
+    <a href="{{ routes.cart_url }}" class="c-header__cart" data-header-cart>
+      <span data-header-cart-count class="
+        c-header__cart-count {% if cart.item_count == 0 %}is-hidden{% endif %}
+      ">
+        {{- cart.item_count -}}
+      </span>
+      {%- render 'icon.cart' -%}
+    </a>
   </div>
 </header>
+
+{% schema %}
+  {
+    "name": "Header",
+    "class": "c-section c-section__header",
+    "settings": [
+      {
+        "type": "url",
+        "id": "wishlist",
+        "label": "Wishlist URL"
+      },
+      {
+        "type": "header",
+        "content": "Menu Settings"
+      },
+      {
+        "id": "desktopMenu",
+        "type": "link_list",
+        "label": "Desktop Menu",
+        "default": "main-menu",
+        "info": "Please select the main menu for desktop devices."
+      },
+      {
+        "id": "mobileMenu",
+        "type": "link_list",
+        "label": "Mobile Menu",
+        "info": "Please select the main menu for mobile devies. Falls back to desktop menu if blank"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "promo-message",
+        "name": "Promo Message",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Promo Messages are optional."
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Promo Bar Text"
+          },
+          {
+            "id": "url",
+            "type": "url",
+            "label": "Promo Bar Link",
+            "info": "Leave blank for no link."
+          }
+        ]
+      },
+      {
+        "type": "menu-content",
+        "name": "Menu Content & Settings",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Desktop Menu Content"
+          },
+          {
+            "type": "paragraph",
+            "content": "Additional content to display in the on each of the top level menu items, i.e. SHOP, PERSONALISED."
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Link Title",
+            "info": "Must be a match for the title entered for this link into the navigation settings, i.e. SHOP."
+          },
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Menu Image",
+            "info": "Image to show on the right hand side of the mega nav for desktop users."
+          },
+          {
+            "id": "image-link",
+            "type": "url",
+            "label": "Image Link",
+            "info": "Shop/Browse All link"
+          },
+          {
+            "id": "link-label",
+            "type": "text",
+            "label": "Link Label",
+            "info": "Label to show over this menu's image, if an image has been set."
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,5 +1,7 @@
 html,body {
-  font-family: $s-font--family-normal;
-  font-size: $s-font--size-normal;
-  font-weight: $s-font--weight-normal;
+  font-family: $s-font--root-family;
+  font-size: $s-font--root-size;
+  font-weight: $s-font--root-weight;
+  letter-spacing: $s-font--root-letter;
+  line-height: $s-font--root-line;
 }

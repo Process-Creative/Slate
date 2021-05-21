@@ -5,6 +5,8 @@ import '../../styles/layout/theme.scss';
 
 //Theme Objects
 import '../components/feedback/warning';
+
+import '../components/navigation/header';
 import '../components/navigation/topbar';
 
 //Theme Components

@@ -3,7 +3,6 @@
 
 //Resets
 @import '~normalize.css/normalize';
-@import '~keen-slider/keen-slider';
 
 //Elements
 @import '../elements/a';
@@ -19,6 +18,7 @@
 @import '../utilities/js-available';
 
 //Vendors
-@import '../vendor/futura-light';
+@import '~keen-slider/keen-slider';
+@import '../vendor/fonts';
 
 //Trumps
