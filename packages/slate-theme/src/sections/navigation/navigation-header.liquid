@@ -1,26 +1,21 @@
-{%- comment -%} Variables {%- endcomment -%}
-{%- liquid
-  assign mobileMenu = linklists[section.settings.mobileMenu]
-  assign desktopMenu = linklists[section.settings.desktopMenu] | default: mobileMenu
-  assign mobileMenu = mobileMenu | default: desktopMenu
--%}
-
 <header class="c-header" data-header>
-  {%- comment -%} Mobile Nav Trigger {%- endcomment -%}
+  {%- comment -%} Mobile Left Icons {%- endcomment -%}
   <div class="c-header__left">
     <button type="button" class="c-header__hamburger" data-header-toggle>
       {%- render 'icon.hamburger' -%}
     </button>
 
-    <a class="c-header__search" href="{{ routes.search_url }}"
+    <a class="c-header__search is-left" href="{{ routes.search_url }}"
       title="{{ 'general.navigation.search' | t }}"
     >
-      {%- render 'icon.hourglass' -%}
+      {%- render 'icon.search' -%}
     </a>
   </div>
 
-  {%- comment -%} Desktop Nav {%- endcomment -%}
-  {%- render 'navigation.main-menu' with { menu: desktopMenu, blocks: section.blocks } -%}
+  {%- comment -%} Nav {%- endcomment -%}
+  {%- render 'navigation.main-menu' with {
+    menu: linklists[section.settings.menu], blocks: section.blocks
+  } -%}
 
   {%- comment -%} Site Logo {%- endcomment -%}
   <a href="{{ routes.root_url }}" class="c-header__logo" ti tle="{{ shop.title | escape }}">
@@ -29,18 +24,36 @@
 
   {%- comment -%} Right Icons {%- endcomment -%}
   <div class="c-header__right">
+    <div class="c-header__currency">
+      {%- render 'object.currency-selector' -%}
+    </div>
+
+    <a class="c-header__search is-right" href="{{ routes.search_url }}"
+      title="{{ 'general.navigation.search' | t }}"
+    >
+      {%- render 'icon.search' -%}
+    </a>
+
+    {% if shop.customer_accounts_enabled %}
+      <a class="c-header__account" href="{{ routes.account_url }}"
+        title="{{ 'general.navigation.account' | t }}"
+      >
+        {%- render 'icon.account' -%}
+      </a>
+    {% endif %}
+
     {%- if section.settings.wishlist != blank -%}
       <a href="{{ section.settings.wishlist }}" class="c-header__wishlist"
-        data-header-wishlist
+        data-header-wishlist title="{{ 'general.navigation.wishlist' | t }}"
       >
         {%- render 'icon.heart' -%}
       </a>
     {%- endif -%}
 
     <a href="{{ routes.cart_url }}" class="c-header__cart" data-header-cart>
-      <span data-header-cart-count class="
-        c-header__cart-count {% if cart.item_count == 0 %}is-hidden{% endif %}
-      ">
+      <span data-header-cart-count title="{{ 'general.navigation.cart' | t }}"
+        class="c-header__cart-count{% if cart.item_count == 0 %} is-hidden{% endif %}"
+      >
         {{- cart.item_count -}}
       </span>
       {%- render 'icon.cart' -%}
@@ -63,17 +76,11 @@
         "content": "Menu Settings"
       },
       {
-        "id": "desktopMenu",
+        "id": "menu",
         "type": "link_list",
-        "label": "Desktop Menu",
+        "label": "Menu",
         "default": "main-menu",
         "info": "Please select the main menu for desktop devices."
-      },
-      {
-        "id": "mobileMenu",
-        "type": "link_list",
-        "label": "Mobile Menu",
-        "info": "Please select the main menu for mobile devies. Falls back to desktop menu if blank"
       }
     ],
     "blocks": [

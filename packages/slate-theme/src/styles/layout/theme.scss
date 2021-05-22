@@ -9,11 +9,17 @@
 @import '../elements/all';
 @import '../elements/button';
 @import '../elements/html';
+@import '../elements/img';
+@import '../elements/svg';
 
 //Objects
+@import '../objects/currency-selector';
 @import '../objects/font';
 
 //Components
+@import '../components/navigation/header.scss';
+@import '../components/navigation/main-menu.scss';
+@import '../components/navigation/topbar.scss';
 
 //Utilities
 @import '../utilities/js-available';

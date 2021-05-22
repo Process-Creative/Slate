@@ -1,2 +1,13 @@
-<div class="c-header__menu">
-</div>
+<nav class="c-main-menu">
+  <div class="c-main-menu__static">
+    <button type="button" class="c-main-menu__close" data-header-toggle>
+      {%- render 'icon.close' -%}
+    </button>
+  </div>
+
+  <div class="c-main-menu__dynamic">
+    {%- render 'navigation.main-menu-list' with {
+      links: menu.links, level: 0, blocks: blocks
+    } -%}
+  </div>
+</nav>

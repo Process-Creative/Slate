@@ -1,0 +1,51 @@
+{% if links.size > 0 -%}
+  {% assign nextLevel = level | plus: 1 %}
+
+  <ul class="c-main-menu__menu {% if level == 0 %}is-level-0{% endif %}" data-header-menu>
+    <li class="c-main-menu__menu-header">
+      {% if level == 0 %}
+        <form action="{{ routes.search_url }}" class="c-main-menu__search">
+          <button type="submit" class="c-main-menu__search-button">
+            {%- render 'icon.search' -%}
+          </button>
+
+          <input name="q" value="{{ search.terms | escape }}"
+            type="text" placeholder="{{ 'general.navigation.search' | t }}"
+            class="c-main-menu__search-input"
+          />
+        </form>
+      {% else %}
+        <button type="button" data-header-back>
+          {{ parent.title | escape }}
+        </button>
+      {% endif %}
+    </li>
+
+    {%- for link in links -%}
+      <li>
+        <a href="{{ link.url }}" class="c-main-menu__menu-link
+          {% if link.links.size > 0 %}
+            has-submenu" data-header-link
+          {% else %}
+            "
+          {% endif %}
+        >
+          {{- link.title | escape -}}
+        </a>
+
+        {%- render 'navigation.main-menu-list' with {
+          links: link.links,
+          parent: link,
+          level: nextLevel,
+          blocks: blocks
+        } -%}
+      </li>
+    {%- endfor -%}
+
+    {% if level == 0 %}
+      <li>
+        account wishlist etc
+      </li>
+    {% endif %}
+  </ul>
+{%- endif %}

@@ -6,7 +6,11 @@
     },
     
     "navigation": {
-      "search": "Search"
+      "menu": "Menu",
+      "search": "Search",
+      "wishlist": "Wishlist",
+      "cart": "Cart",
+      "account": "Account"
     }
   }
 }

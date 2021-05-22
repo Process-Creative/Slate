@@ -1,4 +1,5 @@
 @import '/styles/base';
+@import './main-menu';
 
 .c-header {
   display: flex;
@@ -17,6 +18,7 @@
     svg { width: 7.9375rem; }
   }
 
+  // Icons
   &__left,&__right {
     width: 100%;
     display: flex;
@@ -34,6 +36,7 @@
   }
 
   &__hamburger,&__search { margin-right: 1rem; }
+  &__account,&__search.is-right { display: none; }
   &__cart,&__wishlist { margin-left: 1rem; }
 
   &__cart-count {
@@ -51,6 +54,28 @@
     align-items: center;
     border-radius: 100%;
     &.is-hidden { opacity: 0; }
+  }
+
+  &__currency {
+    display: none;
+  }
+
+  @include t-media--up($s-screen--small) {
+    &__hamburger,&__search.is-left { display: none; }
+
+    &__search.is-right,&__account,&__cart,&__wishlist {
+      display: block;
+      width: 2rem;
+      margin-left: 1.25rem;
+      margin-right: 0;
+      line-height: 0;
+    }
+
+    &__logo svg { width: 10.3125rem; }
+
+    &__currency {
+      display: block;
+    }
   }
 
   @include t-media--up($s-screen--medium) {
