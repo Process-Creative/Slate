@@ -154,7 +154,7 @@
     assign imgSrc = image.cloudinary_src | default: img.first.cloudinary_src
     capture htmlSources
       for size in sizesArray
-        assign w = 'w_' | append: size
+        assign w = '/w_' | append: size
         echo '<source media="('
         if forloop.last
           assign secondLastIndex = forloop.index0 | minus: 1
@@ -170,7 +170,7 @@
         echo '" />'
       endfor
     endcapture
-    assign imgSrc = pathNoSize | append: 'w_' | append: sizesArray.last
+    assign imgSrc = pathNoSize | append: '/w_' | append: sizesArray.last
 
   else
     assign c='// All other cases //'
