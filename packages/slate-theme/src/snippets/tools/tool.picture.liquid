@@ -1,0 +1,211 @@
+{% comment %}
+  Process Creative Picture Tool
+    A useful liquid tool to optimize images using various API's.
+  
+    Image itself can be (in preferred order);
+      A Shopify image object, such as one on product.images array.
+      A Shopify image URL (defined as containing cdn.shopify.com)
+      A cloudinary image URL (defined as containing cloudinary)
+      Any other image source (which disables image sizes)
+
+    Image sizing is handled through a means of providing resolutions and screen
+    sizes in two arrays (see params below). The image sizes will be matches as a
+    1 to 1 of the screen they are provided for, with the exception of the last 
+    image size (as it does not need a screen size provided).
+
+    Example;
+      sizes: '300,450,500,800', screens: '500,1000,1500'
+      Would imply "For screens 0-499px, use image 300px. For screens 500-999px 
+      use the image 450px, for screens 1000-1499px use image 500px, for all 
+      screens 1500px and up use image 800px"
+
+    The biggest image is also used as the actual <img /> tags' source for the
+    fallbacks.
+
+  Version:
+    3.0.0 - 2021/05/25
+
+  Parameters:
+    img - The base image (Refer to above for more info)
+    alt - Preferred ALT tag. If `img` contains property .alt, that will be used.
+    sizes - CSV Array of preferred sizes (Refer to above for more info)
+    screens - CSV Array of screen sizes (Refer to above for more info)
+    lazy - Whether or not to add lazy loading browser attributes (Defaults true)
+    class - Class to be added to the img tag generated (Defaults blank)
+    width - The width of the source image, used to presize the <img />.
+    height - Same as width. Provide these values unless img.width/height defined
+    attributes - Additional attributes you can add to the img tag.
+
+  Outputs:
+    Dumps the HTML for the images. Format is roughly;
+    <picture>
+      <source src="..." />
+      <img src="..." />
+    </picture>
+
+{% endcomment %}
+{%- liquid
+  if alt == blank
+    assign alt = img.alt
+  endif
+  if width == blank
+    assign width = img.width
+  endif
+  if height == blank
+    assign height = img.height
+  endif
+
+  assign sizesArray = sizes | split: ','
+  assign screensArray = sizes | split: ','
+  assign htmlSources = ''
+
+
+  assign c='// Determine the image type and change how we get sources //'
+  if img == blank
+    assign c='// Fallback //'
+    assign imgSrc = 'no-image.gif' | img_url: '1200x', scale: 2
+
+
+  elsif img.src != blank
+    assign c='// Shopify standard img_url //'
+    capture htmlSources
+      for size in sizesArray
+        assign w = size | append: 'x'
+        echo '<source media="('
+        if forloop.last
+          assign secondLastIndex = forloop.index0 | minus: 1
+          echo 'min-width: '
+          assign screen = screensArray[secondLastIndex]
+        else
+          assign screen = screensArray[forloop.index0]
+          echo 'max-width: '
+        endif
+        echo screen | append: 'px)" srcset="'
+        echo img | img_url: w | append: ', '
+        echo img | img_url: w, scale: '2x'
+        echo '" />'
+      endfor
+    endcapture
+    assign w = sizesArray.last | append: 'x'
+    assign imgSrc = img | img_url: w
+
+
+  elsif img contains 'cdn.shopify.com'
+    assign c='// Handle valid Shopify images as URL strings //'
+    assign omitProtocolArr = img | split: '?' | first | split: '://'
+    if omitProtocolArr.first contains 'http'
+      assign omitProtocol = omitProtocolArr | last | prepend: '//'
+    else
+      assign omitProtocol = omitProtocolArr | last
+    endif
+    assign splitByDot = omitProtocol | split: '.'
+    assign dotExt = splitByDot | last | prepend: '.'
+    assign sliceLength = omitProtocol.size | minus: dotExt.size
+    assign path = omitProtocol | slice: 0, sliceLength
+
+    assign c='// Try and remove the size parameter (if any) //'
+    assign splitByUnderscore = path | split: '_'
+    assign pathNoSize = path
+    if splitByUnderscore.size > 1
+      assign size = path | last
+      assign hasSize = false
+      case size
+        when 'small'
+        when 'medium'
+        when 'large'
+        when 'master'
+          assign hasSize = true
+        else
+          if size contains 'x' and size.length < 5
+            assign hasSize = true
+          endif
+      endcase
+
+      if hasSize
+        assign sliceLength = path.size | minus: size.size | minus: 1
+        assign pathNoSize = path | slice: 0, sliceLength
+      endif
+    endif
+
+    assign c='// Gen Pictures //'
+    capture htmlSources
+      for size in sizesArray
+        assign w = '_' | append: size | append: 'x'
+        echo '<source media="('
+        if forloop.last
+          assign secondLastIndex = forloop.index0 | minus: 1
+          echo 'min-width: '
+          assign screen = screensArray[secondLastIndex]
+        else
+          assign screen = screensArray[forloop.index0]
+          echo 'max-width: '
+        endif
+        echo screen | append: 'px)" srcset="'
+        echo pathNoSize | append: w | append: dotExt | append: ', '
+        echo pathNoSize | append: w | append: '@2x' | append: dotExt | append: ' 2x'
+        echo '" />'
+      endfor
+    endcapture
+    assign imgSrc = pathNoSize | append: '_' | append: sizesArray.last | append: 'x' | append: dotExt
+
+
+  elsif img.cloudinary_src != blank or img.first.cloudinary_src != blank
+    assign c='// Cloudinary Images //'
+    assign imgSrc = image.cloudinary_src | default: img.first.cloudinary_src
+    capture htmlSources
+      for size in sizesArray
+        assign w = 'w_' | append: size
+        echo '<source media="('
+        if forloop.last
+          assign secondLastIndex = forloop.index0 | minus: 1
+          echo 'min-width: '
+          assign screen = screensArray[secondLastIndex]
+        else
+          assign screen = screensArray[forloop.index0]
+          echo 'max-width: '
+        endif
+        echo screen | append: 'px)" srcset="'
+        echo imgSrc | append: w | append: ', '
+        echo imgSrc | append: w | append: '/dpr_2.0 2x'
+        echo '" />'
+      endfor
+    endcapture
+    assign imgSrc = pathNoSize | append: 'w_' | append: sizesArray.last
+
+  else
+    assign c='// All other cases //'
+    assign htmlImage = img
+  endif
+
+  capture htmlImage
+    echo '<img src="' | append: imgSrc | append: '" '
+    if alt != blank
+      echo alt | escape | prepend: 'alt="' | append: '" '
+    endif
+    if class != blank
+      echo 'class="' | append: class | append: '" '
+    endif
+    if width != blank
+      echo 'width="' | append: width | append: '"'
+    endif
+    if height != blank
+      echo 'height="' | append: height | append: '"'
+    endif
+    if attributes != blank
+      echo attributes | append: ' '
+    endif
+    unless lazy == false
+      echo 'loading="lazy" '
+    endunless
+    echo '/>'
+  endcapture
+
+  if htmlSources != blank
+    echo '<picture>'
+    echo htmlSources
+    echo htmlImage
+    echo '</picture>'
+  else
+    echo htmlImage
+  endif
+-%}

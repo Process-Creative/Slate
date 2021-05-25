@@ -11,11 +11,12 @@
 
           <input name="q" value="{{ search.terms | escape }}"
             type="text" placeholder="{{ 'general.navigation.search' | t }}"
-            class="c-main-menu__search-input"
+            class="c-main-menu__search-input o-heading--6"
           />
         </form>
       {% else %}
-        <button type="button" data-header-back>
+        <button class="c-main-menu__back o-heading--6" type="button" data-header-back>
+          {%- render 'icon.arrow-left' -%}
           {{ parent.title | escape }}
         </button>
       {% endif %}
@@ -23,14 +24,15 @@
 
     {%- for link in links -%}
       <li>
-        <a href="{{ link.url }}" class="c-main-menu__menu-link
-          {% if link.links.size > 0 %}
-            has-submenu" data-header-link
-          {% else %}
-            "
-          {% endif %}
+        <a href="{{ link.url }}" class="c-main-menu__menu-link o-heading--6
+          {% if link.links.size > 0 %}has-submenu" data-header-link{% else %}"{% endif %}
         >
-          {{- link.title | escape -}}
+          {%- liquid
+            echo link.title | escape
+            if link.links.size > 0
+              render 'icon.arrow-right'
+            endif
+          -%}
         </a>
 
         {%- render 'navigation.main-menu-list' with {
@@ -43,9 +45,61 @@
     {%- endfor -%}
 
     {% if level == 0 %}
-      <li>
-        account wishlist etc
-      </li>
+      {% capture extraLinks %}
+        {% if section.settings.wishlist != blank %}
+          <li>
+            <a href="{{ section.settings.wishlist }}"
+              class="c-main-menu__menu-link is-footer o-heading--6"
+          >
+              {%- render 'icon.heart' -%}
+              <span>{{ 'general.navigation.wishlist' | t }}</span>
+            </a>
+          </li>
+        {% endif %}
+
+        {% if shop.customer_accounts_enabled %}
+          <li>
+            <a href="{{ routes.account_url }}"
+              class="c-main-menu__menu-link is-footer o-heading--6"
+            >
+              {%- render 'icon.account' -%}
+              <span>{{ 'general.navigation.account' | t }}</span>
+            </a>
+          </li>
+        {% endif %}
+
+        <li>
+          <span class="c-main-menu__menu-link is-footer o-heading--6">
+            {{ 'general.navigation.currency' | t }}
+            {%- render 'object.currency-selector' -%}
+          </span>
+        </li>
+      {% endcapture %}
+
+      {% if extraLinks != blank %}
+        <li><span class="c-main-menu__menu-link o-heading--6">&nbsp;</span></li>
+        {{ extraLinks }}
+      {% endif %}
+    {% else %}
+      {%- liquid
+        assign pDown = parent.title | downcase
+        capture blockImages
+          for block in section.blocks
+            assign bDown = block.settings.title | downcase
+            if pDown != bDown
+              continue
+            endif
+
+            echo '<div>'
+            render 'tool.picture' with { img: block.settings.image, sizes: '500,750,1000', screens: '1000,1200' }
+            echo '</div>'
+          endfor
+        endcapture
+
+        echo '<li>'
+        echo blockImages
+        echo '</li>'
+      -%}
     {% endif %}
   </ul>
 {%- endif %}

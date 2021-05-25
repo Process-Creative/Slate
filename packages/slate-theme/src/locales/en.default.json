@@ -8,9 +8,10 @@
     "navigation": {
       "menu": "Menu",
       "search": "Search",
-      "wishlist": "Wishlist",
+      "wishlist": "My Wishlist",
       "cart": "Cart",
-      "account": "Account"
+      "account": "My Account",
+      "currency": "Currency: "
     }
   }
 }

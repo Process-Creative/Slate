@@ -85,29 +85,8 @@
     ],
     "blocks": [
       {
-        "type": "promo-message",
-        "name": "Promo Message",
-        "settings": [
-          {
-            "type": "paragraph",
-            "content": "Promo Messages are optional."
-          },
-          {
-            "id": "title",
-            "type": "text",
-            "label": "Promo Bar Text"
-          },
-          {
-            "id": "url",
-            "type": "url",
-            "label": "Promo Bar Link",
-            "info": "Leave blank for no link."
-          }
-        ]
-      },
-      {
         "type": "menu-content",
-        "name": "Menu Content & Settings",
+        "name": "Menu Content",
         "settings": [
           {
             "type": "header",
@@ -127,19 +106,22 @@
             "id": "image",
             "type": "image_picker",
             "label": "Menu Image",
-            "info": "Image to show on the right hand side of the mega nav for desktop users."
+            "info": "Image to show on the right hand side of the mega nav for desktop users, at the bottom of the menu for mobile users."
           },
           {
-            "id": "image-link",
+            "id": "link",
             "type": "url",
-            "label": "Image Link",
-            "info": "Shop/Browse All link"
+            "label": "Image Link"
           },
           {
-            "id": "link-label",
+            "id": "label",
             "type": "text",
-            "label": "Link Label",
-            "info": "Label to show over this menu's image, if an image has been set."
+            "label": "Label"
+          },
+          {
+            "id": "subtitle",
+            "type": "text",
+            "label": "Subtitle"
           }
         ]
       }
