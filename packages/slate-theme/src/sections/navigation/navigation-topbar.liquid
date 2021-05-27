@@ -51,7 +51,7 @@
         </div>
         {% liquid
           for link in menu.links
-            echo '<a href="' | append: link.url | append: '">'
+            echo '<a href="' | append: link.url | append: '" class="o-link">'
             echo link.title | escape
             echo '</a>'
           endfor

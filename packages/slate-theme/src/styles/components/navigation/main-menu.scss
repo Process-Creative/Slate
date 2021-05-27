@@ -127,6 +127,25 @@ $c-main-menu--background: $s-color--background;
         margin-left: 0.75rem;
       }
     }
+
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      &-item {
+        width: 50%;
+        width: calc(50% - #{(1.25rem/2)});
+      }
+      &-image { width: 100%; }
+      &-subtitle {
+        display: block;
+        color: $s-color--secondary;
+      }
+      &-title {
+        margin-top: 0.75rem;
+        display: block;
+      }
+    }
   }
 
   // Desktop

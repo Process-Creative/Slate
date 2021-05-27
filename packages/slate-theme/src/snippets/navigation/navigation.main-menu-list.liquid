@@ -90,14 +90,39 @@
               continue
             endif
 
-            echo '<div>'
-            render 'tool.picture' with { img: block.settings.image, sizes: '500,750,1000', screens: '1000,1200' }
-            echo '</div>'
+            if block.settings.image == blank or block.settings.label == blank
+              continue
+            endif
+
+            capture contents
+              render 'tool.picture' with { img: block.settings.image, sizes: '500,750,1000', screens: '1000,1200', class: 'c-main-menu__block-image' }
+              echo '<span class="c-main-menu__block-title o-heading--6">'
+              echo block.settings.label | escape
+              echo '</span>'
+
+              if block.settings.subtitle != blank
+                echo '<span class="c-main-menu__block-subtitle o-heading--6">'
+                echo block.settings.subtitle | escape
+                echo '</span>'
+              endif
+            endcapture
+
+            if block.settings.link == blank
+              echo '<div class="c-main-menu__block-item">'
+              echo contents
+              echo '</div>'
+            else 
+              echo '<a href="#" class="c-main-menu__block-item">'
+              echo contents
+              echo '</a>'
+            endif
           endfor
         endcapture
 
         echo '<li>'
+        echo '<div class="c-main-menu__block">'
         echo blockImages
+        echo '</div>'
         echo '</li>'
       -%}
     {% endif %}
