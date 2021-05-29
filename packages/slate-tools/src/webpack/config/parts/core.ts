@@ -2,6 +2,7 @@ import * as path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { slateToolsConfig } from '../../../schema';
 import { SlateSectionsPlugin } from '../../plugin/slate-sections-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const PATH_THEME_NODE_MODULES = path.join(slateToolsConfig.get('paths.theme'), 'node_modules');
 const PATH_MONOREPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..', '..', '..');
@@ -104,6 +105,9 @@ export const partCore = {
           to: slateToolsConfig.get('paths.theme.dist.templates'),
         }
       ]
+    }),
+
+    new CleanWebpackPlugin({
     }),
 
     //Sections

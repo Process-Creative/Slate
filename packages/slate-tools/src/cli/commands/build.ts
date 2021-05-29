@@ -14,6 +14,7 @@ import minimist from 'minimist';
 import chalk from 'chalk';
 import { validate } from '../../env/tasks';
 import { getEnvNameValue } from '../../env/value';
+import { webpackBuild } from '../../webpack/build';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -27,15 +28,4 @@ if(!result.isValid) {
   });
 }
 
-webpack(webpackConfig, (err,stats) => {
-  if (err) throw err;
-  console.log(`${stats.toString({
-    colors: true,
-    modules: false,
-    children: false,
-    chunks: false,
-    chunkModules: false,
-  })}`);
-  console.log('');
-  if (stats.compilation.errors.length) process.exit(1);
-});
+webpackBuild();

@@ -7,6 +7,8 @@
     "watch": "slate-tools start --skipFirstDeploy",
     "build": "slate-tools build",
     "deploy": "slate-tools deploy",
+    "compare": "slate-tools compare",
+    "download": "slate-tools download",
     "zip": "slate-tools build && slate-tools zip",
     "open": "slate-tools open",
     "tester": "slate-tools test",

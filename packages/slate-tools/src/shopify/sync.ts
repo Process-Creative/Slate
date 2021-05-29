@@ -101,6 +101,21 @@ const promiseThemekitConfig = async () => {
   );
 };
 
+/**
+ * Download the theme on the remote server.
+ */
+export const promiseThemekitDownload = async () => {
+  return await ThemekitCommand(
+    'download',
+    {
+      ...generateConfigFlags(),
+      env: undefined,
+      'ignored-file': 'config/settings_data.json'
+    },
+    { cwd: slateToolsConfig.get('paths.theme.download') }
+  );
+}
+
 const promiseThemekitDeploy = async (cmd:string, replace:boolean, files:string[]) => {
   const deployment = await ThemekitCommand(
     cmd,
@@ -196,3 +211,4 @@ export const sync = async (files:string[] = []) => {
 
 export const replace = () => deploy(true);
 export const upload = () => deploy(false);
+export const download = () => promiseThemekitDownload();

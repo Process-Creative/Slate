@@ -82,6 +82,9 @@ export type SchemaTools = SchemaPaths & {
   /** Distribution templates directory */
   'paths.theme.dist.templates':string;
 
+  /** Directory where downloaded themes are stored. */
+  'paths.theme.download':string;
+
   /** Enable/disable the prompt to skip uploading settings_data.json */
   'cli.promptSettings':boolean;
 
@@ -205,6 +208,12 @@ export const SCHEMA_TOOLS = slateSchemaCreate<SchemaTools>(config => ({
 
   'paths.theme.dist.templates': () =>
     path.join(config.get('paths.theme.dist'), 'templates'),
+  
+  'paths.theme.download': () => {
+    const dir = path.join(config.get('paths.theme'), 'download');
+    const name = process.env[config.get('env.keys.name')] || 'default';
+    return path.join(dir, name);
+  },
   
   'cli.promptSettings': true,
 

@@ -26,6 +26,8 @@ async function init() {
     case 'env':
     case 'test':
     case 'open':
+    case 'compare':
+    case 'download':
       require(`./commands/${script}`);
       break;
       

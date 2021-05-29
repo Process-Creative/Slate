@@ -1,23 +1,7 @@
 .o-heading--6,.o-heading.is-size-6 {
-  font-size: $s-font--heading-6-size-xsmall;
+  @extend %t-font--heading-6;
 }
 
 .o-paragraph--2,.o-paragraph.is-size-2 {
-  font-size: $s-font--paragraph-2-size-xsmall;
-}
-
-@include t-media--up($s-screen--medium) {
-  .o-heading--6,.o-heading.is-size-6 {
-    font-size: $s-font--heading-6-size-medium;
-  }
-  
-  .o-paragraph--2,.o-paragraph.is-size-2 {
-    font-size: $s-font--paragraph-2-size-medium;;
-  }
-}
-
-@include t-media--up($s-screen--large) {
-  .o-heading--6,.o-heading.is-size-6 {
-    font-size: $s-font--heading-6-size-large;
-  }
+  @extend %t-font--paragraph-2;
 }

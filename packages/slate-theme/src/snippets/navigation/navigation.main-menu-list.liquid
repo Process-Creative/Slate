@@ -1,7 +1,7 @@
 {% if links.size > 0 -%}
   {% assign nextLevel = level | plus: 1 %}
 
-  <ul class="c-main-menu__menu {% if level == 0 %}is-level-0{% endif %}" data-header-menu>
+  <ul class="c-main-menu__menu is-level-{{ level }}" data-header-menu>
     <li class="c-main-menu__menu-header">
       {% if level == 0 %}
         <form action="{{ routes.search_url }}" class="c-main-menu__search">
@@ -15,7 +15,7 @@
           />
         </form>
       {% else %}
-        <button class="c-main-menu__back o-heading--6" type="button" data-header-back>
+        <button class="c-main-menu__back" type="button" data-header-back>
           {%- render 'icon.arrow-left' -%}
           {{ parent.title | escape }}
         </button>
@@ -23,8 +23,9 @@
     </li>
 
     {%- for link in links -%}
-      <li>
+      <li class="c-main-menu__menu-item is-level-{{ level }}">
         <a href="{{ link.url }}" class="c-main-menu__menu-link o-heading--6
+          is-level-{{ level }}
           {% if link.links.size > 0 %}has-submenu" data-header-link{% else %}"{% endif %}
         >
           {%- liquid
@@ -47,7 +48,7 @@
     {% if level == 0 %}
       {% capture extraLinks %}
         {% if section.settings.wishlist != blank %}
-          <li>
+          <li class="c-main-menu__menu-extra">
             <a href="{{ section.settings.wishlist }}"
               class="c-main-menu__menu-link is-footer o-heading--6"
           >
@@ -58,7 +59,7 @@
         {% endif %}
 
         {% if shop.customer_accounts_enabled %}
-          <li>
+          <li class="c-main-menu__menu-extra">
             <a href="{{ routes.account_url }}"
               class="c-main-menu__menu-link is-footer o-heading--6"
             >
@@ -68,7 +69,7 @@
           </li>
         {% endif %}
 
-        <li>
+        <li class="c-main-menu__menu-extra">
           <span class="c-main-menu__menu-link is-footer o-heading--6">
             {{ 'general.navigation.currency' | t }}
             {%- render 'object.currency-selector' -%}
@@ -77,10 +78,12 @@
       {% endcapture %}
 
       {% if extraLinks != blank %}
-        <li><span class="c-main-menu__menu-link o-heading--6">&nbsp;</span></li>
+        <li class="c-main-menu__menu-spacer">
+          <span class="c-main-menu__menu-link o-heading--6">&nbsp;</span>
+        </li>
         {{ extraLinks }}
       {% endif %}
-    {% else %}
+    {% elsif level == 1 %}
       {%- liquid
         assign pDown = parent.title | downcase
         capture blockImages
@@ -119,11 +122,11 @@
           endfor
         endcapture
 
-        echo '<li>'
-        echo '<div class="c-main-menu__block">'
-        echo blockImages
-        echo '</div>'
-        echo '</li>'
+        if blockImages != blank
+          echo '<li class="c-main-menu__block">'
+          echo blockImages
+          echo '</li>'
+        endif
       -%}
     {% endif %}
   </ul>

@@ -1,12 +1,50 @@
 $c-main-menu--background: $s-color--background;
+$c-main-menu--hover-hitbox: 30%;
 
 .c-main-menu {
-  background: $c-main-menu--background;
+  $self: &;
+  width: 100%;
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    &-item {
+      width: 50%;
+      width: calc(50% - #{(1.25rem/2)});
+    }
+
+    &-image { width: 100%; }
+
+    &-subtitle {
+      display: block;
+      color: $s-color--secondary;
+    }
+
+    &-title {
+      margin-top: 0.75rem;
+      display: block;
+    }
+  }
+
+  &__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: $c-main-menu--background;
+
+    &-link {
+      @extend %t-font--heading-6-base;
+      text-transform: uppercase;
+      position: relative;
+      &.is-level-2 { text-transform: initial; }
+    }
+  }
 
   // Mobile
   @include t-media--down($s-screen--small) {
     position: fixed;
-    width: 100%;
     height: 100%;
     top: 0;
     left: 0;
@@ -14,6 +52,7 @@ $c-main-menu--background: $s-color--background;
     transform: translate3d(-100%, 0, 0);
     @include t-anim--transition(transform);
     overflow: hidden;
+    background: $c-main-menu--background;
 
     &__close {
       width: 1.8125rem;
@@ -48,10 +87,7 @@ $c-main-menu--background: $s-color--background;
       padding: 6rem $s-gutter--fluid-xsmall $s-gutter--fixed-xsmall;
       overflow-x: hidden;
       overflow-y: auto;
-      background: $c-main-menu--background;
       @include t-anim--transition(transform);
-      list-style: none;
-      margin: 0;
 
       &-header {
         padding-bottom: 2.5rem;
@@ -62,11 +98,8 @@ $c-main-menu--background: $s-color--background;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: relative;
         border-bottom: $s-border--thin-tertiary;
         padding: 0.875rem 0;
-        text-transform: uppercase;
-        text-decoration: none;
 
         &.is-footer {
           justify-content: flex-start;
@@ -127,28 +160,106 @@ $c-main-menu--background: $s-color--background;
         margin-left: 0.75rem;
       }
     }
-
-    &__block {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-      &-item {
-        width: 50%;
-        width: calc(50% - #{(1.25rem/2)});
-      }
-      &-image { width: 100%; }
-      &-subtitle {
-        display: block;
-        color: $s-color--secondary;
-      }
-      &-title {
-        margin-top: 0.75rem;
-        display: block;
-      }
-    }
   }
+
 
   // Desktop
   @include t-media--up($s-screen--small) {
+    &__static { display: none; }
+
+    &,&__dynamic {
+      display: flex;
+    }
+
+    &__menu {
+      &-spacer, &-extra, &-header, &-link svg { display: none; }
+      &-item:hover > &.is-level-1 { display: flex; }
+
+      &.is-level-0 { 
+        display: flex;
+        justify-content: flex-start;
+        position: static;
+      }
+
+      &-link {
+        display: block;
+        width: 100%;
+
+        &.is-level-0 {
+          display: flex;
+          align-items: center;
+          text-transform: initial;
+          height: 100%;
+          padding: 0.25rem;
+        }
+
+        &.is-level-1 {
+          margin-bottom: 2.125rem;
+        }
+      }
+
+      // Extended hitbox (to make hovering easier)
+      &-item:hover > &-link.is-level-0:after {
+        content: '';
+        display: block;
+        width: 100% + $c-main-menu--hover-hitbox;
+        height: 100% + $c-main-menu--hover-hitbox;
+        border-radius: $c-main-menu--hover-hitbox/2;
+        position: absolute;
+        background: transparent;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      &-item.is-level-1 { width: 20%; }
+
+      &.is-level-1 {
+        display: none; 
+        // display: flex; // Uncomment this to test
+        position: absolute;
+        width: 100%;
+        left: 0;
+        align-items: flex-start;
+        z-index: $s-z--menu;
+        padding: $s-gutter--fluid-medium $s-gutter--fluid-xsmall;
+      }
+      &.is-level-2 { display: block; }
+    }
+
+    &__block {
+      margin-left: auto;
+      width: 40%;
+    }
+  }
+
+  @include t-media--up($s-screen--medium) {
+    &__menu {
+      &.is-level-0 { margin: 0 -1rem; }
+
+      &-link {
+        @extend %t-font--heading-6-medium;
+        &.is-level-0 { padding: 1rem; }
+      }
+
+      &.is-level-1 { padding: $s-gutter--fluid-medium; }
+      &.is-level-2 { @extend %t-font--paragraph-2-medium; }
+    }
+  }
+
+  @include t-media--up($s-screen--large) {
+    &__menu-link {
+      &.is-level-0,&.is-level-1 {
+        @extend %t-font--heading-6-large;
+      }
+    }
+
+    &__block {
+      &-title,&-subtitle {
+        display: inline-block;
+        margin-right: 0.625rem;
+      }
+    }
   }
 }

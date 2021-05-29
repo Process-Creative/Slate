@@ -4,7 +4,6 @@
 .c-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 0 $s-gutter--fluid-xsmall;
 
   border: $s-border--thin-secondary;
@@ -76,9 +75,14 @@
     &__currency {
       display: block;
     }
+
+    &__left {
+      display: none;
+    }
   }
 
   @include t-media--up($s-screen--medium) {
     padding: 0 $s-gutter--fluid-medium;
+
   }
 }

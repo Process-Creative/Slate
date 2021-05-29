@@ -16,6 +16,7 @@ import { continueIfPulishedTheme } from '../prompts/continue-if-published-theme'
 import { replace, upload } from '../../shopify/sync';
 import { validate } from '../../env/tasks';
 import { getEnvNameValue } from '../../env/value';
+import { webpackBuild } from '../../webpack/build';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -29,28 +30,20 @@ if(!result.isValid) {
   });
 }
 
-webpack(webpackConfig, (err,stats) => {
-  if (err) throw err;
-  console.log(`${stats.toString({
-    colors: true,
-    modules: false,
-    children: false,
-    chunks: false,
-    chunkModules: false,
-  })}`);
-  console.log('');
-  
+(async () => {
+  await webpackBuild();
   
   const deploy = argv.replace ? replace : upload;
   
-  continueIfPulishedTheme().then((answer: boolean) => {
-    if (!answer) {
-      process.exit(0);
-    }  
-    return deploy();
-  }).then(() => {
-    return console.log(chalk.green('\nFiles overwritten successfully!\n'));
-  }).catch((error) => {
-    console.log(`\n${chalk.red(error)}\n`);
-  });
-});
+  const answer = await continueIfPulishedTheme();
+  if (!answer) {
+    process.exit(0);
+  }
+
+  try {
+    await deploy();
+    console.log(chalk.green('\nFiles overwritten successfully!\n'));
+  } catch(e) {
+    console.log(`\n${chalk.red(e)}\n`);
+  }
+})().catch(console.error);
