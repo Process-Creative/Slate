@@ -1,7 +1,12 @@
-.o-heading--6,.o-heading.is-size-6 {
-  @extend %t-font--heading-6;
+// Functionally similar to elements/headings.scss
+@for $i from 1 through 6 {
+  .o-heading--#{$i},.o-heading.is-size-#{$i} {
+    @extend %t-font--heading-#{$i};
+  }
 }
 
-.o-paragraph--2,.o-paragraph.is-size-2 {
-  @extend %t-font--paragraph-2;
+@for $i from 1 through 2 {
+  .o-paragraph--#{$i},.o-paragraph.is-size-#{$i} {
+    @extend %t-font--paragraph-#{$i};
+  }
 }

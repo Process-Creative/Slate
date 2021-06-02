@@ -5,20 +5,55 @@
 ////////////////////////////////////////////////////////////////////////////////
 %t-font--root {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: 'GT America', sans-serif;
   line-height: 1.5;
   letter-spacing: 0;
 }
 
 // Heading Fonts
+%t-font--heading-1-base {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  margin-bottom: 1.875rem;
+}
+
+%t-font--heading-2-base {
+  font-size: 1.875rem;
+  line-height: 1.2;
+  margin-bottom: 1.875rem;
+}
+
+%t-font--heading-3-base {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 1.875rem;
+}
+
+%t-font--heading-4-base {
+  font-size: 1.125rem;
+  line-height: 1.3;
+  margin-bottom: 1.5625rem;
+}
+
+%t-font--heading-5-base {
+  font-size: 1.125rem;
+  margin-bottom: 1.25rem;
+}
+
 %t-font--heading-6-base {
   font-size: 0.875rem;
+  margin-bottom: 0.75rem;
 }
 
 // Paragraph Fonts
+%t-font--paragraph-1-base {
+  font-size: 0.875rem;
+  margin-bottom: 3.125rem;
+}
 %t-font--paragraph-2-base {
   font-size: 0.75rem;
+  margin-bottom: 3.125rem;
 }
 
 
@@ -26,7 +61,14 @@
 // Medium Fonts
 ////////////////////////////////////////////////////////////////////////////////
 @include t-media--up($s-screen--medium) {
+  %t-font--heading-1-medium { font-size: 3rem; }
+  %t-font--heading-2-medium { font-size: 2.25rem; }
+  %t-font--heading-3-medium { font-size: 1.875rem; }
+  %t-font--heading-4-medium { font-size: 1.5rem; }
+  %t-font--heading-5-medium { }
   %t-font--heading-6-medium { font-size: 1rem; }
+
+  %t-font--paragraph-1-medium {  }
   %t-font--paragraph-2-medium { font-size: 0.875rem; }
 }
 
@@ -34,9 +76,43 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Large Fonts
 ////////////////////////////////////////////////////////////////////////////////
-@include t-media--up($s-screen--large) {
+@include t-media--up($s-screen--xlarge) {
+  %t-font--heading-1-large {
+    font-size: 4rem;
+    margin-bottom: 2.5rem;
+  }
+
+  %t-font--heading-2-large {
+    font-size: 3.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  %t-font--heading-3-large {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  %t-font--heading-4-large {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  %t-font--heading-5-large {
+    font-size: 1.5rem;
+    margin-bottom: 1.875rem;
+  }
+
   %t-font--heading-6-large {
     font-size: 1.125rem;
+    margin-bottom: 1.25rem;
+  }
+
+  %t-font--paragraph-1-large {
+    font-size: 1rem;
+    margin-bottom: 3.75rem;
+  }
+  %t-font--paragraph-2-large { 
+    margin-bottom: 3.75rem;
   }
 }
 
@@ -46,14 +122,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Heading Font Sets
-%t-font--heading-6 {
-  @extend %t-font--heading-6-base;
-  @extend %t-font--heading-6-medium;
-  @extend %t-font--heading-6-large;
+@for $i from 1 through 6 {
+  %t-font--heading-#{$i} {
+    @extend %t-font--heading-#{$i}-base !optional;
+    @extend %t-font--heading-#{$i}-medium !optional;
+    @extend %t-font--heading-#{$i}-large !optional;
+  }
 }
 
 // Paragraph Font Sets
-%t-font--paragraph-2 {
-  @extend %t-font--paragraph-2-base;
-  @extend %t-font--paragraph-2-medium;
+@for $i from 1 through 2 {
+  %t-font--paragraph-#{$i} {
+    @extend %t-font--paragraph-#{$i}-base !optional;
+    @extend %t-font--paragraph-#{$i}-medium !optional;
+    @extend %t-font--paragraph-#{$i}-large !optional;
+  }
 }

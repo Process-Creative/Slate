@@ -1,6 +1,4 @@
-h1 { }
-h2 { }
-h3 { }
-h4 { }
-h5 { }
-h6 { @extend %t-font--heading-6; }
+// Defines H1-H6 by extending t-font--heading--i where I is 1-6
+@for $i from 1 through 6 {
+  h#{$i} { @extend %t-font--heading-#{$i}; }
+}

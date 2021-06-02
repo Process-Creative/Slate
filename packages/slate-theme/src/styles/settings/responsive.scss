@@ -6,11 +6,11 @@ $s-screen--xlarge: 'xlarge';
 $s-screen--xxlarge: 'xxlarge';
 
 $s-screen--sizes: (
-  $s-screen--xsmall:  375px,    // Modern Phones
+  $s-screen--xsmall:  375px,    // Modern Phones                                
   $s-screen--small:   750px,    // Modern Large Mobiles / Small Tablets
-  $s-screen--medium:  1100px,   // Large Tablet / Small Old Laptop
+  $s-screen--medium:  1100px,   // Large Tablet / Small Old Laptop              // "L" Begin
   $s-screen--large:   1350px,   // Large Tablet Landscape / Average Laptop
-  $s-screen--xlarge:  1650px,   // Large Laptop / Average - Large Desktop
+  $s-screen--xlarge:  1650px,   // Large Laptop / Average - Large Desktop       // "D" Begin
   $s-screen--xxlarge: 2000px    // 4K Deskop, Ultrawides
 );
 

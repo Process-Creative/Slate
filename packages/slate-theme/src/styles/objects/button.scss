@@ -1,0 +1,19 @@
+.o-btn {
+  border: $s-border--thin-secondary;
+  background: $s-color--tertiary;
+  padding: 0.875rem 2.375rem;
+  font-size: 0.875rem;
+  margin-top: 3.125rem;
+
+  &:hover {
+    background: $s-color--primary;
+  }
+}
+
+@include t-media--up($s-screen--xlarge) {
+  .o-btn {
+    font-size: 1rem;
+    padding: 1rem 2.5rem;
+    margin-top: 5rem;
+  }
+}

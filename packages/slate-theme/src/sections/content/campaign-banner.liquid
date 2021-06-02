@@ -1,0 +1,181 @@
+{%- comment -%}
+  Campaign Banner
+    Image or Video Banner with Text Content Overlayed
+
+  Version:
+    1.0.0 - 2021/05/12
+{%- endcomment -%}
+{%- liquid
+  assign description = section.settings.description | replace: '<p', '<p class="c-campaign-banner__description o-paragraph"'
+  assign poster = section.settings.poster
+  assign superheading = section.settings.superheading
+  assign heading = section.settings.heading
+  assign description = description
+  assign btnLabel = section.settings.button_label
+  assign btnURL = section.settings.button_url
+  assign videoMp4 = section.settings.video_mp4
+  assign videoWebm = section.settings.video_webm
+  assign alignment = section.settings.alignment
+  assign overlayOpacity = section.settings.overlay_opacity | divided_by: 100.0
+-%}
+{% if poster != blank %}
+  <div class="c-campaign-banner">
+    <div class="c-campaign-banner__media-wrapper">
+      {%- comment -%} Video with Image Poster {%- endcomment -%}
+      {% if videoMp4 != blank or videoWebm != blank %}
+
+        {% comment %}
+        {%- render 'object.html5-video' with {
+          imageUrl: poster,
+          videoUrlMp4: videoMp4,
+          videoUrlWebm: videoWebm,
+          autoplay: true,
+          class: 'c-campaign-banner__video'
+        } -%}
+        {% endcomment %}
+
+        {%- comment -%} Background Overlay for Video {%- endcomment -%}
+        <div class="c-campaign-banner__background-overlay" 
+          {% if overlayOpacity != blank %}
+            style="background-color: rgba(0,0,0,{{- overlayOpacity -}}) "
+          {% endif %}
+        ></div>
+        
+
+      {%- comment -%} Image only {%- endcomment -%}  
+      {%- else -%}
+        <div class="c-campaign-banner__image-container o-responsive">
+          {%- render 'tool.picture' with {
+            img: poster,
+            alt: heading,
+            class: 'c-campaign-banner__image o-responsive__image is-cover',
+            sizes: '375,750,1200,2000',
+            screens: '500,750,1200'
+          } -%}
+
+          {%- comment -%} Background Overlay for Image {%- endcomment -%}
+          <div class="c-campaign-banner__background-overlay" 
+            {% if overlayOpacity != blank %}
+              style="background-color: rgba(0,0,0,{{- overlayOpacity -}})"
+            {% endif %}
+          >
+          </div>
+        </div> 
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Content {%- endcomment -%}
+    <div class="c-campaign-banner__content is-{{- alignment -}}">
+
+      {% if superheading != blank %}
+        <p class="c-campaign-banner__superheading o-heading--6">
+          {{- superheading -}}
+        </p>
+      {% endif %}
+      
+      {% if heading != blank %}
+        <h1 class="c-campaign-banner__heading">{{ heading | escape }}</h1>
+      {% endif %}
+
+      {% if description != blank %}
+        <p class="c-campaign-banner__description">
+          {{- description -}}
+        </p>
+      {% endif %}
+
+      {% if btnURL != blank and btnLabel != blank %}
+        <a href="{{ btnURL }}" class="c-campaign-banner__button o-btn">
+          {{- btnLabel -}}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+
+
+{% schema %}
+  {  
+    "name": "Campaign Banner",
+    "class": "c-section c-section__campaign-banner",
+    "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Align Text Content",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+      },
+      {
+        "type": "number",
+        "id": "overlay_opacity",
+        "label": "Background Opacity",
+        "info":"Enter a number between 0 and 100",
+        "default":20
+      },
+      {
+        "type": "image_picker",
+        "id": "poster",
+        "label": "Background Image",
+        "info":"Dimensions: 2000px X 720px"
+      },
+      {
+        "type": "text",
+        "id": "video_mp4",
+        "label": "Video Link MP4",
+        "info": "Videos can be uploaded in Settings > Files and the link copied here"
+      },
+      {
+        "type": "text",
+        "id": "video_webm",
+        "label": "Video Link WebM",
+        "info": "Videos can be uploaded in Settings > Files and the link copied here"
+      },
+      {
+        "type": "text",
+        "id": "superheading",
+        "label": "Superheading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }, 
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Shop Best Sellers"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Campaign Banner",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %} 

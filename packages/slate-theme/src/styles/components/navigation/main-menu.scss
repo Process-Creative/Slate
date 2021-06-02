@@ -15,8 +15,6 @@ $c-main-menu--hover-hitbox: 30%;
       width: calc(50% - #{(1.25rem/2)});
     }
 
-    &-image { width: 100%; }
-
     &-subtitle {
       display: block;
       color: $s-color--secondary;
@@ -248,10 +246,13 @@ $c-main-menu--hover-hitbox: 30%;
     }
   }
 
-  @include t-media--up($s-screen--large) {
+  @include t-media--up($s-screen--xlarge) {
     &__menu-link {
       &.is-level-0,&.is-level-1 {
         @extend %t-font--heading-6-large;
+      }
+      &.is-level-2 {
+        @extend %t-font--paragraph-2-large;
       }
     }
 

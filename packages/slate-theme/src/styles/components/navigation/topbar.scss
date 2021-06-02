@@ -49,7 +49,7 @@ $c-topbar--background: $s-color--primary;
 
       @include t-anim--transition(padding);
 
-      svg { width: 100%; height: 100%; }
+      svg { height: 100%; }
     }
 
     &-left:hover { padding-right: 0.75rem; padding-left: 0.25rem; }

@@ -7,18 +7,18 @@
             continue
           endif
           
-          echo '<div class="o-paragraph--2'
+          echo '<div'
           unless forloop.first
-            echo ' has-js'
+            echo ' class="has-js"'
           endunless
-          echo '">'
+          echo '>'
 
           if block.settings.url == blank
-            echo '<span>'
+            echo '<span class="o-paragraph--2">'
             echo block.settings.title | escape
             echo '</span>'
           else
-            echo '<a href="' | append: block.settingsurl | append: '">'
+            echo '<a href="' | append: block.settingsurl | append: '" class="o-paragraph--2">'
             echo block.settings.title | escape
             echo '</a>'
           endif
