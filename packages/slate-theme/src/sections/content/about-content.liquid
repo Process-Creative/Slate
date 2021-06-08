@@ -1,0 +1,149 @@
+{%- comment -%}
+  About Us
+   
+  Version:
+    1.0.0 - 2021/05/10
+{%- endcomment -%}
+{%- liquid
+  assign description = section.settings.description | replace: '<p', '<p class="c-about-content__description o-paragraph"' 
+  assign reverseSection = section.settings.reverse_section
+  assign image = section.settings.image
+  assign superheading = section.settings.superheading
+  assign heading = section.settings.heading
+  assign btnLabel = section.settings.button_label
+  assign btnURL = section.settings.button_url
+  assign videoMp4 = section.settings.video_mp4
+  assign videoWebm = section.settings.video_webm
+-%}
+
+{% if image != blank or videoUrlMp4 != blank or videoUrlWebm != blank %}
+  <div class="c-about-content">
+    <div class="c-about-content__inner {% if reverseSection %}is-reversed{% endif %}">    
+      <div class="c-about-content__media-wrapper">
+        
+        {%- comment -%} Video with Image Poster {%- endcomment -%}
+        {% if videoMp4 != blank or videoWebm != blank %}
+          {%- render 'object.html5-video' with {
+            imageUrl: image
+            videoUrlMp4: videoMp4
+            videoUrlWebm: videoWebm
+            autoplay: true
+            class: 'c-about-content__video'
+          } -%}
+
+        {%- comment -%} Image only {%- endcomment -%}  
+        {%- else -%}
+          <div class="c-about-content__image-container o-responsive-image-container">
+            {%- render 'tool.picture' with {
+              image: image,
+              class: 'c-about-content__image o-responsive-image',
+              width: 790,
+              sizes: '375'
+              imageSizes: '336'
+            } -%}
+          </div> 
+        {% endif %}
+      
+      </div>
+
+      {%- comment -%} Content {%- endcomment -%}
+      {% if heading != blank and description != blank %}      
+        <div class="c-about-content__content">
+
+          {%- comment -%} Superheading {%- endcomment -%}
+          {% if superheading != blank %}
+            <p class="c-about-content__superheading o-heading--6">
+              {{- superheading -}}
+            </p>
+          {% endif %}
+          
+          {%- comment -%} Heading {%- endcomment -%}
+            <h3 class="c-about-content__heading">
+              {{- heading -}}
+            </h3>
+
+          {%- comment -%} Description {%- endcomment -%}
+            <div class="c-about-content__description-wrapper">
+              {{- description -}}
+            </div>
+
+          {%- comment -%} Button {%- endcomment -%}
+          {% if btnURL != blank and btnLabel != blank %}
+            <a href="{{- btnURL -}}" class="c-about-content__button o-btn">
+              {{- btnLabel -}}
+            </a>
+          {% endif %}
+
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+{% endif %}
+
+{% schema %}
+{  
+  "name": "About Us",
+  "class": "c-section c-section__about",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "reverse_section",
+      "label": "Reverse Order",
+      "info": "Check this box to reverse order of image and content"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4",
+      "label": "Video Link MP4",
+      "info": "Videos can be uploaded in Settings > Files and the link copied here"
+    },
+    {
+      "type": "text",
+      "id": "video_webm",
+      "label": "Video Link WebM",
+      "info": "Videos can be uploaded in Settings > Files and the link copied here"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info":"1580px X 1320px"
+    },   
+    {
+      "type": "text",
+      "id": "superheading",
+      "label": "Superheading",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ], 
+  "presets": [
+    {
+      "name": "About Us",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}
