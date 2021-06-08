@@ -1,0 +1,61 @@
+{%- comment -%}
+  Page Unique Selling Points
+   
+  Version:
+    1.0.0 - 2021/05/07
+{%- endcomment -%}
+
+{%- comment -%} Assign Variables {%- endcomment -%}
+{%-  assign uspBlocks = section.blocks | where: 'type', 'unique_selling_point' -%}
+
+{%- comment -%} USP {%- endcomment -%}
+{% if uspBlocks.size > 0 %}
+  <div class="c-usps">
+    <div class="c-usps__inner">
+      {% for block in uspBlocks %}
+        {% assign icon = block.settings.usp_icon %}
+        {% assign text = block.settings.usp_text %}
+        {%- unless icon != blank and text != blank -%}{%- continue -%}{%- endunless -%}
+  
+        {%- render 'unique-selling-point' with {
+          icon:icon,
+          text:text
+        } -%}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+
+{% schema %}
+  {  
+    "name": "Unique Selling Points",
+    "class": "c-section c-section__usp",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "unique_selling_point",
+        "name": "Unique Selling Point",
+        "settings": [
+          {
+            "type": "text",
+            "id": "usp_icon",
+            "label": "SVG Icon",
+            "info": "Copy/paste svg code here"
+          },
+          {
+            "type": "text",
+            "id": "usp_text",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Unique Selling Points",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %}
