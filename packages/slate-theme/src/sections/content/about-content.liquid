@@ -5,20 +5,20 @@
     1.0.0 - 2021/05/10
 {%- endcomment -%}
 {%- liquid
-  assign description = section.settings.description | replace: '<p', '<p class="c-about-content__description o-paragraph"' 
-  assign reverseSection = section.settings.reverse_section
+  assign description = section.settings.description | replace: '<p', '<p class="c-about-content__description o-paragraph"'
+
   assign image = section.settings.image
-  assign superheading = section.settings.superheading
-  assign heading = section.settings.heading
-  assign btnLabel = section.settings.button_label
-  assign btnURL = section.settings.button_url
   assign videoMp4 = section.settings.video_mp4
   assign videoWebm = section.settings.video_webm
+
+  assign heading = section.settings.heading
+  assign btnLabel = section.settings.buttonLabel
+  assign btnURL = section.settings.buttonUrl
 -%}
 
 {% if image != blank or videoUrlMp4 != blank or videoUrlWebm != blank %}
   <div class="c-about-content">
-    <div class="c-about-content__inner {% if reverseSection %}is-reversed{% endif %}">    
+    <div class="c-about-content__inner {% if section.settings.reverseSection %}is-reversed{% endif %}">
       <div class="c-about-content__media-wrapper">
         
         {%- comment -%} Video with Image Poster {%- endcomment -%}
@@ -31,8 +31,8 @@
             class: 'c-about-content__video'
           } -%}
 
-        {%- comment -%} Image only {%- endcomment -%}  
         {%- else -%}
+          {%- comment -%} Image only {%- endcomment -%}  
           <div class="c-about-content__image-container o-responsive">
             {%- render 'tool.picture' with {
               img: image,
@@ -46,13 +46,13 @@
       </div>
 
       {%- comment -%} Content {%- endcomment -%}
-      {% if heading != blank and description != blank %}      
+      {% if heading != blank and description != blank %}
         <div class="c-about-content__content">
 
           {%- comment -%} Superheading {%- endcomment -%}
-          {% if superheading != blank %}
+          {% if section.settings.superheading != blank %}
             <p class="c-about-content__superheading o-heading--6">
-              {{- superheading -}}
+              {{- section.settings.superheading | escape -}}
             </p>
           {% endif %}
           
@@ -68,7 +68,7 @@
 
           {%- comment -%} Button {%- endcomment -%}
           {% if btnURL != blank and btnLabel != blank %}
-            <a href="{{- btnURL -}}" class="c-about-content__button o-btn">
+            <a href="{{ btnURL }}" class="c-about-content__button o-btn">
               {{- btnLabel | escape -}}
             </a>
           {% endif %}
@@ -88,19 +88,19 @@
   "settings": [
     {
       "type": "checkbox",
-      "id": "reverse_section",
+      "id": "reverseSection",
       "label": "Reverse Order",
       "info": "Check this box to reverse order of image and content"
     },
     {
       "type": "text",
-      "id": "video_mp4",
+      "id": "videoMp4",
       "label": "Video Link MP4",
       "info": "Videos can be uploaded in Settings > Files and the link copied here"
     },
     {
       "type": "text",
-      "id": "video_webm",
+      "id": "videoWebm",
       "label": "Video Link WebM",
       "info": "Videos can be uploaded in Settings > Files and the link copied here"
     },
@@ -128,13 +128,13 @@
     },
     {
       "type": "text",
-      "id": "button_label",
+      "id": "buttonLabel",
       "label": "Button Label",
       "default": "Learn more"
     },
     {
       "type": "url",
-      "id": "button_url",
+      "id": "buttonUrl",
       "label": "Button URL"
     }
   ], 
