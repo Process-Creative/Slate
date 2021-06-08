@@ -7,8 +7,8 @@
 {%- liquid
   assign image = section.settings.image
   assign text = section.settings.text
-  assign linkText = section.settings.link-text
-  assign linkURL = section.settings.link-url
+  assign linkText = section.settings.linkText
+  assign linkURL = section.settings.linkUrl
 -%}
 
 {%- comment -%} Brand Message {%- endcomment -%}
@@ -66,13 +66,13 @@
       },
       {
         "type": "text",
-        "id": "link-text",
+        "id": "linkText",
         "label": "Link Text",
         "default": "Learn More"
       },
       {
         "type": "url",
-        "id": "link-url",
+        "id": "linkUrl",
         "label": "Link URL",
         "default": "/"
       }
