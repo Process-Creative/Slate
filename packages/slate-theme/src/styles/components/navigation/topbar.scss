@@ -1,11 +1,20 @@
-@import '/styles/base';
-
 $c-topbar--background: $s-color--primary;
 
 .c-topbar {
-  background: $c-topbar--background;
-  border: $s-border--thin-secondary;
-  padding: 0 $s-gutter--fluid-xsmall;
+  height: 3.125rem;
+
+  &__float {
+    background: $c-topbar--background;
+    border: $s-border--thin-secondary;
+    padding: 0 $s-gutter--fluid-xsmall;
+    width: 100%;
+  }
+  
+  &.is-sticky &__float {
+    position: fixed;
+    top: 0;
+    z-index: $s-z--topbar;
+  }
 
   &__inner {
     position: relative;
@@ -83,6 +92,8 @@ $c-topbar--background: $s-color--primary;
   }
   
   @include t-media--up($s-screen--medium) {
-    padding: 0 $s-gutter--fluid-medium;
+    &__fixed {
+      padding: 0 $s-gutter--fluid-medium;
+    }
   }
 }

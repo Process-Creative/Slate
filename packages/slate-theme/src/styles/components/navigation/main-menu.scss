@@ -1,3 +1,12 @@
+/**
+ *  Main menu is complex enough to be split.
+ *    First is the shared styles.
+ *    Then there is a media-down query for mobile displays.
+ *    Finally there is a media-up query for laptop+ screens.
+ *    At the end are some touch up styles for larger screens.
+ */
+
+
 $c-main-menu--background: $s-color--background;
 $c-main-menu--hover-hitbox: 30%;
 
@@ -33,9 +42,9 @@ $c-main-menu--hover-hitbox: 30%;
     background: $c-main-menu--background;
 
     &-link {
-      @extend %t-font--heading-6-base;
       text-transform: uppercase;
       position: relative;
+      margin: 0;
       &.is-level-2 { text-transform: initial; }
     }
   }
@@ -170,15 +179,13 @@ $c-main-menu--hover-hitbox: 30%;
     }
 
     &__menu {
+      // Hide mobile-centric items
       &-spacer, &-extra, &-header, &-link svg { display: none; }
+
+      // Show meganav on hover
       &-item:hover > &.is-level-1 { display: flex; }
 
-      &.is-level-0 { 
-        display: flex;
-        justify-content: flex-start;
-        position: static;
-      }
-
+      // Style Links
       &-link {
         display: block;
         width: 100%;
@@ -213,9 +220,18 @@ $c-main-menu--hover-hitbox: 30%;
 
       &-item.is-level-1 { width: 20%; }
 
+
+      // Arrange non-meganav menu
+      &.is-level-0 { 
+        display: flex;
+        justify-content: flex-start;
+        position: static;
+        background: transparent;
+      }
+
       &.is-level-1 {
         display: none; 
-        // display: flex; // Uncomment this to test
+        // display: flex; // Uncomment this to force-show the menu while testing
         position: absolute;
         width: 100%;
         left: 0;
@@ -223,7 +239,10 @@ $c-main-menu--hover-hitbox: 30%;
         z-index: $s-z--menu;
         padding: $s-gutter--fluid-medium $s-gutter--fluid-xsmall;
       }
-      &.is-level-2 { display: block; }
+
+      &.is-level-2 {
+        display: block;
+      }
     }
 
     &__block {
@@ -232,6 +251,7 @@ $c-main-menu--hover-hitbox: 30%;
     }
   }
 
+  // Larger screens
   @include t-media--up($s-screen--medium) {
     &__menu {
       &.is-level-0 { margin: 0 -1rem; }

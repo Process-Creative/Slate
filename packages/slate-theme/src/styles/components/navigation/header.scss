@@ -1,13 +1,25 @@
-@import '/styles/base';
-@import './main-menu';
-
 .c-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 $s-gutter--fluid-xsmall;
+  height: 5.3125rem;
 
-  border: $s-border--thin-secondary;
-  border-top: none;
+  &__float {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 $s-gutter--fluid-xsmall;
+    border: $s-border--thin-transparent;
+    border-top: none;
+    @include t-anim--transition((background, color));
+    width: 100%;
+  }
+
+  &.is-solid &__float,&:hover &__float {
+    background: $s-color--background;
+    border-color: $s-color--secondary;
+  }
+
+  &.is-sticky &__float {
+    position: fixed;
+    z-index: $s-z--menu-sticky;
+  }
 
   &__menu { display: none; }
 
@@ -60,6 +72,8 @@
   }
 
   @include t-media--up($s-screen--small) {
+    height: 6.125rem;
+
     &__hamburger,&__search.is-left { display: none; }
 
     &__search.is-right,&__account,&__cart,&__wishlist {
@@ -82,7 +96,6 @@
   }
 
   @include t-media--up($s-screen--medium) {
-    padding: 0 $s-gutter--fluid-medium;
-
+    &__fixed { padding: 0 $s-gutter--fluid-medium; }
   }
 }

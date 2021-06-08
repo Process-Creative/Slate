@@ -1,70 +1,80 @@
-<nav class="c-topbar" data-topbar>
-  <div class="c-topbar__inner">
-    {% liquid
-      capture slides
-        for block in section.blocks
-          if block.settings.title == blank
-            continue
-          endif
-          
-          echo '<div'
-          unless forloop.first
-            echo ' class="has-js"'
-          endunless
-          echo '>'
+<nav class="c-topbar {% if section.settings.sticky %}is-sticky{% endif %}" data-topbar>
+  <div class="c-topbar__float">
+    <div class="c-topbar__inner">
+      {% liquid
+        capture slides
+          for block in section.blocks
+            if block.settings.title == blank
+              continue
+            endif
+            
+            echo '<div'
+            unless forloop.first
+              echo ' class="has-js"'
+            endunless
+            echo '>'
 
-          if block.settings.url == blank
-            echo '<span class="o-paragraph--2">'
-            echo block.settings.title | escape
-            echo '</span>'
-          else
-            echo '<a href="' | append: block.settingsurl | append: '" class="o-paragraph--2">'
-            echo block.settings.title | escape
-            echo '</a>'
-          endif
+            if block.settings.url == blank
+              echo '<span class="o-paragraph--2">'
+              echo block.settings.title | escape
+              echo '</span>'
+            else
+              echo '<a href="' | append: block.settingsurl | append: '" class="o-paragraph--2">'
+              echo block.settings.title | escape
+              echo '</a>'
+            endif
 
-          echo '</div>'
-        endfor
-      endcapture
-
-      assign menu = linklists[section.settings.menu]
-    %}
-
-    {% if slides != blank %}
-      <div class="c-topbar__promo">
-        <button type="button" class="c-topbar__promo-left has-js" data-topbar-left>
-          {%- render 'icon.arrow-left' -%}
-        </button>
-        <div class="c-topbar__promo-carousel" data-topbar-carousel>
-          {{ slides }}
-        </div>
-        <button type="button" class="c-topbar__promo-right has-js" data-topbar-right>
-          {%- render 'icon.arrow-right' -%}
-        </button>
-      </div>
-    {% endif %}
-
-    {%- if menu != blank -%}
-      <nav class="c-topbar__menu">
-        <div class="c-topbar__menu-icon">
-          {%- render 'icon.phone' -%}
-        </div>
-        {% liquid
-          for link in menu.links
-            echo '<a href="' | append: link.url | append: '" class="o-link">'
-            echo link.title | escape
-            echo '</a>'
+            echo '</div>'
           endfor
-        %}
-      </nav>
-    {%- endif -%}
+        endcapture
+
+        assign menu = linklists[section.settings.menu]
+      %}
+
+      {% if slides != blank %}
+        <div class="c-topbar__promo">
+          <button type="button" class="c-topbar__promo-left has-js" data-topbar-left>
+            {%- render 'icon.arrow-left' -%}
+          </button>
+          <div class="c-topbar__promo-carousel" data-topbar-carousel>
+            {{ slides }}
+          </div>
+          <button type="button" class="c-topbar__promo-right has-js" data-topbar-right>
+            {%- render 'icon.arrow-right' -%}
+          </button>
+        </div>
+      {% endif %}
+
+      {%- if menu != blank -%}
+        <nav class="c-topbar__menu">
+          <div class="c-topbar__menu-icon">
+            {%- render 'icon.phone' -%}
+          </div>
+          {% liquid
+            for link in menu.links
+              echo '<a href="' | append: link.url | append: '" class="o-link">'
+              echo link.title | escape
+              echo '</a>'
+            endfor
+          %}
+        </nav>
+      {%- endif -%}
+    </div>
   </div>
 </nav>
 
 {% schema %}
   {
     "name": "Promotion Bar",
+    "class": "c-section c-section__topbar",
     "settings": [
+      {
+        "type": "checkbox",
+        "id": "sticky",
+        "label": "Fixed to top",
+        "default": false,
+        "info": "If enabled the promo bar will stick to the top of the page while scrolling."
+      },
       {
         "id": "menu",
         "label": "Menu",
