@@ -8,25 +8,25 @@
   assign description = section.settings.description | replace: '<p', '<p class="c-about-content__description o-paragraph"'
 
   assign image = section.settings.image
-  assign videoMp4 = section.settings.video_mp4
-  assign videoWebm = section.settings.video_webm
+  assign mp4 = section.settings.mp4
+  assign webm = section.settings.webm
 
   assign heading = section.settings.heading
   assign btnLabel = section.settings.buttonLabel
   assign btnURL = section.settings.buttonUrl
 -%}
 
-{% if image != blank or videoUrlMp4 != blank or videoUrlWebm != blank %}
+{% if image != blank or mp4 != blank or webm != blank %}
   <div class="c-about-content">
     <div class="c-about-content__inner {% if section.settings.reverseSection %}is-reversed{% endif %}">
       <div class="c-about-content__media-wrapper">
         
         {%- comment -%} Video with Image Poster {%- endcomment -%}
-        {% if videoMp4 != blank or videoWebm != blank %}
-          {%- render 'object.html5-video' with {
+        {% if mp4 != blank or webm != blank %}
+          {%- render 'object.html-video' with {
             imageUrl: image
-            videoUrlMp4: videoMp4
-            videoUrlWebm: videoWebm
+            mp4: mp4
+            webm: webm
             autoplay: true
             class: 'c-about-content__video'
           } -%}
@@ -94,13 +94,13 @@
     },
     {
       "type": "text",
-      "id": "videoMp4",
+      "id": "mp4",
       "label": "Video Link MP4",
       "info": "Videos can be uploaded in Settings > Files and the link copied here"
     },
     {
       "type": "text",
-      "id": "videoWebm",
+      "id": "webm",
       "label": "Video Link WebM",
       "info": "Videos can be uploaded in Settings > Files and the link copied here"
     },

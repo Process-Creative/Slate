@@ -1,0 +1,32 @@
+{%- comment -%}
+  HTML Video Object
+    Snippet for displaying HTML video.
+  
+  Params:
+    image - The Image URL for the poster.
+    mp4 - The MP4 Video source (Optional)
+    webm - WebM Video Source (Optional)
+    style - "cover" or "contain" (Defaults to "cover")
+    autoplay - If true, autoplay will be enabled (Optional)
+    class - Wrapping class on the container (Optional)
+    attr - Wrapping container data attributes (Optional)
+    controls - Controls true/false to display (Optional)
+    loop - If false loop will be disabled (Defaults true)
+
+  Version:
+    1.0.0 - 2021/06/08
+{%- endcomment -%}
+{%- if mp4 != blank or webm != blank -%}
+  <div class="o-responsive {{ class | default: '' }}">
+    <video
+      {% if image != blank %}poster="{{ image }}"{% endif %}
+      {% if autoplay %}autoplay{% endif %}
+      {% unless loop == false %}loop{% endunless %}
+      class="o-responsive__image is-{{ style | default: 'cover' }}"
+      muted playsinline
+    >
+      {% if mp4 != blank %}<source src="{{ mp4 }}" type="video/mp4" />{% endif %}
+      {% if webm != blank %}<source src="{{ webm }}" type="video/webm" />{% endif %}
+    </video>
+  </div>
+{%- endif -%}
