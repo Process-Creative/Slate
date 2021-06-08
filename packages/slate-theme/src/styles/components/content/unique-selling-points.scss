@@ -1,5 +1,5 @@
 .c-usps {
-  padding: 3rem $s-gutter--edge-mobile;
+  // padding: 3rem $s-gutter--edge-mobile;
 
   &__inner {
     display: grid;
@@ -36,8 +36,8 @@
     max-width: 12rem;
   }
 
-  @include t-media-query($s-medium-up) {
-    padding: 3rem $s-gutter--edge-medium;
+  @include t-media--up($s-screen--medium) {
+    // padding: 3rem $s-gutter--edge-medium;
 
     &__inner {
       grid-template-columns: repeat(4, 1fr);
@@ -47,7 +47,6 @@
     }
 
     &__usp {
-
       &:nth-child(odd) {
         justify-self: center;
       }

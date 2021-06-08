@@ -4,24 +4,27 @@
   Version:
     1.0.0 - 2021/05/07
 {%- endcomment -%}
+{% capture blocks %}
+  {% for block in section.blocks %}
+    {%- liquid
+      if block.settings.icon == blank or block.settings.title == blank
+        continue
+      endif
+    -%}
 
-{%- comment -%} Assign Variables {%- endcomment -%}
-{%-  assign uspBlocks = section.blocks | where: 'type', 'unique_selling_point' -%}
+    <div class="c-usps__usp">
+      <div class="c-usps__usp-icon">{{ block.settings.icon }}</div>
+      <p class="o-heading--6 c-usps__usp-text">
+        {{- block.settings.title | escape -}}
+      </p>
+    </div>
+  {% endfor %}
+{% endcapture %}
 
-{%- comment -%} USP {%- endcomment -%}
-{% if uspBlocks.size > 0 %}
+{% if blocks != blank %}
   <div class="c-usps">
     <div class="c-usps__inner">
-      {% for block in uspBlocks %}
-        {% assign icon = block.settings.usp_icon %}
-        {% assign text = block.settings.usp_text %}
-        {%- unless icon != blank and text != blank -%}{%- continue -%}{%- endunless -%}
-  
-        {%- render 'unique-selling-point' with {
-          icon:icon,
-          text:text
-        } -%}
-      {% endfor %}
+      {{- blocks -}}
     </div>
   </div>
 {% endif %}
@@ -39,13 +42,13 @@
         "settings": [
           {
             "type": "text",
-            "id": "usp_icon",
+            "id": "icon",
             "label": "SVG Icon",
             "info": "Copy/paste svg code here"
           },
           {
             "type": "text",
-            "id": "usp_text",
+            "id": "title",
             "label": "Description"
           }
         ]
