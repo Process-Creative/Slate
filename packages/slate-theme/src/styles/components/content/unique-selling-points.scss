@@ -1,5 +1,5 @@
 .c-usps {
-  // padding: 3rem $s-gutter--edge-mobile;
+  padding: 3rem $s-gutter--fluid-xsmall;
 
   &__inner {
     display: grid;
@@ -37,7 +37,7 @@
   }
 
   @include t-media--up($s-screen--medium) {
-    // padding: 3rem $s-gutter--edge-medium;
+    padding: 5.25rem $s-gutter--fluid-medium;
 
     &__inner {
       grid-template-columns: repeat(4, 1fr);
@@ -61,5 +61,9 @@
       height: 3.125rem;
       margin-bottom: 1.875rem;
     }
+  }
+
+  @include t-media--up($s-screen--large) {
+    padding: 11.25rem $s-gutter--fluid-large;
   }
 }
