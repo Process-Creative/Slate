@@ -1,5 +1,4 @@
 .c-header {
-  height: 5.3125rem;
 
   &__float {
     display: flex;
@@ -9,6 +8,10 @@
     border-top: none;
     @include t-anim--transition((background, color));
     width: 100%;
+  }
+
+  &.is-above-header {
+    height: 5.3125rem;
   }
 
   &.is-solid &__float,&:hover &__float {
@@ -72,7 +75,7 @@
   }
 
   @include t-media--up($s-screen--small) {
-    height: 6.125rem;
+    &.is-above-header { height: 6.125rem; }
 
     &__hamburger,&__search.is-left { display: none; }
 

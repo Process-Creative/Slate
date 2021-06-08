@@ -1,4 +1,4 @@
-<header class="c-header {% if section.settings.sticky %}is-sticky{% endif %} is-{{ section.settings.solidStyle }}" data-header>
+<header class="c-header {% if section.settings.sticky %}is-sticky{% endif %} is-{{ section.settings.solidStyle }} is-{{ section.settings.fixStyle }}" data-header>
   <div class="c-header__float">
     {%- comment -%} Mobile Left Icons {%- endcomment -%}
     <div class="c-header__left">
@@ -89,8 +89,23 @@
             "label": "Solid"
           }
         ],
-        "default": "solid",
-        "info": "text"
+        "default": "solid"
+      },
+      {
+        "type": "select",
+        "id": "fixStyle",
+        "label": "Fixed Style",
+        "options": [
+          { 
+            "value": "above-header",
+            "label": "Above Page"
+          },
+          {
+            "value": "below-header",
+            "label": "On-top of Page"
+          }
+        ],
+        "default": "above-header"
       },
       {
         "type": "url",

@@ -1,0 +1,42 @@
+.c-brand-message {
+  padding: 3rem $s-gutter--fluid-xsmall;
+
+  &__inner{
+    max-width: 32.5625rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__image-wrapper{
+    width: 100%;
+    margin-bottom: 1.875rem;
+  }
+
+  &__image-container{
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 40.5%;
+  }
+
+  &__text{
+    max-width: 16.5625rem;
+  }
+
+  &__text{
+    text-align: center;
+  } 
+
+  @include t-media--up($s-screen--medium) {
+    &__image-container{
+      width: 100%;
+      margin: 0 auto;
+      padding-bottom: 37%;
+    }
+
+    &__text{
+      max-width: 22.5625rem;
+    }
+  }
+}

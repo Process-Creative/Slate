@@ -1,0 +1,91 @@
+{%- comment -%}
+  Brand Message Section
+
+  Version:
+    1.0.0 - 2021/05/07
+{%- endcomment -%}
+{%- liquid
+  assign image = section.settings.image
+  assign text = section.settings.text
+  assign linkText = section.settings.link-text
+  assign linkURL = section.settings.link-url
+-%}
+
+{%- comment -%} Brand Message {%- endcomment -%}
+<div class="c-brand-message">
+  <div class="c-brand-message__inner">
+
+    {%- comment -%} Image {%- endcomment -%}
+    {% if image != blank %}
+      <div class="c-brand-message__image-wrapper">
+        <div class="c-brand-message__image-container o-responsive">
+          {%- render 'tool.picture' with {
+            img: image,
+            alt: text
+            class: 'c-brand-message__image o-responsive__image is-contain',
+            sizes: '375,520',
+            screens: '750'
+          } -%}
+        </div>
+      </div>
+    {% endif %}
+
+
+    {%- comment -%} Text {%- endcomment -%}
+    {% if text != blank %}
+      <p class="o-heading--5 c-brand-message__text">
+        {{- text | escape -}}
+      </p>
+    {% endif %}
+
+    {%- comment -%} Link {%- endcomment -%}
+    {% if linkText != blank and linkURL != blank %}
+      <div class="c-brand-message__link-wrapper">
+        <a href="{{ linkURL }}" class="c-brand-message__link o-link">
+          {{- linkText | escape -}}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Brand Message",
+    "class": "c-section c-section__brand-message",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info":"Dimensions: 520px X 190px"
+      },
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Description",
+        "default": "Made from nature, for nature. And for all of you."
+      },
+      {
+        "type": "text",
+        "id": "link-text",
+        "label": "Link Text",
+        "default": "Learn More"
+      },
+      {
+        "type": "url",
+        "id": "link-url",
+        "label": "Link URL",
+        "default": "/"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Brand Message",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %}
