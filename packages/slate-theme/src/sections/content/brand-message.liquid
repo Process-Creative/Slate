@@ -17,16 +17,14 @@
 
     {%- comment -%} Image {%- endcomment -%}
     {% if image != blank %}
-      <div class="c-brand-message__image-wrapper">
-        <div class="c-brand-message__image-container o-responsive">
-          {%- render 'tool.picture' with {
-            img: image,
-            alt: text
-            class: 'c-brand-message__image o-responsive__image is-contain',
-            sizes: '375,520',
-            screens: '750'
-          } -%}
-        </div>
+      <div class="c-brand-message__image o-responsive">
+        {%- render 'tool.picture' with {
+          img: image,
+          alt: text
+          class: 'o-responsive__image is-contain',
+          sizes: '375,520',
+          screens: '750'
+        } -%}
       </div>
     {% endif %}
 
@@ -40,11 +38,9 @@
 
     {%- comment -%} Link {%- endcomment -%}
     {% if linkText != blank and linkURL != blank %}
-      <div class="c-brand-message__link-wrapper">
-        <a href="{{ linkURL }}" class="c-brand-message__link o-link">
-          {{- linkText | escape -}}
-        </a>
-      </div>
+      <a href="{{ linkURL }}" class="o-link">
+        {{- linkText | escape -}}
+      </a>
     {% endif %}
 
   </div>

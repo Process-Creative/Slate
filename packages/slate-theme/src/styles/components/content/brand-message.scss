@@ -9,33 +9,25 @@
     align-items: center;
   }
 
-  &__image-wrapper{
+  &__image {
     width: 100%;
-    margin-bottom: 1.875rem;
-  }
-
-  &__image-container{
-    width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 1.875rem;
     padding-bottom: 40.5%;
   }
 
-  &__text{
+  &__text {
     max-width: 16.5625rem;
-  }
-
-  &__text{
     text-align: center;
   } 
 
   @include t-media--up($s-screen--medium) {
-    &__image-container{
+    &__image {
       width: 100%;
       margin: 0 auto;
       padding-bottom: 37%;
     }
 
-    &__text{
+    &__text {
       max-width: 22.5625rem;
     }
   }
