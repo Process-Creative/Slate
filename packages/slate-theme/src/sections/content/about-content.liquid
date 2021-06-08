@@ -33,15 +33,14 @@
 
         {%- comment -%} Image only {%- endcomment -%}  
         {%- else -%}
-          <div class="c-about-content__image-container o-responsive-image-container">
+          <div class="c-about-content__image-container o-responsive">
             {%- render 'tool.picture' with {
-              image: image,
-              class: 'c-about-content__image o-responsive-image',
-              width: 790,
-              sizes: '375'
-              imageSizes: '336'
+              img: image,
+              class: 'c-about-content__image o-responsive__image is-cover',
+              sizes: '375,790'
+              screens: '336'
             } -%}
-          </div> 
+          </div>
         {% endif %}
       
       </div>
@@ -59,7 +58,7 @@
           
           {%- comment -%} Heading {%- endcomment -%}
             <h3 class="c-about-content__heading">
-              {{- heading -}}
+              {{- heading | escape -}}
             </h3>
 
           {%- comment -%} Description {%- endcomment -%}
@@ -70,7 +69,7 @@
           {%- comment -%} Button {%- endcomment -%}
           {% if btnURL != blank and btnLabel != blank %}
             <a href="{{- btnURL -}}" class="c-about-content__button o-btn">
-              {{- btnLabel -}}
+              {{- btnLabel | escape -}}
             </a>
           {% endif %}
 
