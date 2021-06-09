@@ -1,0 +1,119 @@
+{%- comment -%}
+  Testimonial
+      
+  Parameters:
+    stars - String, between 1 and 5 indicating review score
+    cardTitle - String, Title of the review
+    reviewText - String, Content of the review
+    image - Image, picture of the reviewer
+    name - String, name of the reviewer
+    location - String, location of the reviewer
+  
+  Version:
+    2.0.0 - 2021/05/26
+{%- endcomment -%}
+
+
+
+{%- comment -%} Convert string to integer {%- endcomment -%}
+{%- assign stars = rating | plus: 0 -%}
+
+{%- if cardTitle != blank and
+      reviewText != blank  -%}  
+
+  <div class="o-testimonial">
+    <div class="o-testimonial__inner">
+    
+      {%- comment -%} Review Text {%- endcomment -%}
+      <div class="o-testimonial__review-wrapper">
+
+         {%- comment -%} Review Title {%- endcomment -%}
+        <h5 class="o-testimonial__title o-heading--5">
+          {{ cardTitle }}
+        </h5>
+        {{ reviewText }}
+      </div>
+
+
+      {%- comment -%} Reviewer Info Section {%- endcomment -%}
+      {%- if image != blank or
+            name != blank or
+            location != blank
+      -%}
+        <div class="o-testimonial__reviewer-box">
+
+          {%- comment -%} Image {%- endcomment -%}
+          {%- if image != blank -%}
+          <div class="o-testimonial__reviewer-box-left">
+            <div class="o-testimonial__image-wrapper">
+              <div class="o-responsive-image-container">
+                {%- render 'tool.picture' with {
+                  image: image,
+                  class: 'o-testimonial__image o-responsive-image',
+                  width: 60,
+                  sizes: '375'
+                } -%}
+              </div>
+            </div>
+          </div>           
+          {%- endif -%}
+          
+          {%- if stars != blank or
+                name != blank or
+                location != blank
+          -%}
+            <div class="o-testimonial__reviewer-box-right">
+
+              {%- comment -%} Stars {%- endcomment -%}
+              {%- if stars != blank -%}
+                <div class="o-testimonial__stars">
+
+                  {%- comment -%} Render Star Rating {%- endcomment -%}
+                  {%- for i in (1..stars) -%}
+                    {%- render 'object.icon' with {
+                      icon: 'star',
+                      class: 'o-testimonial__star'
+                    } -%}
+                  {%- endfor -%}
+
+                  {%- comment -%} If less than 5 stars, render remaining empty stars {%- endcomment -%}
+                  {%- if stars < 5 -%}
+                    {%- assign hollowStars = 5 | minus: stars  -%} {%- comment -%} Remaining stars {%- endcomment -%}
+
+                    {%- for i in (1..hollowStars) -%}
+                      {%- render 'object.icon' with {
+                        icon: 'star-outline',
+                        class: 'o-testimonial__star'
+                      } -%}
+                    {%- endfor -%}
+
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            
+              {%- comment -%} Reviewer Name and Location {%- endcomment -%}
+              {%- if name != blank or location != blank -%}
+                <div class="o-testimonial__reviewer-info">
+
+                  {%- comment -%} Name {%- endcomment -%}
+                  {%- if name != blank -%}
+                    <span class="o-testimonial__reviewer-name">{{ name }}{%- if location != blank -%},&nbsp;{%- endif -%}</span>
+                  {%- endif -%}
+                  
+                  {%- comment -%} Location {%- endcomment -%}
+                  {%- if location != blank -%}
+                    <span class="o-testimonial__reviewer-location">{{ location }}</span>
+                  {%- endif -%}
+                  
+                </div>
+              {%- endif -%}
+              
+            </div>
+          {%- endif -%}
+
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+{%- endif -%}

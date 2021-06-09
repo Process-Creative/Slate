@@ -1,0 +1,111 @@
+{%- liquid 
+  assign testimonialsBlocks = section.blocks | where: 'type', 'testimonial'
+  assign heading = section.settings.heading
+-%}
+
+{%- if testimonialsBlocks.size > 0 -%}
+  <div class="c-testimonials" data-testimonials>
+    <div class="c-testimonials__inner">
+      <span class="c-testimonials__heading o-heading--3">
+        {{- heading | escape -}}
+      </span>
+
+      <div class="c-testimonials__carousel" data-testimonials-carousel>
+        {%- for block in testimonialsBlocks -%}
+          {%- assign reviewText = block.settings.review_text | replace: '<p', '<p class="c-testimonial__review o-paragraph"' -%}
+          {%- render 'object.testimonial' with {
+            image: block.settings.image,
+            cardTitle: block.settings.review_title,
+            reviewText: reviewText,
+            name: block.settings.name,
+            location: block.settings.location,
+            rating: block.settings.rating
+          } -%}
+        {%- endfor -%}
+      </div>
+      <div class="c-testimonials__carousel-progress"><span data-testimonials-carousel-progress></span></div>
+
+    </div>
+    <div class="c-testimonials__nav-btn-wrapper">
+      {%- render 'object.icon' with {
+        icon: 'chevron-left',
+        class: 'c-testimonials__nav-btn'
+        attributes: 'data-testimonials-carousel-left'
+      } -%}
+      {%- render 'object.icon' with {
+        icon: 'chevron-right',
+        class: 'c-testimonials__nav-btn'
+        attributes: 'data-testimonials-carousel-right'
+      } -%}
+    </div>
+  </div>
+
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Testimonials",
+    "class": "c-section c-section__testimonials",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading",
+        "default": "Testimonials"
+      }
+    ],
+    "blocks": [
+    {
+      "name": "Testimonial",
+      "type": "testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Reviewer Image",
+          "info": "Dimensions: 120px X 120px"
+        },
+        {
+          "type": "textarea",
+          "id": "review_title",
+          "label": "Review Title"
+        },
+        {
+          "type": "richtext",
+          "id": "review_text",
+          "label": "Review"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating (Out of 5)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer's name"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Feature Sections",
+      "name":"Testimonials"
+    }
+  ]
+}
+{% endschema %}
