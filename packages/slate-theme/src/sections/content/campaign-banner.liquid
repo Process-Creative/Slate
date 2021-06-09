@@ -20,49 +20,45 @@
 -%}
 {% if poster != blank %}
   <div class="c-campaign-banner">
-    <div class="c-campaign-banner__media-wrapper">
-      {%- comment -%} Video with Image Poster {%- endcomment -%}
-      {% if videoMp4 != blank or videoWebm != blank %}
+    {%- comment -%} Video with Image Poster {%- endcomment -%}
+    {% if videoMp4 != blank or videoWebm != blank %}
+      {%- render 'object.html-video' with {
+        image: poster,
+        mp4: videoMp4,
+        webm: videoWebm,
+        autoplay: true,
+        class: 'c-campaign-banner__video',
+        style: 'cover'
+      } -%}
 
-        {% comment %}
-        {%- render 'object.html5-video' with {
-          imageUrl: poster,
-          videoUrlMp4: videoMp4,
-          videoUrlWebm: videoWebm,
-          autoplay: true,
-          class: 'c-campaign-banner__video'
+      {%- comment -%} Background Overlay for Video {%- endcomment -%}
+      <div class="c-campaign-banner__background-overlay" 
+        {% if overlayOpacity != blank %}
+          style="background-color: rgba(0,0,0,{{- overlayOpacity -}}) "
+        {% endif %}
+      ></div>
+      
+
+    {%- comment -%} Image only {%- endcomment -%}  
+    {%- else -%}
+      <div class="c-campaign-banner__image o-responsive">
+        {%- render 'tool.picture' with {
+          img: poster,
+          alt: heading,
+          class: 'c-campaign-banner__image o-responsive__image-picture is-cover',
+          sizes: '375,750,1200,2000',
+          screens: '500,750,1200'
         } -%}
-        {% endcomment %}
 
-        {%- comment -%} Background Overlay for Video {%- endcomment -%}
+        {%- comment -%} Background Overlay for Image {%- endcomment -%}
         <div class="c-campaign-banner__background-overlay" 
           {% if overlayOpacity != blank %}
-            style="background-color: rgba(0,0,0,{{- overlayOpacity -}}) "
+            style="background-color: rgba(0,0,0,{{- overlayOpacity -}})"
           {% endif %}
-        ></div>
-        
-
-      {%- comment -%} Image only {%- endcomment -%}  
-      {%- else -%}
-        <div class="c-campaign-banner__image-container o-responsive">
-          {%- render 'tool.picture' with {
-            img: poster,
-            alt: heading,
-            class: 'c-campaign-banner__image o-responsive__image is-cover',
-            sizes: '375,750,1200,2000',
-            screens: '500,750,1200'
-          } -%}
-
-          {%- comment -%} Background Overlay for Image {%- endcomment -%}
-          <div class="c-campaign-banner__background-overlay" 
-            {% if overlayOpacity != blank %}
-              style="background-color: rgba(0,0,0,{{- overlayOpacity -}})"
-            {% endif %}
-          >
-          </div>
-        </div> 
-      {%- endif -%}
-    </div>
+        >
+        </div>
+      </div> 
+    {%- endif -%}
 
     {%- comment -%} Content {%- endcomment -%}
     <div class="c-campaign-banner__content is-{{- alignment -}}">

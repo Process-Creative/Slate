@@ -1,10 +1,12 @@
 .c-campaign-banner {
   margin: 0 auto;
   position: relative;
-  max-width: 99999;// !!!
 
-  &__image-container {
-    padding-bottom: 160%;
+  &__image,&__video {
+    height: 100%;
+    max-height: 75vh;
+    min-height: 31.25rem;
+    padding-bottom: 0;
   }
 
   &__content {
@@ -13,7 +15,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    padding: .5rem 0vw 3rem; // !!!
+    padding: .5rem 0vw $s-gutter--fixed-xsmall; // !!!
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,9 +38,6 @@
 
   &__media-wrapper {
     position: relative;
-    .o-html5-video__video-container {
-      padding-bottom: 154.5%;
-    }
   }
 
   &__background-overlay {
@@ -54,38 +53,25 @@
   }
 
   @include t-media--up($s-screen--small) {
-    &__media-wrapper {
-      position: relative;
-
-      .o-html5-video__video-container {
-        padding-bottom: 50%;
-      }
-    }
-
-    &__image-container {
-      padding-bottom: 50%;
-    }
-
     &__content {     
-      padding: 1.1825rem 0vw 3rem;// !!!
+      padding: 1.1825rem 0vw $s-gutter--fixed-xsmall;// !!!
+    }
+
+    &__image,&__video {
+      height: 75vh;
+      max-height: 37.5rem;
     }
   }
 
   @include t-media--up($s-screen--medium) {
-    &__media-wrapper {
-      position: relative;
-
-      .o-html5-video__video-container {
-        padding-bottom: 35.85%;
-      }
-    }
-
-    &__image-container {
-      padding-bottom: 35.85%;
-    }
-
     &__description{
       max-width: 20.625rem;
+    }
+  }
+
+  @include t-media--up($s-screen--large) {
+    &__image,&__video {
+      max-height: 55rem;
     }
   }
 }
