@@ -7,9 +7,19 @@ export const getAssetUrl = (asset:string):string => {
 
   let a = window['Asset'];
   let y = a.split('/');
-  y.splice(-1, 1);
-  y.push(asset)
-  return y.join('/');
+  let x = y[y.length-1];
+
+  if(x.includes('?v=')) {
+    let z = x.split('?');
+    z = z[z.length-1];
+    y.splice(-1, 1);
+    y.push(asset);
+    return `${y.join('/')}?${z}`;
+  } else {
+    y.splice(-1, 1);
+    y.push(asset);
+    return y.join('/');
+  }
 };
 
 export const getCdnUrl = ():string => {
@@ -34,7 +44,7 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
   }
 
   let strSrc = src as string;
-  
+
   let removeProtocol = (path:string) => {
     let str = path.replace(/http(s)?:/, '');
     if(!str.startsWith(CDN_URL)) str = `${CDN_URL}${str}`;
@@ -45,7 +55,7 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
     }
     return str;
   };
-  
+
   size = size ? `${size}` : null;//Convert to string
   if(!size) return removeProtocol(strSrc);
 
@@ -62,12 +72,12 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
 
 
     if(possiblyHasSize && possiblyHasSize.length) {
-      let pathSplit = possiblyHasSize.split('/');//Remove paths 
+      let pathSplit = possiblyHasSize.split('/');//Remove paths
 
       let splitByUnderscore = pathSplit.pop().split('_');
       let end = splitByUnderscore.pop();//this is possibly a valid size string
 
-      
+
       //Remove string
       if((
         SHOPIFY_VALID_IMG_SIZE_NAMES.some(s => end === s) ||
@@ -88,7 +98,7 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
   let match = strSrc.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
   if (!match) return null;
 
-  
+
   let prefix = strSrc.split(match[0]);
   let suffix = match[0];
   return removeProtocol([
