@@ -41,4 +41,13 @@ $s-screen--breakpoints-only: (
   $s-screen--medium:  '#{map-get($s-screen--breakpoints-up, $s-screen--medium)} and #{map-get($s-screen--breakpoints-down, $s-screen--large)}',
   $s-screen--large:   '#{map-get($s-screen--breakpoints-up, $s-screen--large)} and #{map-get($s-screen--breakpoints-down, $s-screen--xlarge)}',
   $s-screen--xlarge:  '#{map-get($s-screen--breakpoints-up, $s-screen--xlarge)} and #{map-get($s-screen--breakpoints-down, $s-screen--xxlarge)}',
-)
+);
+
+:export {
+  xsmall: map-get($s-screen--sizes, $s-screen--xsmall);
+  small:  map-get($s-screen--sizes, $s-screen--small);
+  medium: map-get($s-screen--sizes, $s-screen--medium);
+  large: map-get($s-screen--sizes, $s-screen--large);
+  xlarge: map-get($s-screen--sizes, $s-screen--xlarge);
+  xxlarge: map-get($s-screen--sizes, $s-screen--xxlarge);
+}

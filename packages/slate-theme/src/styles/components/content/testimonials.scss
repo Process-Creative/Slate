@@ -1,105 +1,61 @@
 .c-testimonials {
-  position: relative;
-  margin: 5rem 0;
+  overflow: visible;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  @extend %t-gutter;
 
-
-  &__heading {
-    padding-left: 1.125rem;
-  }
-
-  &__nav-btn-wrapper {
-    display: none;
-  }
-
-  &__nav-btn {
-    width: .5rem;
+  &__testimonial {
+    padding-left: 1.25rem;
+    display: flex;
   }
 
   &__carousel {
-    display: flex;
-    padding-bottom: 2.6rem;
-    padding-top: .6875rem;
-    z-index: 2;
-    position: relative;
-
-
-    &::before {
-      content: "";
-      height: 1px;
-      width: 0;
-      display: inline-block;
-      padding-left: 1.125rem;
-    }
+    margin-top: 2.5rem;
   }
 
-  &__carousel-progress {
-    border-top: 1px solid $s-color--border;
-    position: relative;
-    width: calc(100% - 2.25rem);
-    margin: 0 auto;
+  &__heading {
+    padding: 0 1.25rem;
+    margin-top: 0;
+  }
 
-    span {
-      @include t-anim--transition(width, .5s, ease);
+  &__progress {
+    width: 100%;
+    padding: 0 1.25rem;
+    margin-top: 2.625rem;
+    display: none;
+
+    .js-available & {
       display: block;
-      border-top: 2px solid $s-color--border-dark;
-      position: absolute;
-      left: 0;
-      top: -2px;
+    }
+    
+    &-inner {
+      position: relative;
+      height: 0.0625rem;
+      width: 100%;
+      background: $s-color--secondary;
+
+      > div {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 200%;
+        background: $s-color--quaternary;
+        width: var(--c-testimonials-progress);
+      }
     }
   }
 
-  @include t-media-query($s-medium-up) {
-    margin-top: 7rem;
-    margin-bottom: 11rem;
-
-    &__inner {
-     width: 80%;
-     margin: 0 auto;
-     max-width: 100rem;
-    }
-
-    &__heading {
-      padding-left: 0;
-    }
-
-    &__nav-btn-wrapper {
-      @include t-absolute-center-x-y;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0 4%;
-      z-index: 1;
-      max-width: 125rem;
-    }
-
-    &__nav-btn {
-      cursor: pointer;
-    }
-
+  @include t-media--up($s-screen--medium) {
     &__heading {
       text-align: center;
     }
 
     &__carousel {
-      padding: 0;
-      padding-bottom: 4.375rem;
-      min-height: 32rem;
-
-      &::before,
-      &::after {
-        content: none;
-      }
-    }
-  }
-
-  @include t-media-query($s-xlarge-up) {
-    margin-top: 10rem;
-    margin-bottom: 15.625rem;
-
-    &__carousel {
-      padding-bottom: 6.25rem;
       margin-top: 4.375rem;
-      min-height: 40rem;
+    }
+
+    &__progress {
+      margin-top: 6.25rem;
     }
   }
 }

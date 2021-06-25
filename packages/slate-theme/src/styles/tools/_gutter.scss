@@ -1,0 +1,23 @@
+%t-gutter {
+  padding-left: $s-gutter--fluid-xsmall;
+  padding-right: $s-gutter--fluid-xsmall;
+
+  @include t-media--up($s-screen--small) {
+
+  }
+  
+  @include t-media--up($s-screen--medium) {
+    padding-left: $s-gutter--fluid-medium;
+    padding-right: $s-gutter--fluid-medium;
+  }
+
+  @include t-media--up($s-screen--large) {
+    padding-left: $s-gutter--fluid-large;
+    padding-right: $s-gutter--fluid-large;
+  }
+
+  @include t-media--up($s-screen--xlarge) {
+    padding-left: $s-gutter--fluid-xlarge;
+    padding-right: $s-gutter--fluid-xlarge;
+  }
+}

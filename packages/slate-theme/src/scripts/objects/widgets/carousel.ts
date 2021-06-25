@@ -237,6 +237,7 @@ export const carouselQuery = (p:{
   selectorCarousel:string;
   selectorNext?:string;
   selectorPrev?:string;
+  sliderOptions?:CarouselSliderOptions
 }) => {
   // Query children
   const [
@@ -252,7 +253,7 @@ export const carouselQuery = (p:{
     elementPrev, elementNext,
     carousel: carouselInit({
       container: elementCarousel,
-      sliderOptions: { loop: true }
+      sliderOptions: p.sliderOptions || { loop: true }
     })
   });
 }
