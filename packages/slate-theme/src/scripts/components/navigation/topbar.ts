@@ -1,4 +1,4 @@
-import { carouselQuery } from "../../objects/widgets/carousel";
+import { carouselQuery } from "../../tools/carousel";
 
 document.querySelectorAll<HTMLElement>('[data-topbar]').forEach(container => {
   // Init the carousel

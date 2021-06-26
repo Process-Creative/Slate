@@ -1,0 +1,59 @@
+{%- comment -%}
+  Carousel Object
+    Object for generating a carousel.
+
+  Usage:
+    This is expected to be combined with the matching o-carousel stylesheet and
+    the objects/widgets/carousel.ts scripts file for initialization. This
+    simplifies the process of creating a site wide, standard carousel.
+
+    I understand that this component is not useful in all scenarios, e.g. those
+    where a carousel is bespoke for a section, but it is sufficient for most of
+    the common content section carousels.
+
+  Modifying:
+    This carousel tool includes common controls for arrows, progress bars and 
+    such. Modifying should be done in the form of replacing assets or tweaking
+    the stylesheet.
+  
+  Params:
+    slides - Captured HTML string of divs, inserted to where slides are expected
+    class - Container class (optional).
+    attr - Container attribute (optional).
+    progress - If true, include a progress bar. Defaults false.
+    progressClass - Progress bar class (optional).
+    arrows - If true, add control arrows. Defaults false.
+  
+  Version:
+    1.0.0 - 2021-06-05
+{%- endcomment -%}
+<div class="o-carousel {{ class | default: '' }}" data-carousel {{ attr | default: '' }}>
+  <div class="o-carousel__carousel">
+
+    {%- if arrows -%}
+      <button type="button" class="o-carousel__arrow is-left has-js" data-carousel-left>
+        {%- render 'icon.arrow-left' -%}
+      </button>
+    {%- endif -%}
+
+    <div class="o-carousel__carousel-slides" data-carousel-slides>
+      {{- slides -}}
+    </div>
+
+    {%- if arrows -%}
+      <button type="button" class="o-carousel__arrow is-right has-js" data-carousel-right>
+        {%- render 'icon.arrow-right' -%}
+      </button>
+    {%- endif -%}
+    
+    <div class="o-carousel__hider"></div>
+  </div>
+  
+  {%- if progress -%}
+    <div class="o-carousel__progress {{ progressClass | default: '' }}">
+      <div class="o-carousel__progress-inner">
+        <div data-carousel-progress></div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>

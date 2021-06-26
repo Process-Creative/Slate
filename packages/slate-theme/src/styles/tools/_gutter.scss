@@ -20,4 +20,14 @@
     padding-left: $s-gutter--fluid-xlarge;
     padding-right: $s-gutter--fluid-xlarge;
   }
+
+  @include t-media--up($s-screen--xxlarge) {
+    padding-left: $s-gutter--fluid-xxlarge;
+    padding-right: $s-gutter--fluid-xxlarge;
+  }
+
+  @include t-media--up($s-screen--ularge) {
+    padding-left: $s-gutter--fluid-ularge;
+    padding-right: $s-gutter--fluid-ularge;
+  }
 }

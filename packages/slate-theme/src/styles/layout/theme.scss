@@ -15,11 +15,13 @@
 @import '../elements/video';
 
 //Objects
-@import '../objects/button';
-@import '../objects/currency-selector';
-@import '../objects/font';
-@import '../objects/link';
-@import '../objects/responsive';
+@import '../objects/tools/responsive';
+
+@import '../objects/typography/font';
+@import '../objects/typography/link';
+
+@import '../objects/widgets/button';
+@import '../objects/widgets/currency-selector';
 
 //Components
 @import '../components/navigation/header.scss';

@@ -1,0 +1,125 @@
+$o-carousel--background: $s-color--background;
+
+.o-carousel {
+  @extend %t-gutter;
+  overflow: hidden;
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    // padding: 0.5rem;
+    display: none;
+
+    &.is-left {
+      left: -1rem;
+      transform: translateX(-100%);
+    }
+
+    &.is-right {
+      right: -1rem;
+      transform: translateX(100%);
+    }
+  }
+
+  &__hider {
+    &:after,&:before {
+      height: 100%;
+      width: 50%;
+      background: $o-carousel--background;
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      right: -5rem;
+      transform: translateX(100%);
+    }
+
+    &:before {
+      left: -5rem;
+      right: auto;
+      transform: translateX(-100%);
+    }
+  }
+
+  &__carousel {
+    position: relative;
+
+    &-slides {
+      overflow: visible;
+
+      .keen-slider__slide {
+        opacity: 0;
+        @include t-anim--transition(opacity, 1s);
+
+        &.is-visible {
+          opacity: 1;
+        }
+      }
+    }
+
+    &:after,&:before {
+      content: '';
+      position: absolute;
+      width: 5rem;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      transform: translateX(-100%);
+      background: linear-gradient(to right,
+        $o-carousel--background,
+        rgba($o-carousel--background, 0)
+      );
+    }
+
+    &:after {
+      left: auto;
+      right: 0;
+      transform: translateX(100%) scaleX(-100%);
+      // transform: scaleX(-100%);
+    }
+  }
+
+  &__progress {
+    width: 100%;
+    margin-top: 2.625rem;
+    display: none;
+
+    .js-available & {
+      display: block;
+    }
+    
+    &-inner {
+      position: relative;
+      height: 0.0625rem;
+      width: 100%;
+      background: $s-color--secondary;
+
+      > div {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 200%;
+        background: $s-color--quaternary;
+        @include t-anim--transition(width);
+        width: var(--o-carousel-progress);
+      }
+    }
+  }
+
+  @include t-media--up($s-screen--medium) {
+    &__arrow {
+      display: block;
+    }
+  }
+
+  @include t-media--up($s-screen--xlarge) {
+    &__arrow {
+      &.is-left { left: -7rem; }
+      &.is-right { right: -7rem; }
+    }
+  }
+}

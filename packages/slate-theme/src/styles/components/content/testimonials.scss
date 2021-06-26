@@ -2,10 +2,10 @@
   overflow: visible;
   padding-top: 5rem;
   padding-bottom: 5rem;
-  @extend %t-gutter;
+  // @extend %t-gutter;
 
   &__testimonial {
-    padding-left: 1.25rem;
+    padding: 1.25rem;
     display: flex;
   }
 
@@ -18,32 +18,33 @@
     margin-top: 0;
   }
 
-  &__progress {
-    width: 100%;
-    padding: 0 1.25rem;
-    margin-top: 2.625rem;
-    display: none;
+  // &__progress {
+  //   width: 100%;
+  //   padding: 0 1.25rem;
+  //   margin-top: 2.625rem;
+  //   display: none;
 
-    .js-available & {
-      display: block;
-    }
+  //   .js-available & {
+  //     display: block;
+  //   }
     
-    &-inner {
-      position: relative;
-      height: 0.0625rem;
-      width: 100%;
-      background: $s-color--secondary;
+  //   &-inner {
+  //     position: relative;
+  //     height: 0.0625rem;
+  //     width: 100%;
+  //     background: $s-color--secondary;
 
-      > div {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 200%;
-        background: $s-color--quaternary;
-        width: var(--c-testimonials-progress);
-      }
-    }
-  }
+  //     > div {
+  //       position: absolute;
+  //       left: 0;
+  //       bottom: 0;
+  //       height: 200%;
+  //       background: $s-color--quaternary;
+  //       @include t-anim--transition(width);
+  //       width: var(--c-testimonials-progress);
+  //     }
+  //   }
+  // }
 
   @include t-media--up($s-screen--medium) {
     &__heading {

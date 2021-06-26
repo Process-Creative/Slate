@@ -7,9 +7,10 @@ export const MEDIUM = parseInt(Responsive.medium);
 export const LARGE = parseInt(Responsive.large);
 export const XLARGE = parseInt(Responsive.xlarge);
 export const XXLARGE = parseInt(Responsive.xxlarge);
+export const ULARGE = parseInt(Responsive.ularge);
 
 export const RESPONSIVE_SIZES = {
-  XSMALL, SMALL, MEDIUM, LARGE, XLARGE, XXLARGE
+  XSMALL, SMALL, MEDIUM, LARGE, XLARGE, XXLARGE, ULARGE
 };
 
 export type ResponsiveOptions = keyof typeof RESPONSIVE_SIZES;

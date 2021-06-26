@@ -3,7 +3,7 @@
     for block in section.blocks
       assign reviewText = block.settings.review_text | replace: '<p', '<p class="c-testimonial__review o-paragraph"'
       capture c
-        render 'object.testimonial' with { image: block.settings.image, cardTitle: block.settings.review_title, reviewText: reviewText, name: block.settings.name, location: block.settings.location, rating: block.settings.rating }
+        render 'content.testimonial' with { image: block.settings.image, cardTitle: block.settings.review_title, reviewText: reviewText, name: block.settings.name, location: block.settings.location, rating: block.settings.rating }
       endcapture
       if c == blank
         continue
@@ -22,15 +22,12 @@
       {{- section.settings.heading | escape -}}
     </p>
 
-    <div class="c-testimonials__carousel" data-testimonials-carousel>
-      {{- blocks -}}
-    </div>
-
-    <div class="c-testimonials__progress">
-      <div class="c-testimonials__progress-inner">
-        <div data-testimonials-carousel-progress></div>
-      </div>
-    </div>
+    {%- render 'object.carousel' with {
+      slides: blocks,
+      class: 'c-testimonials__carousel',
+      progress: true,
+      arrows: true
+    } -%}
   </div>
 {%- endif -%}
 

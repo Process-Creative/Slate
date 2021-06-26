@@ -2,7 +2,9 @@
 @import '../base';
 
 //Objects
-@import '../objects/testimonial';
+@import '../objects/content/testimonial';
+
+@import '../objects/widgets/carousel';
 
 //Components
 @import '../components/content/about-content';

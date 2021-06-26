@@ -4,6 +4,7 @@ $s-screen--medium: 'medium';
 $s-screen--large: 'large';
 $s-screen--xlarge: 'xlarge';
 $s-screen--xxlarge: 'xxlarge';
+$s-screen--ularge: 'ularge';
 
 $s-screen--sizes: (
   $s-screen--xsmall:  375px,    // Modern Phones                                
@@ -11,7 +12,8 @@ $s-screen--sizes: (
   $s-screen--medium:  1100px,   // Large Tablet / Small Old Laptop              // "L" Begin
   $s-screen--large:   1350px,   // Large Tablet Landscape / Average Laptop
   $s-screen--xlarge:  1650px,   // Large Laptop / Average - Large Desktop       // "D" Begin
-  $s-screen--xxlarge: 2000px    // 4K Deskop, Ultrawides
+  $s-screen--xxlarge: 2000px,   // 4K Deskop
+  $s-screen--ularge:  2800px    // Bascically Ultrawides only
 );
 
 /** Breakpoints for min-width (x and up) queries */
@@ -21,7 +23,8 @@ $s-screen--breakpoints-up: (
   $s-screen--medium:  '(min-width: #{map-get($s-screen--sizes, $s-screen--medium)})',
   $s-screen--large:   '(min-width: #{map-get($s-screen--sizes, $s-screen--large)})',
   $s-screen--xlarge:  '(min-width: #{map-get($s-screen--sizes, $s-screen--xlarge)})',
-  $s-screen--xxlarge: '(min-width: #{map-get($s-screen--sizes, $s-screen--xxlarge)})'
+  $s-screen--xxlarge: '(min-width: #{map-get($s-screen--sizes, $s-screen--xxlarge)})',
+  $s-screen--ularge:  '(min-width: #{map-get($s-screen--sizes, $s-screen--ularge)})'
 );
 
 /** Breakpoints for max-width (below x) queries */
@@ -31,7 +34,8 @@ $s-screen--breakpoints-down: (
   $s-screen--medium:  '(max-width: #{map-get($s-screen--sizes, $s-screen--medium)-1})',
   $s-screen--large:   '(max-width: #{map-get($s-screen--sizes, $s-screen--large)-1})',
   $s-screen--xlarge:  '(max-width: #{map-get($s-screen--sizes, $s-screen--xlarge)-1})',
-  $s-screen--xxlarge: '(max-width: #{map-get($s-screen--sizes, $s-screen--xxlarge)-1})'
+  $s-screen--xxlarge: '(max-width: #{map-get($s-screen--sizes, $s-screen--xxlarge)-1})',
+  $s-screen--ularge:  '(max-width: #{map-get($s-screen--sizes, $s-screen--ularge)-1})'
 );
 
 /** Breakpoints for min and max width (between x and y / only x) queries */
@@ -41,6 +45,7 @@ $s-screen--breakpoints-only: (
   $s-screen--medium:  '#{map-get($s-screen--breakpoints-up, $s-screen--medium)} and #{map-get($s-screen--breakpoints-down, $s-screen--large)}',
   $s-screen--large:   '#{map-get($s-screen--breakpoints-up, $s-screen--large)} and #{map-get($s-screen--breakpoints-down, $s-screen--xlarge)}',
   $s-screen--xlarge:  '#{map-get($s-screen--breakpoints-up, $s-screen--xlarge)} and #{map-get($s-screen--breakpoints-down, $s-screen--xxlarge)}',
+  $s-screen--ularge:  '#{map-get($s-screen--breakpoints-up, $s-screen--ularge)} and #{map-get($s-screen--breakpoints-down, $s-screen--ularge)}',
 );
 
 :export {
@@ -50,4 +55,5 @@ $s-screen--breakpoints-only: (
   large: map-get($s-screen--sizes, $s-screen--large);
   xlarge: map-get($s-screen--sizes, $s-screen--xlarge);
   xxlarge: map-get($s-screen--sizes, $s-screen--xxlarge);
+  ularge: map-get($s-screen--sizes, $s-screen--xxlarge);
 }
