@@ -52,7 +52,7 @@ $o-carousel--background: $s-color--background;
 
       .keen-slider__slide {
         opacity: 0;
-        @include t-anim--transition(opacity, 1s);
+        @include t-anim--transition(opacity);
 
         &.is-visible {
           opacity: 1;

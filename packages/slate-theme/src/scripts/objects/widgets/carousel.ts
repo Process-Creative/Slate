@@ -48,9 +48,15 @@ export const carouselWidgetCreate = (p:CarouselWidgetParams) => {
           
           carousel.carousel.slides.forEach(slide => {
             const rect = slide.getBoundingClientRect();
+            const halfWidth = rect.width/2;//Not half-wit.
             const diff = rect.left - bound.left;
-            const padding = 128;
-            if((diff+padding) < 0 || (diff+rect.width-padding) > bound.width) {
+
+            const halfInView = (
+              diff > -halfWidth &&
+              diff < (bound.width-halfWidth)
+            );
+
+            if(!halfInView) {
               slide.classList.remove(CLASS_VISIBLE);
             } else {
               slide.classList.add(CLASS_VISIBLE);
