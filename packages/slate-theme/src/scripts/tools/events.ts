@@ -16,7 +16,6 @@ export type EventAddParams<K extends EventMap> = {
  */
 export const eventAdd = <K extends EventMap>(p:EventAddParams<K>) => {
   const { event, callback } = p;
-  console.log(event);
   p.element.addEventListener(event, callback);
   return () => p.element.removeEventListener(event, callback);
 }

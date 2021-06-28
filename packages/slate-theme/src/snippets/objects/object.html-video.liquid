@@ -19,7 +19,7 @@
 {%- if mp4 != blank or webm != blank -%}
   <div class="o-responsive {{ class | default: '' }}">
     <video
-      {% if image != blank %}poster="{{ image }}"{% endif %}
+      {% if image != blank %}poster="{{ image | img_url: 600 }}"{% endif %}
       {% if autoplay %}autoplay{% endif %}
       {% unless loop == false %}loop{% endunless %}
       class="o-responsive__image is-{{ style | default: 'cover' }}"

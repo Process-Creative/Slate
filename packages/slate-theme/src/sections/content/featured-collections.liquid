@@ -1,0 +1,160 @@
+{%- comment -%}
+  Featured Collections
+   
+  Version:
+    1.0.0 - 2021/06/27
+{%- endcomment -%}
+{%- capture slides -%}
+  {% for block in section.blocks %}
+    <div class= "c-featured-collections__tile is-{{ block.settings.width }}">
+      {%- liquid
+        capture vidImg
+          if block.settings.mp4 != blank or block.settings.webm != blank
+            render 'object.html-video' with { image: block.settings.image, mp4: block.settings.mp4, webm: block.settings.webm, autoplay: true, style: 'cover', class: 'c-featured-collections__tile-image' }
+          elsif block.settings.image != blank
+            render 'tool.picture' with { img: block.settings.image, sizes: '350,800', screens: '500,1000' }
+          endif
+        endcapture
+      -%}
+
+      {%- if vidImg != blank -%}
+        <a href="{{ block.settings.url }}">{{ vidImg }}</a>
+      {%- endif -%}
+
+      {%- if block.settings.title != blank -%}
+        <p class="c-featured-collections__tile-title o-heading--5">
+          {{- block.settings.title | escape -}}
+        </p>
+      {%- endif -%}
+
+      {%- if block.settings.description != blank -%}
+        <p class="c-featured-collections__tile-description o-paragraph--1">
+          {{- block.settings.description | escape -}}
+        </p>
+      {%- endif -%}
+
+      {%- if block.settings.label != blank -%}
+        <p>
+          <a href="{{ block.settings.url }}" class="o-link">
+            {{- block.settings.label | escape -}}
+          </a>
+        </p>
+      {%- endif -%}
+    </div>
+  {% endfor %}
+{%- endcapture -%}
+
+{%- if slides != blank -%}
+  <div data-featured-collections class="c-featured-collections">
+    {%- if section.settings.carousel -%}
+      {%- render 'object.carousel' with {
+        slides: slides,
+        class: 'c-featured-collections__carousel',
+        progress: true,
+        arrows: true
+      } -%}
+    {%- else -%}
+      {{- slides -}}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {  
+    "name": "Featured Collections",
+    "class": "c-section c-section__featured-collections",
+
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "carousel",
+        "label": "Display as carousel?",
+        "default": false
+      }
+    ],
+
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL",
+            "default": "/"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "mp4",
+            "label": "Video Link MP4",
+            "info": "Videos can be uploaded in Settings > Files and the link copied here"
+          },
+          {
+            "type": "text",
+            "id": "webm",
+            "label": "Video Link WebM",
+            "info": "Videos can be uploaded in Settings > Files and the link copied here"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Collection"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description",
+            "default": "Lorem ipsum dolor sit amet, consectetur."
+          },
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Link Label",
+            "default": "Shop now"
+          },
+
+          {
+            "type": "radio",
+            "id": "width",
+            "label": "Width (For grid layout on desktop)",
+            "default": "4",
+            "options": [
+              {
+                "value": "4",
+                "label": "1/4 on Desktop, 1/2 on Mobile."
+              },
+              {
+                "value": "3",
+                "label": "1/3 on Desktop, 1/2 on Mobile."
+              },
+              {
+                "value": "2",
+                "label": "1/2 on Desktop, Full size on Mobile."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+
+    "presets": [
+      {
+        "name": "Featured Collections",
+        "category": "Content",
+        "blocks": [
+          { "type": "collection" },
+          { "type": "collection" },
+          { "type": "collection" },
+          { "type": "collection" }
+        ]
+      }
+    ]
+  }
+{% endschema %}
