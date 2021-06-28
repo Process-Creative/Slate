@@ -1,0 +1,77 @@
+{%- comment -%}
+  Featured Blog
+    Displays a single blog, it's most 6 recent articles in a carousel.
+
+  Version:
+    1.0.0 - 2021/06/28
+{%- endcomment -%}
+
+{%- liquid
+  assign blog = blogs[section.settings.blog]
+  
+  capture slides
+    for article in blog.articles limit: 6
+      render 'object.article-tile' with { article: article }
+    endfor
+  endcapture
+-%}
+
+<div class="c-featured-blog" data-featured-blog>
+  {% comment %}
+  <div class="c-featured-blog__heading">
+    <span class="o-heading--3">
+      {{ section.settings.title | default: blog.title | escape }}
+    </span>
+
+    <div class="c-featured-blog__heading-tags">
+      {%- for i in (1..5) -%}
+        <a href="/" class="o-heading--6">
+          {{- 'Fashion' | escape -}}
+        </a>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.btnText != blank -%}
+      <a href="{{ blog.url }}" class="o-btn c-featured-blog__btn">
+        {{- section.settings.btnText | escape -}}
+      </a>
+    {%- endif -%}
+  </div>
+  {% endcomment %}
+
+  {{ slides }}
+</div>
+
+{% schema %}
+{
+  "name": "Featured Blog",
+  "class": "c-section c-section__featured-blog",
+
+  "settings": [
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title",
+      "info": "If left blank the blog's title will be used."
+    },
+    {
+      "type": "text",
+      "id": "btnText",
+      "label": "Button Text",
+      "default": "Go to blog"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Blog Carousel",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

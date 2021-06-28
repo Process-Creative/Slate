@@ -10,7 +10,7 @@
       {%- liquid
         capture vidImg
           if block.settings.mp4 != blank or block.settings.webm != blank
-            render 'object.html-video' with { image: block.settings.image, mp4: block.settings.mp4, webm: block.settings.webm, autoplay: true, style: 'cover', class: 'c-featured-collections__tile-image' }
+            render 'object.html-video' with { poster: block.settings.image, mp4: block.settings.mp4, webm: block.settings.webm, autoplay: true, style: 'cover', class: 'c-featured-collections__tile-image' }
           elsif block.settings.image != blank
             render 'tool.picture' with { img: block.settings.image, sizes: '350,800', screens: '500,1000' }
           endif

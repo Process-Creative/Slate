@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   padding-bottom: 100%;// Please override
+  display: block;
 
   &__image {
     position: absolute;

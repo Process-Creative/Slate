@@ -23,7 +23,7 @@
     {%- comment -%} Video with Image Poster {%- endcomment -%}
     {% if videoMp4 != blank or videoWebm != blank %}
       {%- render 'object.html-video' with {
-        image: poster,
+        poster: poster,
         mp4: videoMp4,
         webm: videoWebm,
         autoplay: true,

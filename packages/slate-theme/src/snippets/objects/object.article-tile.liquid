@@ -1,0 +1,81 @@
+{%- comment -%}
+  Article Thumbnail
+    Snippet to display article thumbnail.
+
+  Notes:
+    - Only two category tags will be printed at most. If you want to change
+      this then it will take a tiny refactor to do so, this way is much more
+      optimal.
+
+    - The word count is based on an average of 5 letters per word, 200 words per
+      minute read.
+
+  Params:
+    article - The article object to be used for the tile.
+    blog - The Blog that the Article belongs to.
+    class - Additional container class string (Optional).
+
+  Version:
+    1.0.0 - 2021/05/20
+{%- endcomment -%}
+
+{%- liquid
+  assign catCount = 0
+  capture categories
+    for tag in article.tags
+      assign cat = tag | split: 'Category_'
+      if cat[0] != blank
+        continue
+      endif
+
+      if catCount == 0
+        echo cat | join: ''
+        assign catCount = catCount | plus: 1
+      else
+        echo ', '
+        echo cat | join: ''
+        break
+      endif
+    endfor
+  endcapture
+
+  assign readTime = article.content.size | divided_by: 1000 | at_least: 1 | at_most: 15
+
+  assign excerpt = article.excerpt
+  if excerpt == blank
+    assign excerpt = article.content | strip_html | truncatewords: 22
+  endif
+-%}
+
+<div class="o-article-tile {{ class }}">
+  {%- if article.image != blank -%}
+    <a href="{{- article.url -}}" class="c-article-tile__image o-responsive">
+      {%- render 'tool.picture' with {
+        img: article.image,
+        class: 'o-responsive__image is-cover',
+        sizes: '520',
+        screens: ''
+      } -%}
+    </a>
+  {%- endif -%}
+
+  <p class="o-article-tile__title o-heading--5">
+    {{- article.title | escape -}}
+  </p>
+
+  <p class="o-article-tile__meta o-paragraph--1">
+    {%- if categories != blank -%}
+      <span class="o-article-tile__categories">{{ categories | escape }}</span>
+    {%- endif -%}
+
+    {{- 'article.tile.time' | t: time: readTime -}}
+  </p>
+
+  {%- if excerpt != blank -%}
+    <p>{{ excerpt | escape }}</p>
+  {%- endif -%}
+
+  <a href="{{- article.url -}}" class="o-link">
+    {{- 'article.tile.link' | t -}}
+  </a>
+</div>

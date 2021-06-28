@@ -13,5 +13,12 @@
       "account": "My Account",
       "currency": "Currency: "
     }
+  },
+  
+  "article": {
+    "tile": {
+      "time": "{{ time }} min read",
+      "link": "Read more"
+    } 
   }
 }

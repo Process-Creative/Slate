@@ -1,0 +1,28 @@
+{%- comment -%}
+  Starts With Tool
+    Returns true or false depending if a string starts with another string.
+    Checks are case sensitive.
+
+    This works by splitting the string by the prefix. Shopify will make the 
+    first element in the array be an empty string (blank) if the string does
+    start with the prefix, otherwise it will not.
+
+  Params:
+    str - String to check.
+    prefix - Prefix to see if the str contains.
+
+  Outputs:
+    "true" if the string starts with the prefix, otherwise "false"
+
+  Version:
+    1.0.0 - 2021/06/28
+{%- endcomment -%}
+{%- liquid
+  assign arr = str | split: prefix
+
+  if arr[0] == blank
+    echo 'true'
+  else
+    echo 'false'
+  endif
+-%}
