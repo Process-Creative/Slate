@@ -54,7 +54,9 @@
         arrows: true
       } -%}
     {%- else -%}
-      {{- slides -}}
+      <div class="c-featured-collections__inner">
+        {{- slides -}}
+      </div>
     {%- endif -%}
   </div>
 {%- endif -%}
@@ -123,7 +125,7 @@
           {
             "type": "radio",
             "id": "width",
-            "label": "Width (For grid layout on desktop)",
+            "label": "Width (Applies to grid layout only)",
             "default": "4",
             "options": [
               {
