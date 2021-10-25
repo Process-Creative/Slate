@@ -18,8 +18,12 @@ jobs:
           echo "@process-creative:registry=https://npm.pkg.github.com/" >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
 
+          npm install -g lerna
           npm install -g yarn
-          yarn
+          yarn bootstrap
+          yarn tsc
+          yarn binlink
+          yarn bootstrap
           yarn lerna version patch --conventional-commits --yes --exact --create-release github
           
           git remote add github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
