@@ -20,7 +20,7 @@ jobs:
 
           npm install
           npm install -g yarn
-          npm install -g lerna
+          yarn global add learna
           yarn lerna version patch --conventional-commits --yes --exact --create-release github
           
           git remote add github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
