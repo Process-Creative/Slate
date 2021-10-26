@@ -5,5 +5,8 @@ type jQueryPolyfill = (selector:any) => {
 
 export const jQuery:jQueryPolyfill|null = (
   //@ts-ignore
-  window['$'] || window['jQuery'] || window['jquery'] || window['Checkout']['jQuery'] || window['Checkout']['$'] || null
+  window['$'] || window['jQuery'] || window['jquery'] || (
+    //@ts-ignore
+    window['Checkout'] ? window['Checkout']['jQuery'] || window['Checkout']['$'] || null : null
+  )
 );
