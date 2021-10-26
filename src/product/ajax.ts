@@ -1,4 +1,4 @@
-import { Product } from "types/product";
+import { Product } from "../types/product";
 
 export const productFetch = (handle:string):Promise<Product> => {
   return fetch(`/products/${handle}.js`, {

@@ -1,4 +1,4 @@
-import { Currency, CurrencyFormat } from 'currency';
+import { Currency, CurrencyFormat } from '.';
 import { getShopCurrency, getUserCurrency, convert } from './convert';
 import { MONEY_FORMATS } from './formats';
 

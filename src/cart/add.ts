@@ -1,5 +1,5 @@
-import { cartQueue, cartQueueNext, cartQueueError, ON_ITEM_ADDED } from "cart";
-import { LineItem, LineItemProperties } from "types/cart";
+import { ON_ITEM_ADDED, cartQueue, cartQueueNext, cartQueueError } from ".";
+import { LineItemProperties, LineItem } from "..";
 
 export type CartAdd = {
   items:{

@@ -1,6 +1,6 @@
-import { ON_CART_FETCHED, EventCartFetched, cartGet, ON_CART_FINISHED, ON_CART_PENDING } from "cart";
-import { jQuery } from "support";
-import { Cart } from "types";
+import { ON_CART_FINISHED, ON_CART_PENDING, ON_CART_FETCHED, EventCartFetched, cartGet } from ".";
+import { Cart } from "..";
+import { jQuery } from "../support";
 
 export type CartQueueItem<T> = {
   callable:() => Promise<T>;

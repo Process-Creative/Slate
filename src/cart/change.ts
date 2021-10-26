@@ -1,5 +1,5 @@
-import { cartQueue, cartQueueError, cartQueueNext, ON_ITEM_CHANGED } from 'cart';
-import { LineItemProperties, Cart } from 'types';
+import { ON_ITEM_CHANGED, cartQueue, cartQueueNext, cartQueueError } from ".";
+import { LineItemProperties, Cart } from "..";
 
 export type CartChange = {
   quantity?:number;

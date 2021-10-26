@@ -1,5 +1,5 @@
-import { CartQueueItem } from "cart";
-import { Cart } from "types";
+import { Cart, Customer } from ".";
+import { CartQueueItem } from "..";
 
 declare global {
   interface Window {
@@ -17,6 +17,8 @@ declare global {
     },
 
     Asset?:string;
+
+    Customer:Customer|null;
     
     Cart:{
       data:Cart;

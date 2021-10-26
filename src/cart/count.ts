@@ -1,4 +1,4 @@
-import { cartGetCurrent } from 'cart';
+import { cartGetCurrent } from "./get";
 
 export const cartGetVariant = (variantId:number) => {
   return cartGetCurrent().items.filter(item => item.variant_id === variantId);

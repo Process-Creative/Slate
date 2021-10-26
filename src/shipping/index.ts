@@ -1,5 +1,4 @@
-import { CartAdd, cartAdd, cartClear, cartGetCurrent } from "index";
-import { ShippingRate } from "types/shipping";
+import { ShippingRate, CartAdd, cartGetCurrent, cartClear, cartAdd } from "..";
 
 /**
  * Returns the shipping rates for the current cart object.

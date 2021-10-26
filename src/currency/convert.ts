@@ -1,5 +1,5 @@
-import { Currency } from 'currency';
 import * as Cookies from 'js-cookie';
+import { Currency } from '.';
 import { jQuery } from '../support';
 
 export const CURRENCY_COOKIE_NAME = 'currency';

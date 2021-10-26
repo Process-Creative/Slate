@@ -1,6 +1,6 @@
-import { cartQueue, cartQueueError, cartQueueNext } from 'cart';
-import { Cart } from 'types/cart';
-import { ON_CART_FETCHED } from './events';
+import { ON_CART_FETCHED, cartQueue, cartQueueNext, cartQueueError } from ".";
+import { Cart } from "..";
+
 
 export class EventCartFetched extends Event {
   public readonly cart:Cart;

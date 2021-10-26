@@ -1,4 +1,4 @@
-import { cartChange, cartGetCurrent, cartUpdate } from "cart"
+import { cartChange, cartGetCurrent, cartUpdate } from "./";
 
 export const cartRemove = (line:number) => cartChange({ line, quantity: 0 });
 

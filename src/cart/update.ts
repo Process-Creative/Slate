@@ -1,5 +1,5 @@
-import { cartQueue, cartQueueNext, cartQueueError, ON_CART_UPDATED } from "cart";
-import { CartAttributes, Cart } from "types";
+import { ON_CART_UPDATED, cartQueue, cartQueueNext, cartQueueError } from ".";
+import { Cart, CartAttributes } from "../types/cart";
 
 export type CartUpdateItem = { [key:number]:number }
 export type CartUpdateItemArray = number[];

@@ -1,5 +1,4 @@
-import { queryEncodeString } from "string";
-import { Product } from "types/product";
+import { Product, queryEncodeString } from "..";
 
 export const recommendedGetRelated = (
   product_id:number, limit:number=4
