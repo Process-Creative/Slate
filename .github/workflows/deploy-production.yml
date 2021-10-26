@@ -17,7 +17,6 @@ jobs:
         run: |
           npm install
           npm run build
-          npm run repos
           npm version patch -git-tag-version false
           git remote add github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git config user.email "info@processcreative.com.au"
