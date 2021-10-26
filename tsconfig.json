@@ -11,7 +11,8 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "baseUrl": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "declaration": true
   },
   "include": ["./src"],
   "exclude": ["node_modules"]
