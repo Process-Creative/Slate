@@ -1,97 +1,40 @@
-import {
-  addTask, removeTask, nextTask,
-  addFinishTrigger, errorQueue
-} from './queue';
-import { ON_ITEM_ADDED } from './events';
-import { jq } from '../jquery';
+import { cartQueue, cartQueueNext, cartQueueError, ON_ITEM_ADDED } from "cart";
+import { LineItem, LineItemProperties } from "types/cart";
 
-export interface LineItemProperties {
-  [key:string]:string
-};
+export type CartAdd = {
+  items:{
+    id:number;
+    quantity:number;
+    selling_plan?:number;
+    properties?:LineItemProperties;
+  }[]
+}
 
-export interface CartAdd {
-  id:number;
-  quantity:number;
-  selling_plan?:number;
-  properties?:LineItemProperties;
-};
+class EventCartAdded extends Event {
+  public readonly items:LineItem[];
+  
+  constructor(items:LineItem[]) {
+    super(ON_ITEM_ADDED);
+    this.items = items;
+  }
+}
 
-export const cartAdd = (params:{ items:CartAdd[] }) => {
-  return new Promise((resolve,reject) => {
-    let o:any = {
-      url :'/cart/add.js',
-      dataType: "json",
+export const cartAdd = (params:CartAdd) => cartQueue((async () => {
+  try {
+    const response:{ items:LineItem[] } = await fetch('/cart.js', {
       method: 'POST',
-      data: params,
-      action: 'add'
-    };
-    o.success = function(data) {
-      resolve(data);
-      addFinishTrigger({ event: ON_ITEM_ADDED, data});
-      removeTask(this);
-      nextTask();
-    }.bind(o);
-    o.error = function(e,i,a) {
-      reject(e ? e.responseJSON || e : 'Unknown Error');
-      removeTask(this);
-      errorQueue();
-    }.bind(o);
-    o.task = function() {
-      jq.ajax(this);
-    }.bind(o);
-    addTask(o);
-  })
-}
+      body: JSON.stringify(params),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(e => e.json());
 
-
-
-
-
-//Promise Flavour
-/** @deprecated */
-export const addToCart = (variant:number, quantity:number=1, properties?:LineItemProperties) => {
-  return new Promise((resolve,reject) => {
-    addToCartCB(variant, quantity, properties, resolve, reject);
-  });
-}
-
-//Callback flavour
-/** @deprecated */
-export const addToCartCB = (variant:number, quantity:number=1, properties?:LineItemProperties, callback?:any, errorCallback?:any) => {
-  let o:any = {
-    variant,
-    quantity,
-    callback,
-    errorCallback,
-    url :'/cart/add.js',
-    dataType: "json",
-    method: 'POST',
-    data: {
-      id: variant,
-      quantity: quantity,
-      properties
-    },
-    action: 'add'
-  };
-
-  o.success = function(data) {
-    if(this.callback) this.callback(data);
-    addFinishTrigger({ event: ON_ITEM_ADDED, data});
-    removeTask(this);
-    nextTask();
-  }.bind(o);
-
-  o.error = function(e,i,a) {
-    if(typeof this.errorCallback === "function") {
-      this.errorCallback(e ? e.responseJSON || e : 'Unknown Error');
-    }
-    removeTask(this);
-    errorQueue();
-  }.bind(o);
-
-  o.task = function() {
-    jq.ajax(this);
-  }.bind(o);
-
-  addTask(o);
-}
+    return cartQueueNext({
+      fetched: false,
+      response,
+      strEvent: ON_ITEM_ADDED,
+      event: new EventCartAdded(response.items)
+    });
+  } catch(e:any) {
+    cartQueueError(e);
+    throw e;
+  }
+}));

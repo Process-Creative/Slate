@@ -1,60 +1,37 @@
-import {
-  addTask, removeTask, nextTask,
-  addFinishTrigger, errorQueue
-} from './queue';
-import { ON_ITEM_CHANGED } from './events';
-import { jq } from '../jquery';
+import { cartQueue, cartQueueError, cartQueueNext, ON_ITEM_CHANGED } from 'cart';
+import { LineItemProperties, Cart } from 'types';
 
-type CartChangeByVariant = { variant: string, quantity:number };
-type CartChangeByKey = { key:string, quantity:number };
-export type CartChange = CartChangeByVariant|CartChangeByKey
+export type CartChange = {
+  quantity?:number;
+  properties?:LineItemProperties;
+} & (
+  { line:number; } | { id:number; }
+);
+export class EventCartChanged extends Event {
+  public readonly cart:Cart;
 
-//Promise
-export const changeCart = (changes:CartChange|CartChange[]) => {
-  return new Promise((resolve, reject) => {
-    changeCartCb(changes, resolve, reject);
-  });
-};
+  constructor(cart:Cart) {
+    super(ON_ITEM_CHANGED);
+    this.cart = cart;
+  }
+}
 
-export const changeCartCb = (changes:CartChange|CartChange[], callback?:any, errorCallback?:any) => {
-  if(!Array.isArray(changes)) changes = [ changes ];
-
-  let updates = changes.reduce((x:any,c):any => {
-    let v = (c as CartChangeByVariant).variant || (c as CartChangeByKey).key;
-    let q = c.quantity;
-    x[v] = q;
-    return x;
-  }, {});
-
-  let o:any = {
-    updates,
-    callback,
-    errorCallback,
-    url :'/cart/update.js',
-    dataType: "json",
-    method: 'POST',
-    data: { updates },
-    action: 'change'
-  };
-
-  o.success = function(data) {
-    if(this.callback) this.callback(data);
-    addFinishTrigger({ event: ON_ITEM_CHANGED, data});
-    removeTask(this);
-    nextTask();
-  }.bind(o);
-
-  o.error = function(e,i,a) {
-    if(typeof this.errorCallback === "function") {
-      this.errorCallback(e ? e.responseJSON || e : 'Unknown Error');
-    }
-    removeTask(this);
-    errorQueue();
-  }.bind(o);
-
-  o.task = function() {
-    jq.ajax(this);
-  }.bind(o);
-
-  addTask(o);
-};
+export const cartChange = (change:CartChange) => cartQueue((async () => {
+  try {
+    const response:Cart = await fetch('/cart/change.js', {
+      method: 'POST',
+      body: JSON.stringify(change),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(e => e.json());
+    
+    return cartQueueNext({
+      fetched: true,
+      response,
+      strEvent: ON_ITEM_CHANGED,
+      event: new EventCartChanged(response)
+    });
+  } catch(e:any) {
+    cartQueueError(e);
+    throw e;
+  }
+}));

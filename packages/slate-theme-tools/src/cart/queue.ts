@@ -1,89 +1,117 @@
-import { jq } from '../jquery';
-import { ON_CART_FINISHED, ON_CART_PENDING } from './events';
+import { ON_CART_FETCHED, EventCartFetched, cartGet, ON_CART_FINISHED, ON_CART_PENDING } from "cart";
+import { jQuery } from "support";
+import { Cart } from "types";
 
-import { getCartCB } from './get';
-
-//Constants
-export const CART_QUEUE:any[] = [];
-export const FINISH_TRIGGERS:FinishTrigger[] = [];
-
-//Interfaces
-export interface FinishTrigger { event:string, data:any };
-
-//Task Management
-export const getCartState = ():'pending'|'finished' => {
-  return CART_QUEUE.length ? 'pending' : 'finished';
+export type CartQueueItem<T> = {
+  callable:() => Promise<T>;
+  resolver?:(data:T)=>void;
+  rejecter?:(error:any)=>void;
 }
 
-/** @deprecated */
-export const addTask = (task) => {
-  CART_QUEUE.push(task);
-  if(CART_QUEUE.length === 1) {
-    //First task
-    jq(document).trigger(ON_CART_PENDING);
-    nextTask();
+// Queue.
+window.Cart = window.Cart || { };
+window.Cart.queue = window.Cart.queue || {};
+window.Cart.queue.items = window.Cart.queue.items || [];
+
+export class EventCartQueueFinished extends Event {
+  public readonly cart:Cart;
+
+  constructor(cart:Cart) {
+    super(ON_CART_FINISHED);
+    this.cart = cart;
   }
-};
-
-/** @deprecated */
-export const removeTask = (task) => {
-  let { action } = task;
-  let i = CART_QUEUE.indexOf(task);
-
-  //This will be called every time a task finished OR fails, if the final task
-  //is not a GET cart, then we're going to do a get cart
-  let isLast = CART_QUEUE.length === 1;
-  if(isLast && !(
-    action == 'get' || action == 'details' || action == 'clear'
-  )) getCartCB();//This will add a get cart task
-
-  if(i !== -1) return CART_QUEUE.splice(i, 1);
-  nextTask();
 }
 
-/** @deprecated */
-export const errorQueue = () => {
-  let queue = [...CART_QUEUE];
+export class EventCartQueueStarted extends Event {
+  constructor() {
+    super(ON_CART_PENDING);
+  }
+}
 
-  CART_QUEUE.splice(0, CART_QUEUE.length);
+export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
+  // Create item
+  const item:CartQueueItem<T> = {
+    callable
+  };
 
-  queue.forEach(e => {
-    if(!e.errorCallback) return;
-    e.errorCallback("Another task failed");
-    removeTask(e);
+  // Queue the item
+  window.Cart.queue.items.push(item);
+
+  // Prep the resolver.
+  const promToReturn = new Promise<T>((resolve,reject) => {
+    item.resolver = resolve;
+    item.rejecter = reject;
   });
 
-  jq(document).trigger(ON_CART_FINISHED);
-};
+  // Reset needs fetching state on queue start
+  if(!window.Cart.queue.items.length) {
+    window.Cart.queue.needsFetching = false;
+    window.Cart.queue.items[0].callable();// Begin queue
 
-//Trigger Management
-/** @deprecated */
-export const addFinishTrigger = (trigger:FinishTrigger) => {
-  if(FINISH_TRIGGERS.indexOf(trigger) !== -1) return;
-  FINISH_TRIGGERS.push(trigger);
-};
-
-/** @deprecated */
-export const removeFinishTrigger = (trigger:FinishTrigger) => {
-  let i = FINISH_TRIGGERS.indexOf(trigger);
-  if(i === -1) return;
-  FINISH_TRIGGERS.splice(i,1);
-};
-
-//Queue Management
-/** @deprecated */
-export const nextTask = () => {
-  //Is the task list finished?
-  if(!CART_QUEUE.length) {
-    [...FINISH_TRIGGERS].forEach(trigger => {
-      jq(document).trigger(trigger.event, trigger.data);
-      removeFinishTrigger(trigger);
-    });
-    jq(document).trigger(ON_CART_FINISHED);
-    return;
+    // Start queue event
+    jQuery ? jQuery(document).trigger(ON_CART_PENDING) : null;
+    document.dispatchEvent(new EventCartQueueStarted());
   }
 
-  //Fetch the next task
-  let task = CART_QUEUE[0];
-  task.task();
+  // Return the resolver
+  return promToReturn;
+}
+
+
+type CartQueueNextParams<T,J extends boolean> = (
+  J extends true ? { response:Cart; } : { response:T }
+) & {
+  fetched:J;
+  strEvent:string|null;
+  event:Event|null;
+}
+
+export const cartQueueNext = <T,J extends boolean>(
+  params:CartQueueNextParams<T,J>
+) => {
+  const { strEvent, response, event, fetched } = params;
+
+  // Remove item
+  window.Cart.queue.items.splice(0, 1);
+
+  // Fire event
+  if(strEvent) jQuery ? jQuery(document).trigger(strEvent, response) : null;
+  if(event) document.dispatchEvent(event);
+
+  // Was this a fetch event?
+  if(fetched) {
+    jQuery ? jQuery(document).trigger(ON_CART_FETCHED, response) : null;
+    document.dispatchEvent(new EventCartFetched(response as Cart));
+  }
+
+  // Not, end of queue, begin.
+  if(window.Cart.queue.items.length) {
+    window.Cart.queue.items[0].callable();
+    return response;
+  }
+
+  // End of queue, now decide if we need to refresh cart or not
+  if(!fetched) window.Cart.queue.needsFetching = true;
+
+  // Do we need to fetch cart? if so then just do that.
+  if(window.Cart.queue.needsFetching) {
+    cartGet();
+    return response;
+  }
+  
+  // Nothing more to do, fire event
+  jQuery ? jQuery(document).trigger(ON_CART_FINISHED, window.Cart.data) : null;
+  document.dispatchEvent(new EventCartQueueFinished(window.Cart.data));
+
+  return response;
+}
+
+
+export const cartQueueError = (e:any) => {
+  console.error(e);
+  window.Cart.queue.items.forEach(item => {
+    if(item.rejecter) item.rejecter(e);
+  });
+  window.Cart.queue.items = [];
+  cartGet();
 }

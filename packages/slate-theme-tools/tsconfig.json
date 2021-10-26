@@ -1,24 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "sourceMap": true,
-    "declaration": true,
+    "target": "ES5",
+    "module": "CommonJS",
     "lib": [
-      "dom",
-      "es5",
-
-      "es2015.core",
-      "es2015.promise",
-      "es2017.string"
-    ]
+      "ES5", "ScriptHost", "dom", "dom.iterable"
+    ],
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "noEmit": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "dist",
-    "src/**/*__tests__"
-  ]
+  "include": ["./src"],
+  "exclude": ["node_modules"]
 }

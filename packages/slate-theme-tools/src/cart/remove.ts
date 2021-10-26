@@ -1,50 +1,15 @@
-import {
-  addTask, removeTask, nextTask,
-  addFinishTrigger, errorQueue
-} from './queue';
-import { ON_ITEM_REMOVED } from './events';
-import { jq } from '../jquery';
+import { cartChange, cartGetCurrent, cartUpdate } from "cart"
 
-//Promise based
-export const removeFromCart = (line:number) => {
-  return new Promise((resolve, reject) => {
-    removeFromCartCB(line, resolve, reject);
-  });
-}
+export const cartRemove = (line:number) => cartChange({ line, quantity: 0 });
 
-export const removeFromCartCB = (line:number, callback?:any, errorCallback?:any) => {
-  let o:any = {
-    line,
-    callback,
-    errorCallback,
-    url: '/cart/change.js',
-    dataType: 'json',
-    method: 'POST',
-    data: {
-      line,
-      quantity: 0
-    },
-    action: 'remove'
-  };
-
-  o.success = function(data) {
-    if(this.callback) this.callback(data);
-    addFinishTrigger({ event: ON_ITEM_REMOVED, data});
-    removeTask(this);
-    nextTask();
-  }.bind(o);
-
-  o.error = function(e,i,a) {
-    if(typeof this.errorCallback === "function") {
-      this.errorCallback(e ? e.responseJSON || e : 'Unknown Error');
+export const cartRemoveLines = (lines:number[]) => cartUpdate({
+  updates: cartGetCurrent().items.reduce((x,y,i) => {
+    const shouldRemove = lines.some(l => l === i);
+    if(shouldRemove) {
+      x.push(0);
+    } else {
+      x.push(y.quantity);
     }
-    removeTask(this);
-    errorQueue();
-  }.bind(o);
-
-  o.task = function() {
-    jq.ajax(this);
-  }.bind(o);
-
-  addTask(o);
-};
+    return x;
+  }, [] as number[])
+});

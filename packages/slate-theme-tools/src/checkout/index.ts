@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    OrderSummaryUpdater:any;
+  }
+}
+
 export const refreshCheckout = () => {
   return new Promise<void>((resolve,reject) => {
     try {

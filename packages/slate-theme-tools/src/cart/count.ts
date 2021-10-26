@@ -1,6 +1,9 @@
-import { getCurrentCart } from './get';
+import { cartGetCurrent } from 'cart';
 
-export const getCountOfVariantInCart = (variantId) => getCurrentCart().items.reduce((x,item) => {
-  if(item.variant_id != variantId) return x;
-  return x += item.quantity;
-}, 0);
+export const cartGetVariant = (variantId:number) => {
+  return cartGetCurrent().items.filter(item => item.variant_id === variantId);
+}
+
+export const cartGetCountOfVariant = (variantId:number) => {
+  return cartGetVariant(variantId).length;
+}

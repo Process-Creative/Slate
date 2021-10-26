@@ -1,52 +1,40 @@
-import {
-  addTask, removeTask, nextTask,
-  addFinishTrigger, errorQueue
-} from './queue';
-import { ON_ITEM_UPDATED } from './events';
-import { jq } from '../jquery';
+import { cartQueue, cartQueueNext, cartQueueError, ON_CART_UPDATED } from "cart";
+import { CartAttributes, Cart } from "types";
 
-//Promise Flavour
-export const updateCart = (lineIndex:number, quantity:number=1) => {
-  return new Promise((resolve,reject) => {
-    updateCartCB(lineIndex, quantity, resolve, reject);
-  });
+export type CartUpdateItem = { [key:number]:number }
+export type CartUpdateItemArray = number[];
+
+export type CartUpdate = {
+  updates:CartUpdateItem|CartUpdateItemArray;
+  note?:string;
+  attributes?:CartAttributes;
 }
 
-//Callback flavour
-export const updateCartCB = (line:number, quantity:number=1, callback?:any, errorCallback?:any) => {
-  let o:any = {
-    line,
-    quantity,
-    callback,
-    errorCallback,
-    url :'/cart/change.js',
-    dataType: "json",
-    method: 'POST',
-    data: {
-      line,
-      quantity
-    },
-    action: 'update'
-  };
+class EventCartUpdated extends Event {
+  public readonly cart:Cart;
 
-  o.success = function(data) {
-    if(this.callback) this.callback(data);
-    addFinishTrigger({ event: ON_ITEM_UPDATED, data});
-    removeTask(this);
-    nextTask();
-  }.bind(o);
-
-  o.error = function(e,i,a) {
-    if(typeof this.errorCallback === "function") {
-      this.errorCallback(e ? e.responseJSON || e : 'Unknown Error');
-    }
-    removeTask(this);
-    errorQueue();
-  }.bind(o);
-
-  o.task = function() {
-    jq.ajax(this);
-  }.bind(o);
-
-  addTask(o);
+  constructor(cart:Cart) {
+    super(ON_CART_UPDATED);
+    this.cart = cart;
+  }
 }
+
+export const cartUpdate = (update:CartUpdate) => cartQueue((async () => {
+  try {
+    const response:Cart = await fetch('/cart/changeupdate.js', {
+      method: 'POST',
+      body: JSON.stringify(update),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(e => e.json());
+    
+    return cartQueueNext({
+      fetched: true,
+      response,
+      strEvent: ON_CART_UPDATED,
+      event: new EventCartUpdated(response)
+    });
+  } catch(e:any) {
+    cartQueueError(e);
+    throw e;
+  }
+}));

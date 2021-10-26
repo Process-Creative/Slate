@@ -2,6 +2,23 @@ const TEXT_NODE = document.createTextNode("test");
 const TEXT_CONTAINER = document.createElement("span");
 TEXT_CONTAINER.appendChild(TEXT_NODE);
 
+
+/**
+ * Query Encode String
+ *    Encodes a key value pair into a URL Query string.
+ *    Does not include the preceeding "?"
+ * 
+ * @param params Params to encode
+ * @returns The encoded string.
+ */
+export const queryEncodeString = (params:{ [key:string]:any }) => {
+  return Object.entries(params).reduce((x,y) => {
+    if(x.length) x += '&';
+    x += encodeURIComponent(y[0]) + '=' + encodeURIComponent(y[1]);
+    return x;
+  }, '');
+}
+
 /**
  *  Escape String
  *    Takes a given string and converts it to an escaped HTML string.
@@ -75,15 +92,31 @@ export const liquid = (str:string, vars:{[key:string]:string}={}) => {
   });
 }
 
-export const getLanguageKey = (key:string, variables:{[key:string]:string}={}) => {
-  let str;
+/**
+ * Retreive a specific language key from the defined window language strings.
+ * 
+ * @param key Key to get
+ * @param variables Variables to use during decoding.
+ * @returns The unparsed language string.
+ */
+export const getLanguageKey = (
+  key:string, variables:{ [key:string]:string }={ }
+) => {
+  let str:string|null|undefined = null;
 
   //Try find
-  if(window && window['Language'] && window['Language'].strings) {
-    str = window['Language'].strings[key];
+  if(window && window.Language && window.Language.strings) {
+    str = window.Language.strings[key];
   }
   if(!str || !str.length) return `translation missing: ${key}`;
   return liquid(str, variables);
 }
 
+/**
+ * Retreive a specific language key from the defined window language strings.
+ * 
+ * @param key Key to get
+ * @param variables Variables to use during decoding.
+ * @returns The unparsed language string.
+ */
 export const t = getLanguageKey;

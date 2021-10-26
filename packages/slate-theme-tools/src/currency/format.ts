@@ -1,7 +1,8 @@
+import { Currency, CurrencyFormat } from 'currency';
 import { getShopCurrency, getUserCurrency, convert } from './convert';
 import { MONEY_FORMATS } from './formats';
 
-export const formatMoney = (cents:number|string, format:string) => {
+export const formatMoney = (cents:number|string, format:string):string => {
   if(window['Shopify'] && window['Shopify'].formatMoney) return window['Shopify'].formatMoney(cents, format);
 
   if (typeof cents == 'string') cents = cents.replace('.','');
@@ -21,38 +22,41 @@ export const formatMoney = (cents:number|string, format:string) => {
     return dollars + cents;
   }
 
-  switch(formatString.match(placeholderRegex)[1]) {
+  const match = formatString.match(placeholderRegex);
+  if(!match) return value;
+
+  switch(match[1]) {
     case 'amount':
-      value = formatWithDelimiters(cents as string, 2);
+      value = formatWithDelimiters(cents.toString(), 2);
       break;
 
     case 'amount_no_decimals':
-      value = formatWithDelimiters(cents as string, 0);
+      value = formatWithDelimiters(cents.toString(), 0);
       break;
 
     case 'amount_with_comma_separator':
-      value = formatWithDelimiters(cents as string, 2, '.', ',');
+      value = formatWithDelimiters(cents.toString(), 2, '.', ',');
       break;
 
     case 'amount_no_decimals_with_comma_separator':
-      value = formatWithDelimiters(cents as string, 0, '.', ',');
+      value = formatWithDelimiters(cents.toString(), 0, '.', ',');
       break;
   }
 
   return formatString.replace(placeholderRegex, value);
 }
 
-export const getFormat = (currency?:string, format?:string) => {
-  currency = currency || getUserCurrency();
+export const getFormat = (currency?:Currency, format?:CurrencyFormat) => {
+  let strCurrency = currency || getUserCurrency();
 
   //Default format
   if(!format) {
     //Get the currency settings
     let cs = window && window['Currency'] ? window['Currency'] : null;
 
-    if(currency != getShopCurrency()) {
+    if(strCurrency != getShopCurrency()) {
       format = cs && cs.convertedFormat ? cs.convertedFormat : 'money_with_currency_format';
-    } else if(cs && cs.shopFormat && currency == getShopCurrency()) {
+    } else if(cs && cs.shopFormat && strCurrency == getShopCurrency()) {
       return cs.shopFormat;
     } else if(cs && cs.format) {
       return cs.format;
@@ -61,12 +65,12 @@ export const getFormat = (currency?:string, format?:string) => {
     }
   }
 
-  let c = MONEY_FORMATS[currency];
+  let c = MONEY_FORMATS[strCurrency];
   if(c[format]) return c[format];
   return c['money_with_currency_format'];
 }
 
-export const printMoney = (money:number, format?:string, currency?:string) => {
+export const printMoney = (money:number, format?:CurrencyFormat, currency?:Currency) => {
   currency = currency || getUserCurrency();
   let f = getFormat(currency, format);
   let v = convert(money, null, currency);

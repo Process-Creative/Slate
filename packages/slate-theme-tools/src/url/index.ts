@@ -11,10 +11,10 @@ export const getAssetUrl = (asset:string):string => {
 
   if(x.includes('?v=')) {
     let z = x.split('?');
-    z = z[z.length-1];
+    const strZ = z[z.length-1];
     y.splice(-1, 1);
     y.push(asset);
-    return `${y.join('/')}?${z}`;
+    return `${y.join('/')}?${strZ}`;
   } else {
     y.splice(-1, 1);
     y.push(asset);
@@ -28,7 +28,7 @@ export const getCdnUrl = ():string => {
   return y.join('/');
 };
 
-export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
+export const getImageUrl = (src:ImageSource|null, size:ShopifyImageSize|null):string|null => {
   if(!src) {
     //Source not specified / valid, return the no-image image.
     return `${CDN_URL}/s/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c.gif`;
@@ -36,9 +36,9 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
 
   //Resize Cloudinary
   let srcFirst = Array.isArray(src) ? src[0] : src;
-  let isCloudinary = typeof srcFirst['cloudinary_src'] !== typeof undefined;
+  let isCloudinary = typeof srcFirst.cloudinary_src !== typeof undefined;
   if(isCloudinary) {
-    let img = srcFirst as AccentuateImage[number];
+    let img = srcFirst as AccentuateImage;
     if(!size) return img.original_src;
     return img.cloudinary_src + 'w_' + size;
   }
@@ -56,13 +56,13 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
     return str;
   };
 
-  size = size ? `${size}` : null;//Convert to string
-  if(!size) return removeProtocol(strSrc);
+  let strSize = size ? `${size}` : null;//Convert to string
+  if(!strSize) return removeProtocol(strSrc);
 
-  if(SHOPIFY_VALID_IMG_SIZE_NAMES.some(vimg => size === vimg)) {
+  if(SHOPIFY_VALID_IMG_SIZE_NAMES.some(vimg => strSize == vimg)) {
 
   } else {
-    if(!size.endsWith('x')) size += 'x';
+    if(!strSize.endsWith('x')) strSize += 'x';
   }
 
   if(strSrc.indexOf('.') !== -1) {
@@ -73,9 +73,8 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
 
     if(possiblyHasSize && possiblyHasSize.length) {
       let pathSplit = possiblyHasSize.split('/');//Remove paths
-
-      let splitByUnderscore = pathSplit.pop().split('_');
-      let end = splitByUnderscore.pop();//this is possibly a valid size string
+      let splitByUnderscore = pathSplit.pop()!.split('_');
+      let end = splitByUnderscore.pop()!;//this is possibly a valid size string
 
 
       //Remove string
@@ -104,7 +103,7 @@ export const getImageUrl = (src:ImageSource, size:ShopifyImageSize):string => {
   return removeProtocol([
     [
       prefix[0].trim(),
-      size === 'master' ? null : size.trim(),
+      size === 'master' ? null : strSize.trim(),
     ].filter(f => f).join('_'),
     suffix
   ].filter(f => f && f.length).join(''));

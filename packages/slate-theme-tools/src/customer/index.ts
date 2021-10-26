@@ -1,22 +1,14 @@
-import { shopifyPost, shopifyGet } from './../ajax/';
+import { Customer } from "types";
 
-let customer;
-
-export const fetchCustomer = async () => {
-  return customer = await shopifyGet('/', { view: 'customer-json' });
+declare global {
+  interface Window {
+    Customer:Customer|null;
+  }
 }
 
-export const getCustomer = () => {
-  if(customer) return customer;
-  if(typeof window['Customer'] !== typeof undefined) return customer = window['Customer'];
-  fetchCustomer();
-  throw new Error('Customer is undefined... probably because you haven\'t set window.Customer to a JSON formatted Customer object!');
+export const customerGet = () => {
+  if(!window || !window.Customer) {
+    throw new Error('Customer is undefined... probably because you haven\'t set window.Customer to a JSON formatted Customer object!');
+  }
+  return window.Customer;
 }
-
-export const createCustomer = async (customer:object,extra:object={}) => {
-  let result = await shopifyPost('/account', {
-    utf8: "✓", form_type: "create_customer", customer, ...extra
-  });
-  return await fetchCustomer();
-}
- 

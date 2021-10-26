@@ -1,43 +1,30 @@
-import {
-  addTask, removeTask, nextTask,
-  addFinishTrigger, errorQueue
-} from './queue';
-import { setCurrentCart } from './get';
-import { ON_CART_CLEARED, ON_CART_FETCHED } from './events';
-import { jq } from '../jquery';
+import { cartQueue, cartQueueError, cartQueueNext, ON_CART_CLEARED } from "cart";
+import { Cart } from "types";
 
-export const clearCart = () => {
-  return new Promise((resolve, reject) => clearCartCB(resolve,reject));
-};
+class EventCartCleared extends Event {
+  public readonly cart:Cart;
 
-export const clearCartCB = (callback?:any, errorCallback?:any) => {
-  let o:any = {
-    callback, errorCallback,
-    url: '/cart/clear.js',
-    dataType: 'json',
-    method: 'GET',
-    data: {},
-    action: 'clear'
-  };
+  constructor(cart:Cart) {
+    super(ON_CART_CLEARED);
+    this.cart = cart;
+  }
+}
 
-  o.success = function(data) {
-    setCurrentCart(data);//The returned value is the full cart, we can use it to update the cart
-    if(this.callback) this.callback(data);
-    addFinishTrigger({ event: ON_CART_CLEARED, data });
-    addFinishTrigger({ event: ON_CART_FETCHED, data });
-    removeTask(this);
-    nextTask();
-  }.bind(o);
+export const cartClear = () => cartQueue((async () => {
+  try {
+    const response:Cart = await fetch('/cart/clear.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    }).then(e => e.json());
 
-  o.error = function(e, i, a) {
-    if(this.errorCallback) this.errorCallback(e ? e.responseJSON || e : "Unknown Error");
-    removeTask(this);
-    errorQueue();
-  }.bind(o);
-
-  o.task = function() {
-    jq.ajax(this);
-  }.bind(o);
-
-  addTask(o);
-};
+    return cartQueueNext({
+      fetched: true,
+      response,
+      strEvent: ON_CART_CLEARED,
+      event: new EventCartCleared(response)
+    });
+  } catch(e:any) {
+    cartQueueError(e);
+    throw e;
+  }
+}));

@@ -1,5 +1,5 @@
-import { shopifyGet } from "../ajax"
-import { getCurrentCart, LineItemProperties } from "../cart";
+import { CartAdd, cartAdd, cartClear, cartGetCurrent } from "index";
+import { ShippingRate } from "types/shipping";
 
 /**
  * Returns the shipping rates for the current cart object.
@@ -7,57 +7,74 @@ import { getCurrentCart, LineItemProperties } from "../cart";
  * @param zip Destination zip code
  * @param country Destination country
  * @param province Destination province code (exact match only)
+ * @returns A promise that resolves to the estimated rates.
  */
-export const getCurrentShippingCosts = (zip:string, country:string, province:string) => {
-  return shopifyGet('/cart/shipping_rates.json', { shipping_address: { zip, country, province } });
+export const getCurrentShippingCosts = (
+  zip:string, country:string, province:string
+):Promise<{ shipping_rates:ShippingRate[] }> => {
+  return fetch('/cart/shipping_rates.json', {
+    method: 'GET',
+    body: JSON.stringify({ shipping_address: { zip, country, province } })
+  }).then(e => e.json());
 }
 
-export type LineItem = {
-  variantId:number;
-  quantity:number;
-  properties?:LineItemProperties;
-}
-
-export const estimateShippingCostsForLines = async (lines:LineItem[], zip:string, country:string, province:string) => {
+/**
+ * Estimate the shipping cost for a specific set of line items. This process is
+ * a bit janky as it requires the cart to emptied prior to estimating.
+ * 
+ * @param add Cart Line items to estimate for.
+ * @param zip Destination zip code
+ * @param country Destination country
+ * @param province Destination province code (exact match only)
+ * @returns A promise that resolves to the estimated rates.
+ */
+export const estimateShippingCostsForLines = async (
+  add:CartAdd, zip:string, country:string, province:string
+) => {
   //Get current line items
-  let oldCart = getCurrentCart();
+  const oldCart = cartGetCurrent();
 
   //Clear cart
   if(oldCart.items.length) {
-    await shopifyGet('/cart/clear.js');
+    await cartClear();
   }
 
   //Add to cart, estimate
-  let adds = await Promise.all(lines.map(line => {
-    return shopifyGet('/cart/add.js', {
-      id: line.variantId, quantity: line.quantity,
-      properties: { ...(line.properties||{}), _shipping_calc: 'Y' }
-    });
-
-    // return addToCart(line.variantId, line.quantity, {
-    //   ...(line.properties||{}), _shipping_calc: 'Y'
-    // });
-  }));
-
-  let rates = await getCurrentShippingCosts(zip, country, province);
-
-  //Clear cart
-  await shopifyGet('/cart/clear.js');
-  
-  //Add existing lines
-  await Promise.all(oldCart.items.map(line => {
-    return shopifyGet('/cart/add.js', {
-      id: line.variant_id, quantity: line.quantity,
-      properties: {
-        ...(line.properties||{})
+  await cartAdd({
+    ...add,
+    items: add.items.map(line => {
+      return {
+        ...line,
+        properties: {
+          ...(line.properties||{}),
+          _shipping_calc: 'Y'
+        }
       }
-    });
-    // return addToCart(line.variant_id, line.quantity, line.properties);
-  }));
-  
+    })
+  });
+
+  const rates = await getCurrentShippingCosts(zip, country, province);
+  await cartClear();
+  await cartAdd(oldCart);
   return rates;
 }
 
-export const estimateShippingCosts = (variantId:number, quantity:number, zip:string, country:string, province:string) => {
-  return estimateShippingCostsForLines([{ variantId, quantity }], zip, country, province);
+/**
+ * Retreive the shipping estimated for a single item. This process is
+ * a bit janky as it requires the cart to emptied prior to estimating.
+ * 
+ * @param id Variant ID of item to estimate the costs for.
+ * @param quantity Count of items to use in estimating
+ * @param add Cart Line items to estimate for.
+ * @param zip Destination zip code
+ * @param country Destination country
+ * @param province Destination province code (exact match only)
+ * @returns A promise that resolves to the estimated rates.
+ */
+export const estimateShippingCosts = (
+  id:number, quantity:number, zip:string, country:string, province:string
+) => {
+  return estimateShippingCostsForLines({
+    items: [{ id, quantity }]
+  }, zip, country, province);
 }
