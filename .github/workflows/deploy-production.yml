@@ -6,7 +6,6 @@ on:
       - 🚀
       - [bot]
       - Update from Shopify
-  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +17,7 @@ jobs:
           npm install
           npm run build
           npm version patch -git-tag-version false
-          git remote add github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" -t ${GITHUB_REF}
+          git remote add  -t ${GITHUB_REF}github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git config user.email "info@processcreative.com.au"
           git config user.name "Process-Admin"
           git add package.json
