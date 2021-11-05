@@ -5,7 +5,7 @@
   "useWorkspaces": true,
   "command": {
     "version": {
-      "message": "[skip travis] Publish %s"
+      "message": "🚀 Publish %s"
     },
     "publish": {
       "registry": "https://npm.pkg.github.com"
