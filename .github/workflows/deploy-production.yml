@@ -27,8 +27,8 @@ jobs:
 
           git remote set-url origin "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git add --all
-          git commit -m "🚀 Increased Semvar"
-          git push github HEAD:${GITHUB_REF}
+          git commit -m "🚀 Increased Semvar" || echo "Nothing to commit"
+          git push
           echo "registry=https://npm.pkg.github.com/@process-creative" >> .npmrc
           echo "@process-creative:registry=https://npm.pkg.github.com/" >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" >> .npmrc
