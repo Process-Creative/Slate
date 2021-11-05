@@ -25,9 +25,8 @@ jobs:
           yarn binlink
           yarn lerna version patch --conventional-commits --yes --exact --create-release github
 
-          git remote add -t ${GITHUB_REF} github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-
-          git add package.json
+          git remote set-url origin "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add --all
           git commit -m "🚀 Increased Semvar"
           git push github HEAD:${GITHUB_REF}
           echo "registry=https://npm.pkg.github.com/@process-creative" >> .npmrc
