@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.1.61 (2021-11-05)
+
+**Note:** Version bump only for package @process-creative/slate-tools
+
+
+
+
+
 ## 2.1.60 (2021-11-05)
 
 **Note:** Version bump only for package @process-creative/slate-tools
