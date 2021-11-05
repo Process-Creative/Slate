@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-tester",
-  "version": "2.1.62",
+  "version": "2.1.63",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/cli/test",
