@@ -32,8 +32,8 @@ jobs:
           git push github HEAD:${GITHUB_REF}
           echo "registry=https://npm.pkg.github.com/@process-creative" >> .npmrc
           echo "@process-creative:registry=https://npm.pkg.github.com/" >> .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${GH_TOKEN}" >> .npmrc
 
           yarn lerna publish from-package --yes --registry //npm.pkg.github.com
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
