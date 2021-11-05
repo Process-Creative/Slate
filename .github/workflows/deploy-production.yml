@@ -14,10 +14,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Deploy
         run: |
+          npm i -g lerna
           npm i -g yarn
-          yarn
-          yarn build
+
+          yarn bootstrap
+          yarn tsc
+          yarn binlink
           yarn lerna version patch --conventional-commits --yes --exact --create-release github
+
           git remote add -t ${GITHUB_REF} github "https://$GITHUB_ACTOR:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git config user.email "info@processcreative.com.au"
           git config user.name "Process-Admin"
@@ -27,6 +31,7 @@ jobs:
           echo "registry=https://npm.pkg.github.com/@process-creative" >> .npmrc
           echo "@process-creative:registry=https://npm.pkg.github.com/" >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
+          
           yarn lerna publish from-package --yes --registry //npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
