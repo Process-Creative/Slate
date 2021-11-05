@@ -12,7 +12,7 @@
     "tester": "slate-tools test",
     "component-install": "slate-components install",
     "theme-info": "slate-components theme",
-    "test": "npm run build"
+    "test": "echo \"ok\""
   },
   "dependencies": {
     "@process-creative/slate-components": "2.1.51",
