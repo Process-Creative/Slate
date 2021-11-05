@@ -117,7 +117,7 @@ export const pictureGenerate = (params:GenPictureParams) => {
 
     //Generate media sources
     sizes.forEach((size,si) => {
-      const isLast = si === params.sizes.length - 1;
+      const isLast = si === sizes.length - 1;
 
       buffer += '<source media="';
       if(typeof size.screen === 'string') {
@@ -134,11 +134,12 @@ export const pictureGenerate = (params:GenPictureParams) => {
         let imageSize = size.size;
         if(typeof size.size === 'number') imageSize = size.size * r;
         buffer += getImageUrl(params.src, imageSize);
-        buffer += `${versionNumber? `?v=${versionNumber}` : ``}"`;
+        buffer += `${versionNumber? `?v=${versionNumber}` : ``}`;
         if(r != 1) buffer += ` ${r}x`;
         if(y < (ratios.length-1)) buffer += ', ';
       });
 
+      buffer += `"`;
       if(params.alt) buffer += `alt="${params.alt}" `;
       if(params.lazy && params.lazy.dataSizes) buffer += `data-sizes="auto" `;
       buffer += '/>';
