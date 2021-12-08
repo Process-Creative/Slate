@@ -39,11 +39,15 @@ export const queryDecodeString = (s?:string) => {
  * @param value Value to set, or null to remove the param.
  */
 export const queryReplaceParam = (param:string, value:string|null) => {
-  const string = '?' + queryEncodeString({
-    ...queryDecodeString(), [param]: value
-  });
+  const params = queryDecodeString();
+  if(value === null) {
+    delete params[param];
+  } else {
+    params[param] = value;
+  }
+  
   try {
-    history.pushState(null, '', string);
+    history.pushState(null, '', '?'+queryEncodeString(params));
   } catch(e) {
     console.error(e);
   }
