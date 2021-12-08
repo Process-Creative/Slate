@@ -1,23 +1,10 @@
+export * from './url';
+
 const TEXT_NODE = document.createTextNode("test");
 const TEXT_CONTAINER = document.createElement("span");
 TEXT_CONTAINER.appendChild(TEXT_NODE);
 
 
-/**
- * Query Encode String
- *    Encodes a key value pair into a URL Query string.
- *    Does not include the preceeding "?"
- * 
- * @param params Params to encode
- * @returns The encoded string.
- */
-export const queryEncodeString = (params:{ [key:string]:any }) => {
-  return Object.entries(params).reduce((x,y) => {
-    if(x.length) x += '&';
-    x += encodeURIComponent(y[0]) + '=' + encodeURIComponent(y[1]);
-    return x;
-  }, '');
-}
 
 /**
  *  Escape String

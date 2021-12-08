@@ -1,6 +1,12 @@
 import { SellingPlanGroup } from "./selling-plan"
 import { Variant } from "./variant"
 
+export type Collection = {
+  id:number;
+  handle:string;
+  title:string;
+}
+
 export type Product = {
   available:boolean;
   image:string|null;
@@ -44,10 +50,16 @@ export type ProductImages = {
   id:number,
   src:string;
 }
-
 export interface SectionParams {
   section_id:string;
   product_recommendations_url:string;
   product_id?:string;
   limit?:number;
 }
+
+export type WithProduct = { product:Product };
+export type WithVariant = { variant:Variant; };
+export type WithVariants = { variants:Variant[] };
+export type WithVariantId = { variantId:number; };
+export type WithOptions = { options:string[] };
+export type WithCollection = { collection:Collection };
