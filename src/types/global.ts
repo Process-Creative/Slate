@@ -1,5 +1,6 @@
 import { Cart, Customer } from ".";
 import { CartQueueItem } from "..";
+import { ARListener, ShopifyXR } from "../image/ar";
 
 declare global {
   interface Window {
@@ -13,13 +14,10 @@ declare global {
       loadFeatures?:(i:any[])=>any;
     },
     
-    ShopifyXR?:{
-      setupXRElements:()=>any;
-      setModels:(...a:any[])=>any;
-      launchXR:(...a:any[])=>any;
-      addModels:(...a:any[])=>any;
-      getEnabledElements:()=>any;
-    },
+    arLoaded?:boolean;
+    arLoadRequested?:boolean;
+    arListeners?:ARListener[];
+    ShopifyXR?:ShopifyXR,
 
     Language?:{
       strings?:{[key:string]:string}

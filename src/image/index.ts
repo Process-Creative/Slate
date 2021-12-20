@@ -1,6 +1,8 @@
 import { handlize, escapeString } from './../string/';
 import { getAssetUrl, getImageUrl } from './../url/';
 
+export * from './ar';
+
 export const SHOPIFY_VALID_IMG_SIZE_NAMES = <const>[
   'master', 'large', 'medium', 'small'
 ];
