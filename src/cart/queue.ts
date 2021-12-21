@@ -51,7 +51,8 @@ export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
   // Reset needs fetching state on queue start
   if(window.Cart.queue.items.length === 1) {
     window.Cart.queue.needsFetching = false;
-    window.Cart.queue.items[0].callable();// Begin queue
+    const itm = window.Cart.queue.items[0];
+    itm.callable().then(itm.resolver!).catch(itm.rejecter!);// Begin queue
 
     // Start queue event
     jQuery ? jQuery(document).trigger(ON_CART_PENDING) : null;
@@ -73,7 +74,7 @@ type CartQueueNextParams<J extends boolean,T> = {
 export const cartQueueNext = <J extends boolean,T>(
   params:CartQueueNextParams<J,T>
 ) => {
-  const { strEvent, response, event, fetched } = params;
+  const { strEvent, response, event } = params;
 
   // Remove item
   window.Cart.queue.items.splice(0, 1);
@@ -92,7 +93,8 @@ export const cartQueueNext = <J extends boolean,T>(
 
   // Not, end of queue, begin.
   if(window.Cart.queue.items.length) {
-    window.Cart.queue.items[0].callable();
+    const item = window.Cart.queue.items[0];
+    item.callable().then(item.resolver!).catch(item.rejecter!);
     return response;
   }
 
