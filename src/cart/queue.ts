@@ -13,18 +13,23 @@ window.Cart = window.Cart || { };
 window.Cart.queue = window.Cart.queue || {};
 window.Cart.queue.items = window.Cart.queue.items || [];
 
-export class EventCartQueueFinished extends Event {
-  public readonly cart:Cart;
-
+export class EventCartQueueFinished extends CustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
-    super(ON_CART_FINISHED);
-    this.cart = cart;
+    super(ON_CART_FINISHED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { cart }
+    });
   }
 }
 
-export class EventCartQueueStarted extends Event {
+export class EventCartQueueStarted extends CustomEvent<{}> {
   constructor() {
-    super(ON_CART_PENDING);
+    super(ON_CART_PENDING, {
+      bubbles: true,
+      cancelable: false,
+      detail: {}
+    });
   }
 }
 
@@ -44,7 +49,7 @@ export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
   });
 
   // Reset needs fetching state on queue start
-  if(!window.Cart.queue.items.length) {
+  if(window.Cart.queue.items.length === 1) {
     window.Cart.queue.needsFetching = false;
     window.Cart.queue.items[0].callable();// Begin queue
 

@@ -7,12 +7,13 @@ export type CartChange = {
 } & (
   { line:number; } | { id:number; }
 );
-export class EventCartChanged extends Event {
-  public readonly cart:Cart;
-
+export class EventCartChanged extends CustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
-    super(ON_ITEM_CHANGED);
-    this.cart = cart;
+    super(ON_ITEM_CHANGED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { cart }
+    });
   }
 }
 

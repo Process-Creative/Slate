@@ -10,12 +10,13 @@ export type CartAdd = {
   }[]
 }
 
-class EventCartAdded extends Event {
-  public readonly items:LineItem[];
-  
+class EventCartAdded extends CustomEvent<{ items:LineItem[] }> {
   constructor(items:LineItem[]) {
-    super(ON_ITEM_ADDED);
-    this.items = items;
+    super(ON_ITEM_ADDED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { items }
+    });
   }
 }
 

@@ -1,12 +1,13 @@
 import { ON_CART_CLEARED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { Cart } from "..";
 
-class EventCartCleared extends Event {
-  public readonly cart:Cart;
-
+class EventCartCleared extends CustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
-    super(ON_CART_CLEARED);
-    this.cart = cart;
+    super(ON_CART_CLEARED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { cart }
+    });
   }
 }
 

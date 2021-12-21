@@ -10,12 +10,13 @@ export type CartUpdate = {
   attributes?:CartAttributes;
 }
 
-class EventCartUpdated extends Event {
-  public readonly cart:Cart;
-
+class EventCartUpdated extends CustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
-    super(ON_CART_UPDATED);
-    this.cart = cart;
+    super(ON_CART_UPDATED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { cart }
+    });
   }
 }
 

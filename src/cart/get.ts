@@ -2,12 +2,13 @@ import { ON_CART_FETCHED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { Cart } from "..";
 
 
-export class EventCartFetched extends Event {
-  public readonly cart:Cart;
-
+export class EventCartFetched extends CustomEvent<{ cart:Cart}> {
   constructor(cart:Cart) {
-    super(ON_CART_FETCHED);
-    this.cart = cart;
+    super(ON_CART_FETCHED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { cart }
+    });
   }
 }
 
