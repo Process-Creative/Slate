@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
     "module": "CommonJS",
     "lib": [
-      "ES5", "ScriptHost", "dom", "dom.iterable"
+      "ES6", "ScriptHost", "dom", "dom.iterable"
     ],
     "strict": true,
     "outDir": "./dist",
