@@ -87,6 +87,7 @@ export const cartQueueNext = <J extends boolean,T>(
   if(params.fetched) {
     jQuery ? jQuery(document).trigger(ON_CART_FETCHED, response) : null;
     document.dispatchEvent(new EventCartFetched(params.response as Cart));
+    window.Cart.data = params.response as Cart;
   } else {
     window.Cart.queue.needsFetching = true;
   }
