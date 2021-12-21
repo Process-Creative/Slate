@@ -8,6 +8,13 @@ export type CartQueueItem<T> = {
   rejecter?:(error:any)=>void;
 }
 
+
+export type CartError = {
+  status:number;
+  description:string;
+  message:string;
+}
+
 // Queue.
 window.Cart = window.Cart || { };
 window.Cart.queue = window.Cart.queue || {};
@@ -75,6 +82,12 @@ export const cartQueueNext = <J extends boolean,T>(
   params:CartQueueNextParams<J,T>
 ) => {
   const { strEvent, response, event } = params;
+
+  // Handle error responses correctly.
+  const asCartError = response as any as CartError;
+  if(asCartError && asCartError.status) {
+    throw (asCartError.description || asCartError.message || asCartError);
+  }
 
   // Remove item
   window.Cart.queue.items.splice(0, 1);
