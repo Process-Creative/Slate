@@ -22,7 +22,7 @@ class EventCartAdded extends CustomEvent<{ items:LineItem[] }> {
 
 export const cartAdd = (params:CartAdd) => cartQueue((async () => {
   try {
-    const response:{ items:LineItem[] } = await fetch('/cart.js', {
+    const response:{ items:LineItem[] } = await fetch('/cart/add.js', {
       method: 'POST',
       body: JSON.stringify(params),
       headers: { 'Content-Type': 'application/json' }

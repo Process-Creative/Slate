@@ -63,16 +63,15 @@ export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
 }
 
 
-type CartQueueNextParams<T,J extends boolean> = (
-  J extends true ? { response:Cart; } : { response:T }
-) & {
+type CartQueueNextParams<J extends boolean,T> = {
   fetched:J;
+  response:J extends true ? Cart : T;
   strEvent:string|null;
   event:Event|null;
 }
 
-export const cartQueueNext = <T,J extends boolean>(
-  params:CartQueueNextParams<T,J>
+export const cartQueueNext = <J extends boolean,T>(
+  params:CartQueueNextParams<J,T>
 ) => {
   const { strEvent, response, event, fetched } = params;
 
@@ -84,9 +83,11 @@ export const cartQueueNext = <T,J extends boolean>(
   if(event) document.dispatchEvent(event);
 
   // Was this a fetch event?
-  if(fetched) {
+  if(params.fetched) {
     jQuery ? jQuery(document).trigger(ON_CART_FETCHED, response) : null;
-    document.dispatchEvent(new EventCartFetched(response as Cart));
+    document.dispatchEvent(new EventCartFetched(params.response as Cart));
+  } else {
+    window.Cart.queue.needsFetching = true;
   }
 
   // Not, end of queue, begin.
@@ -95,12 +96,9 @@ export const cartQueueNext = <T,J extends boolean>(
     return response;
   }
 
-  // End of queue, now decide if we need to refresh cart or not
-  if(!fetched) window.Cart.queue.needsFetching = true;
-
   // Do we need to fetch cart? if so then just do that.
   if(window.Cart.queue.needsFetching) {
-    cartGet();
+    cartGet().catch(console.error);
     return response;
   }
   
