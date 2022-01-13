@@ -1,3 +1,4 @@
+import { VariantImage } from '../types/variant';
 import { handlize, escapeString } from './../string/';
 import { getAssetUrl, getImageUrl } from './../url/';
 
@@ -39,7 +40,7 @@ export type AccentuateImage = {​
   width:number
 };
 
-export type ImageSource = AccentuateImage | string;
+export type ImageSource = AccentuateImage | string | VariantImage;
 type GenPictureParams = {
   src:ImageSource;
   srcSize:ShopifyImageSize;

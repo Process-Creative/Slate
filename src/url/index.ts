@@ -43,7 +43,11 @@ export const getImageUrl = (src:ImageSource|null, size:ShopifyImageSize|null):st
     return img.cloudinary_src + 'w_' + size;
   }
 
-  let strSrc = src as string;
+  let strSrc:string = (
+    !src ? '' :
+    typeof src === 'string' ? src :
+    src.src
+  );
 
   let removeProtocol = (path:string) => {
     let str = path.replace(/http(s)?:/, '');

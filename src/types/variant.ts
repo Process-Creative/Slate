@@ -5,12 +5,25 @@ export type LocationData = {
   available: number;
 }
 
+export type VariantImage = {
+  id:number;
+  alt:string|null;
+  created_at:string;
+  height:number;
+  position:number;
+  product_id:number;
+  src:string;
+  updated_at:string;
+  variant_ids:number[];
+  width:number;
+}
+
 export type Variant = {
   available:boolean;
   barcode:string;
   compare_at_price:number|null;
-  featured_image:string|null;
-  featured_media:{ id:string };
+  featured_image:string|null|VariantImage;
+  featured_media:VariantImage;
   id:number;
   inventory_management:'shopify'|null;
   inventory_policy:'continue'|'deny'|null;
