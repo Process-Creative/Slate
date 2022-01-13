@@ -10,18 +10,20 @@ declare global {
       locale?:string;
       shop?:string;
       formatMoney?:(cents:number|string, format:string)=>string;
-      theme?:{ name:string, id:number };
+      theme?:{ name:string; id:number; };
       loadFeatures?:(i:any[])=>any;
-    },
+    };
     
     arLoaded?:boolean;
     arLoadRequested?:boolean;
     arListeners?:ARListener[];
-    ShopifyXR?:ShopifyXR,
+    ShopifyXR?:ShopifyXR;
 
     Language?:{
       strings?:{[key:string]:string}
-    },
+    };
+
+    Icons?:{[key:string]:string};
 
     Asset?:string;
 
