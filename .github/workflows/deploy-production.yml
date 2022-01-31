@@ -21,7 +21,7 @@ jobs:
           git config user.email "info@processcreative.com.au"
           git config user.name "Process-Admin"
           git add package.json
-          git commit -m "🚀 Increased Semvar"
+          git commit -m "🚀 Increased Semver"
           git push github HEAD:${GITHUB_REF}
 
           echo "registry=https://npm.pkg.github.com/@process-creative" >> .npmrc
