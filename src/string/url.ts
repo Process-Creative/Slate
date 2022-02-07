@@ -8,6 +8,7 @@
  */
 export const queryEncodeString = (params:{ [key:string]:any }) => {
   return Object.entries(params).reduce((x,y) => {
+    if(y === null || y === undefined) return x;
     if(x.length) x += '&';
     x += encodeURIComponent(y[0]) + '=' + encodeURIComponent(y[1]);
     return x;
