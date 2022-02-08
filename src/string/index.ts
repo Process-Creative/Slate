@@ -2,6 +2,7 @@ export * from './url';
 
 const TEXT_NODE = document.createTextNode("test");
 const TEXT_CONTAINER = document.createElement("span");
+const HTML_CONTAINER = document.createElement('span');
 TEXT_CONTAINER.appendChild(TEXT_NODE);
 
 
@@ -18,6 +19,18 @@ export const escapeString = (s:string) => {
   TEXT_NODE.nodeValue = s;
   return TEXT_CONTAINER.innerHTML;
 };
+
+/**
+ * Unescapes a HTML Encoded string and returns the original text
+ * Replaces items like "&lt;" with "<" and "&amp;" with "&"
+ * 
+ * @param s Encoded string.
+ * @returns Unescaped string.
+ */
+export const unescapeString = (s:string) => {
+  HTML_CONTAINER.innerHTML = s;
+  return HTML_CONTAINER.textContent;
+}
 
 /**
  *  Handlize
