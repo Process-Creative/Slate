@@ -1,8 +1,8 @@
 import { Maybe, Variant, WithCollection, WithOptions, WithProduct } from "..";
 import { collectionGetUrl } from "./collection";
 
-export const OPTIONS_COLOR = <const>[ 'Color', 'Colour' ];
-export const OPTIONS_SIZE = <const>[ 'Size' ];
+export const OPTIONS_COLOR = [ 'Color', 'Colour' ];
+export const OPTIONS_SIZE = [ 'Size' ];
 
 /**
  * Returns the option index of a given array of option (matched by options that
