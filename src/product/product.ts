@@ -1,3 +1,4 @@
+import { collectionGetUrlFromHandle } from ".";
 import { Maybe, Variant, WithCollection, WithOptions, WithProduct } from "..";
 import { collectionGetUrl } from "./collection";
 
@@ -25,9 +26,11 @@ export const productGetOptionIndex = (params:WithProduct & WithOptions) => {
  * @param p Params containing product and possible collection.
  * @returns The URL to view that product and, possibly, within that collection.
  */
-export const productGetUrl = (p:WithProduct & Maybe<WithCollection>) => {
+export const productGetUrl = (p:WithProduct & Maybe<{
+  collection:{ handle:string }
+}>) => {
   return [
-    p.collection ? collectionGetUrl({ collection: p.collection! }) : '',
+    p.collection ? collectionGetUrlFromHandle(p.collection) : '',
     productGetUrlFromHandle(p.product)
   ].join('')
 }
