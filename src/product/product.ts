@@ -26,9 +26,9 @@ export const productGetOptionIndex = (params:WithProduct & WithOptions) => {
  * @param p Params containing product and possible collection.
  * @returns The URL to view that product and, possibly, within that collection.
  */
-export const productGetUrl = (p:WithProduct & Maybe<{
-  collection:{ handle:string }
-}>) => {
+export const productGetUrl = (p:{
+  product:{ handle:string }, collection?:{ handle:string }
+}) => {
   return [
     p.collection ? collectionGetUrlFromHandle(p.collection) : '',
     productGetUrlFromHandle(p.product)
