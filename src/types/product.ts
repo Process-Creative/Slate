@@ -8,14 +8,24 @@ export type Collection = {
 }
 
 export type Product = {
-  available:boolean;
+  // Useless fields that I'm disabling for now
+  // available:boolean;
+  // compare_at_price:number|null;
+  // compare_at_price_max:number;
+  // compare_at_price_min:number;
+  // compare_at_price_varies:boolean;
+  // collections:string[];
+  // content:string;
+  // price:number;
+  // price_max:number;
+  // price_min:number;
+  // price_varies:boolean;
+  // published_at:string;
+  // first_available_variant:Variant;
+  // url:string;
+  // has_only_default_variant: boolean;
+  
   image:string|null;
-  compare_at_price:number|null;
-  compare_at_price_max:number;
-  compare_at_price_min:number;
-  compare_at_price_varies:boolean;
-  collections:string[];
-  content:string;
   created_at:string;
   description:string;
   featured_image:string|null;
@@ -23,20 +33,11 @@ export type Product = {
   id:number;
   images:ProductImages[];
   options:string[];
-  price:number;
-  price_max:number;
-  price_min:number;
-  price_varies:boolean;
-  published_at:string;
   tags:string[];
   title:string;
   type:string;
   variants:Variant[];
   vendor:string;
-  first_available_variant:Variant;
-  url:string;
-  focusPoint:string;
-  has_only_default_variant: boolean;
   selling_plan_groups: SellingPlanGroup[];
 }
 
