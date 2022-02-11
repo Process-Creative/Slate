@@ -63,7 +63,7 @@ export const productGetOptionsWithValues = (p:{
     p.options.forEach((option, optionIndex) => {
       const value = variant.options[optionIndex];
       const set = (optionsWithValues[option] = optionsWithValues[option] || []);
-      if(set.indexOf(value) === -1) return;
+      if(set.indexOf(value) !== -1) return;
       set.push(value);
     });
   });
