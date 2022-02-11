@@ -29,7 +29,7 @@ export const escapeString = (s:string) => {
  */
 export const unescapeString = (s:string) => {
   HTML_CONTAINER.innerHTML = s;
-  return HTML_CONTAINER.textContent;
+  return HTML_CONTAINER.textContent || '';
 }
 
 /**

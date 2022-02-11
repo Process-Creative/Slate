@@ -52,3 +52,32 @@ export type Variant = {
 
   location_data: LocationData[]|null;
 }
+
+export type BackendVariant = {
+  admin_graphql_api_id: "gid://shopify/ProductVariant/31063538445"
+  barcode:string|null;
+  compare_at_price:string|null;
+  created_at:string|null;
+  fulfillment_service:string;
+  grams:number|null;
+  id:number;
+  image_id:number|null;
+  inventory_item_id:number|null;
+  inventory_management:string|null;
+  inventory_policy:'allow' | 'deny';
+  inventory_quantity:number;
+  old_inventory_quantity:number;
+  option1:string;
+  option2:string|null;
+  option3:string|null;
+  position:number;
+  price:string;
+  product_id:number;
+  requires_shipping:boolean;
+  sku:string|null;
+  taxable:boolean;
+  title:string;
+  updated_at:string;
+  weight:number;
+  weight_unit:string;
+}
