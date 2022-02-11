@@ -46,6 +46,14 @@ export type OptionWithValue = {
   value: string;
 }
 
+export type BackendProductOptions = {
+  id:number;
+  name:string;
+  position:number;
+  product_id:number;
+  values:string[];
+}
+
 export type ProductImages = {
   alt?:string,
   id:number,
