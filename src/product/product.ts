@@ -1,9 +1,9 @@
 import { collectionGetUrlFromHandle } from ".";
-import { Maybe, Variant, WithCollection, WithOptions, WithProduct } from "..";
+import { handlize, Maybe, Variant, WithCollection, WithOptions, WithProduct } from "..";
 import { collectionGetUrl } from "./collection";
 
-export const OPTIONS_COLOR = [ 'Color', 'Colour' ];
-export const OPTIONS_SIZE = [ 'Size' ];
+export const OPTIONS_COLOR = [ 'color', 'colour' ];
+export const OPTIONS_SIZE = [ 'size' ];
 
 /**
  * Returns the option index of a given array of option (matched by options that
@@ -15,9 +15,31 @@ export const OPTIONS_SIZE = [ 'Size' ];
  */
 export const productGetOptionIndex = (params:WithProduct & WithOptions) => {
   return params.product.options.findIndex(o => {
-    return params.options.some(po => po.toLowerCase() == o.toLowerCase());
+    return params.options.some(po => productDoesOptionMatch(po, o));
   });
 };
+
+/**
+ * Checks whether or not two options match.
+ * 
+ * @param left Option on the left to check if match. 
+ * @param right Option on the right to check if match.
+ * @returns True if the options match.
+ */
+export const productDoesOptionMatch = (left:string, right:string) => {
+  return handlize(left) === handlize(right);
+}
+
+/**
+ * Check to see if an option matches within a set of options.
+ * 
+ * @param option Option to check if matches.
+ * @param set Set to check if the option matches within.
+ * @returns True if the option is within the set.
+ */
+export const productOptionDoesMatchSet = (option:string, set:string[]) => {
+  return set.some(s => productDoesOptionMatch(option, s));
+}
 
 /**
  * Returns the URL to view a product, can optionally take in a collection to 
