@@ -20,10 +20,10 @@ export type VariantImage = {
 
 export type Variant = {
   available:boolean;
-  barcode:string;
+  barcode:string|null;
   compare_at_price:number|null;
   featured_image:string|null|VariantImage;
-  featured_media:VariantImage;
+  featured_media:VariantImage|null;
   id:number;
   inventory_management:'shopify'|null;
   inventory_policy:'continue'|'deny'|null;
@@ -40,7 +40,7 @@ export type Variant = {
   price:number;
 
   /** @deprecated */
-  public_title:string;
+  // public_title:string;
 
   requires_shipping:boolean;
   sku:string|null;
@@ -50,7 +50,7 @@ export type Variant = {
   inventory_quantity:number|null;
   selling_plan_allocations:SellingPlanAllocation[];
 
-  location_data: LocationData[]|null;
+  location_data:LocationData[]|null;
 }
 
 export type BackendVariant = {
@@ -63,8 +63,8 @@ export type BackendVariant = {
   id:number;
   image_id:number|null;
   inventory_item_id:number|null;
-  inventory_management:string|null;
-  inventory_policy:'allow' | 'deny';
+  inventory_management:'shopify'|null;
+  inventory_policy:'continue'|'deny';
   inventory_quantity:number;
   old_inventory_quantity:number;
   option1:string;

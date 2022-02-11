@@ -1,6 +1,8 @@
 import { productGetUrl } from "./product"
 import { handlize } from "../string";
-import { Maybe, Variant, WithCollection, WithOptions, WithProduct, WithVariant, WithVariants } from "../types";
+import { BackendVariant, Maybe, Variant, WithCollection, WithOptions, WithProduct, WithVariant, WithVariants } from "../types";
+
+const BACKEND_VARIANT_OPTION_KEYS = <const>[ 'option1', 'option2', 'option3' ];
 
 export const variantFirstAvailable = ({ variants }:WithVariants) => {
   return variants.find(v => v.available);
@@ -50,3 +52,32 @@ export const variantDoesHaveOption = (params:WithVariant & WithOptions) => {
 export const variantGetUrl = (params:(
   WithVariant & WithProduct & Maybe<WithCollection>
 )) => `${productGetUrl(params)}?variant=${params.variant.id}`;
+
+/**
+ * Convert a backend variant format to a frontend variant format.
+ * 
+ * @param variant Backend variant to convert.
+ * @returns A frontend variant formatted object.
+ */
+export const variantBackendToFrontend = (variant:BackendVariant):Variant => {
+  const available = (
+    variant.inventory_management === 'shopify' && variant.inventory_policy === 'deny' ?
+    variant.inventory_quantity > 0 : true
+  );
+  const options = BACKEND_VARIANT_OPTION_KEYS.map(k => variant[k]!).filter(k=>k);
+
+  const compare_at_price = (
+    variant.compare_at_price === null ? null : parseInt(variant.compare_at_price)
+  );
+
+  const price = parseInt(variant.price);
+
+  return {
+    ...variant, available, options, compare_at_price, price,
+    featured_image: null,
+    featured_media: null,
+    location_data: null,
+    selling_plan_allocations: [],
+    name: variant.title
+  }
+}
