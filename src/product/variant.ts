@@ -67,10 +67,10 @@ export const variantBackendToFrontend = (variant:BackendVariant):Variant => {
   const options = BACKEND_VARIANT_OPTION_KEYS.map(k => variant[k]!).filter(k=>k);
 
   const compare_at_price = (
-    variant.compare_at_price === null ? null : parseInt(variant.compare_at_price)
+    variant.compare_at_price === null ? null : Math.round(parseFloat(variant.compare_at_price) * 100)
   );
 
-  const price = parseInt(variant.price);
+  const price = Math.round(parseFloat(variant.price) * 100);
 
   return {
     ...variant, available, options, compare_at_price, price,
