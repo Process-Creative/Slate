@@ -10,7 +10,13 @@ export const queryEncodeString = (params:{ [key:string]:any }) => {
   return Object.entries(params).reduce((x,y) => {
     if(y[1] === null || y[1] === undefined) return x;
     if(x.length) x += '&';
-    x += encodeURIComponent(y[0]) + '=' + encodeURIComponent(y[1]);
+    if(Array.isArray(y[1])) {
+      x += y[1].map(value => {
+        return encodeURIComponent(y[0]) + '=' + encodeURIComponent(value);
+      }).join('&');
+    } else {
+      x += encodeURIComponent(y[0]) + '=' + encodeURIComponent(y[1]);
+    }
     return x;
   }, '');
 }
