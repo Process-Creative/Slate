@@ -5,7 +5,7 @@ export type CartChange = {
   quantity?:number;
   properties?:LineItemProperties;
 } & (
-  { line:number; } | { id:number; }
+  { line:number; } | { id:number|string; }
 );
 export class EventCartChanged extends CustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
