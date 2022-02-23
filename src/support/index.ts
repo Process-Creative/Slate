@@ -1,5 +1,12 @@
 //@ts-ignore
-export const GLOBAL_SELF:Window = window || globalThis || global || this || String || {};
+export const GLOBAL_SELF:Window = typeof window !== 'undefined' ? (
+  window 
+) : globalThis || global || this || String || {};
+
+const CE = CustomEvent || Event;
+export class SlateCustomEvent<T> extends CE<T> {
+
+}
 
 type jQueryPolyfill = (selector:any) => {
   trigger: (method:string, params?:any) => void;

@@ -1,5 +1,6 @@
 import { ON_ITEM_ADDED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { LineItemProperties, LineItem } from "..";
+import { SlateCustomEvent } from "../support";
 
 export type CartAdd = {
   items:{
@@ -10,7 +11,7 @@ export type CartAdd = {
   }[]
 }
 
-class EventCartAdded extends CustomEvent<{ items:LineItem[] }> {
+class EventCartAdded extends SlateCustomEvent<{ items:LineItem[] }> {
   constructor(items:LineItem[]) {
     super(ON_ITEM_ADDED, {
       bubbles: true,

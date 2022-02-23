@@ -1,4 +1,5 @@
 import { ON_CART_UPDATED, cartQueue, cartQueueNext, cartQueueError } from ".";
+import { SlateCustomEvent } from "../support";
 import { Cart, CartAttributes } from "../types/cart";
 
 export type CartUpdateItem = { [key:number]:number }
@@ -10,7 +11,7 @@ export type CartUpdate = {
   attributes?:CartAttributes;
 }
 
-class EventCartUpdated extends CustomEvent<{ cart:Cart }> {
+class EventCartUpdated extends SlateCustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
     super(ON_CART_UPDATED, {
       bubbles: true,

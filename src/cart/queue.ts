@@ -1,6 +1,6 @@
 import { ON_CART_FINISHED, ON_CART_PENDING, ON_CART_FETCHED, EventCartFetched, cartGet } from ".";
 import { Cart } from "..";
-import { GLOBAL_SELF, jQuery } from "../support";
+import { GLOBAL_SELF, jQuery, SlateCustomEvent } from "../support";
 
 export type CartQueueItem<T> = {
   callable:() => Promise<T>;
@@ -20,7 +20,7 @@ GLOBAL_SELF.Cart = GLOBAL_SELF.Cart || { };
 GLOBAL_SELF.Cart.queue = GLOBAL_SELF.Cart.queue || {};
 GLOBAL_SELF.Cart.queue.items = GLOBAL_SELF.Cart.queue.items || [];
 
-export class EventCartQueueFinished extends CustomEvent<{ cart:Cart }> {
+export class EventCartQueueFinished extends SlateCustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
     super(ON_CART_FINISHED, {
       bubbles: true,

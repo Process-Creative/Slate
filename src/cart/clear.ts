@@ -1,7 +1,8 @@
 import { ON_CART_CLEARED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { Cart } from "..";
+import { SlateCustomEvent } from "../support";
 
-class EventCartCleared extends CustomEvent<{ cart:Cart }> {
+class EventCartCleared extends SlateCustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
     super(ON_CART_CLEARED, {
       bubbles: true,

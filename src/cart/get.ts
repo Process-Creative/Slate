@@ -1,9 +1,9 @@
 import { ON_CART_FETCHED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { Cart } from "..";
-import { GLOBAL_SELF } from "../support";
+import { GLOBAL_SELF, SlateCustomEvent } from "../support";
 
 
-export class EventCartFetched extends CustomEvent<{ cart:Cart}> {
+export class EventCartFetched extends SlateCustomEvent<{ cart:Cart}> {
   constructor(cart:Cart) {
     super(ON_CART_FETCHED, {
       bubbles: true,
