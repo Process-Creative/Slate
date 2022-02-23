@@ -3,18 +3,7 @@ export const GLOBAL_SELF:Window = typeof window !== 'undefined' ? (
   window 
 ) : globalThis || global || this || String || {};
 
-export class SlateCustomEvent<T = any> extends Event {
-  public readonly detail:T;
-
-  constructor(name:string, args?:EventInit & { detail?:T }) {
-    super(name, args);
-    if(args && args.detail) {
-      this.detail = args.detail;
-    } else {
-      this.detail = undefined as any;
-    }
-  }
-}
+export class SlateCustomEvent<T = any> extends CustomEvent<T> {}
 
 type jQueryPolyfill = (selector:any) => {
   trigger: (method:string, params?:any) => void;
