@@ -30,7 +30,7 @@ export class EventCartQueueFinished extends SlateCustomEvent<{ cart:Cart }> {
   }
 }
 
-export class EventCartQueueStarted extends CustomEvent<{}> {
+export class EventCartQueueStarted extends SlateCustomEvent<{}> {
   constructor() {
     super(ON_CART_PENDING, {
       bubbles: true,
