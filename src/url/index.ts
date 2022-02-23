@@ -1,11 +1,12 @@
 import { ShopifyImageSize, ImageSource, SHOPIFY_VALID_IMG_SIZE_NAMES, AccentuateImage } from "../image";
+import { GLOBAL_SELF } from "../support";
 
 const CDN_URL = '//cdn.shopify.com';
 
 export const getAssetUrl = (asset:string):string => {
-  if(!window['Asset']) throw new Error("You have not setup a same asset url for the script to use! Ensure window.Asset has been set with any asset url!");
+  if(!GLOBAL_SELF['Asset']) throw new Error("You have not setup a same asset url for the script to use! Ensure window.Asset has been set with any asset url!");
 
-  let a = window['Asset'];
+  let a = GLOBAL_SELF['Asset'];
   let y = a.split('/');
   let x = y[y.length-1];
 

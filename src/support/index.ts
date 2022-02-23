@@ -1,12 +1,14 @@
+//@ts-ignore
+export const GLOBAL_SELF:Window = window || globalThis || global || this || String || {};
+
 type jQueryPolyfill = (selector:any) => {
   trigger: (method:string, params?:any) => void;
 };
 
-
 export const jQuery:jQueryPolyfill|null = (
   //@ts-ignore
-  window['$'] || window['jQuery'] || window['jquery'] || (
+  GLOBAL_SELF['$'] || GLOBAL_SELF['jQuery'] || GLOBAL_SELF['jquery'] || (
     //@ts-ignore
-    window['Checkout'] ? window['Checkout']['jQuery'] || window['Checkout']['$'] || null : null
+    GLOBAL_SELF['Checkout'] ? GLOBAL_SELF['Checkout']['jQuery'] || GLOBAL_SELF['Checkout']['$'] || null : null
   )
 );

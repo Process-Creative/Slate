@@ -1,3 +1,4 @@
+import { GLOBAL_SELF } from "../support";
 
 export type ShopifyXR = {
   setupXRElements:()=>any;
@@ -33,36 +34,36 @@ export type ARMedia = {
  * @param listener Listener to listen for whence AR is ready.
  */
 export const onArReady = (listener:ARListener) => {
-  if(!window.arListeners) window.arListeners = [];
-  window.arListeners.push(listener);
-  if(window.arLoaded) {
-    listener(window.ShopifyXR!);
+  if(!GLOBAL_SELF.arListeners) GLOBAL_SELF.arListeners = [];
+  GLOBAL_SELF.arListeners.push(listener);
+  if(GLOBAL_SELF.arLoaded) {
+    listener(GLOBAL_SELF.ShopifyXR!);
   } else {
     arLoad();
   }
 }
 
 export const offArReady = (listener:ARListener) => {
-  if(!window.arListeners) return;
-  const i = window.arListeners.indexOf(listener);
+  if(!GLOBAL_SELF.arListeners) return;
+  const i = GLOBAL_SELF.arListeners.indexOf(listener);
   if(i === -1) return;
-  window.arListeners.splice(i, 1);
+  GLOBAL_SELF.arListeners.splice(i, 1);
 }
 
 const arOnSetup = () => {
   let interval:NodeJS.Timeout = setInterval(() => {
-    if(window.arLoaded) {
+    if(GLOBAL_SELF.arLoaded) {
       return clearInterval(interval);
     }
-    if(!window.ShopifyXR) return;
+    if(!GLOBAL_SELF.ShopifyXR) return;
 
-    window.arLoaded = true;
+    GLOBAL_SELF.arLoaded = true;
     document.documentElement.classList.add('has-ar');
-    if(!window.arListeners) return;
+    if(!GLOBAL_SELF.arListeners) return;
 
-    window.arListeners.forEach(listener => {
+    GLOBAL_SELF.arListeners.forEach(listener => {
       try {
-        listener(window.ShopifyXR!);
+        listener(GLOBAL_SELF.ShopifyXR!);
       } catch(e) {
         console.error(e);
       }
@@ -71,10 +72,10 @@ const arOnSetup = () => {
 }
 
 const arLoad = () => {
-  if(window && window.Shopify && window.Shopify.loadFeatures) {
-    if(!window.arLoadRequested) {
-      window.arLoadRequested = true;
-      window.Shopify.loadFeatures([
+  if(GLOBAL_SELF.Shopify && GLOBAL_SELF.Shopify.loadFeatures) {
+    if(!GLOBAL_SELF.arLoadRequested) {
+      GLOBAL_SELF.arLoadRequested = true;
+      GLOBAL_SELF.Shopify.loadFeatures([
         {
           name: 'shopify-xr',
           version: '1.0',

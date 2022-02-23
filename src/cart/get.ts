@@ -1,5 +1,6 @@
 import { ON_CART_FETCHED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { Cart } from "..";
+import { GLOBAL_SELF } from "../support";
 
 
 export class EventCartFetched extends CustomEvent<{ cart:Cart}> {
@@ -31,4 +32,4 @@ export const cartGet = () => cartQueue((async () => {
   }
 }));
 
-export const cartGetCurrent = () => window.Cart.data;
+export const cartGetCurrent = () => GLOBAL_SELF.Cart.data;

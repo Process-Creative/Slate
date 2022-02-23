@@ -1,3 +1,5 @@
+import { GLOBAL_SELF } from './support';
+
 export * from './cart/';
 export * from './checkout';
 export * from './currency/';
@@ -10,4 +12,4 @@ export * from './url';
 export * from './types';
 
 //@ts-ignore
-(window||globalThis||this||{})['pcSlateTools'] = module.exports;
+GLOBAL_SELF['pcSlateTools'] = module.exports;
