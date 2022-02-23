@@ -1,6 +1,6 @@
 {
   "name": "@process-creative/slate-theme-tools",
-  "version": "3.0.40",
+  "version": "3.0.41",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p .",
