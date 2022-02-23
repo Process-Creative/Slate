@@ -75,7 +75,7 @@ type CartQueueNextParams<J extends boolean,T> = {
   fetched:J;
   response:J extends true ? Cart : T;
   strEvent:string|null;
-  event:Event|null;
+  event:SlateCustomEvent<any>|null;
 }
 
 export const cartQueueNext = <J extends boolean,T>(

@@ -3,9 +3,17 @@ export const GLOBAL_SELF:Window = typeof window !== 'undefined' ? (
   window 
 ) : globalThis || global || this || String || {};
 
-const CE = CustomEvent || Event;
-export class SlateCustomEvent<T> extends CE<T> {
+export class SlateCustomEvent<T = any> extends Event {
+  public readonly detail:T;
 
+  constructor(name:string, args?:EventInit & { detail?:T }) {
+    super(name, args);
+    if(args && args.detail) {
+      this.detail = args.detail;
+    } else {
+      this.detail = undefined as any;
+    }
+  }
 }
 
 type jQueryPolyfill = (selector:any) => {
