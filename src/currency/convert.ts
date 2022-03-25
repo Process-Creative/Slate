@@ -1,11 +1,11 @@
 import * as Cookies from 'js-cookie';
 import { Currency } from '.';
-import { jQuery } from '../support';
+import { GLOBAL_SELF, jQuery } from '../support';
 
 export const CURRENCY_COOKIE_NAME = 'currency';
 
 export const getShopCurrency = ():Currency => {
-  let c = window['Currency'];
+  let c = GLOBAL_SELF['Currency'];
   if(!c || !c.currency) {
     throw new Error('You have not defined your shops currency onto window.Currency.currency!');
   }
@@ -28,7 +28,7 @@ export const setUserCurrency = (currency:string) => {
 };
 
 export const convert = (money:number, from?:string|null, to?:string):number => {
-  let c = window['Currency'];
+  let c = GLOBAL_SELF['Currency'];
   
   from = from || getShopCurrency();
   to = to || getShopCurrency();

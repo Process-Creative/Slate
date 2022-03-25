@@ -1,9 +1,12 @@
 import { Currency, CurrencyFormat } from '.';
+import { GLOBAL_SELF } from '../support';
 import { getShopCurrency, getUserCurrency, convert } from './convert';
 import { MONEY_FORMATS } from './formats';
 
 export const formatMoney = (cents:number|string, format:string):string => {
-  if(window['Shopify'] && window['Shopify'].formatMoney) return window['Shopify'].formatMoney(cents, format);
+  if(GLOBAL_SELF['Shopify'] && GLOBAL_SELF['Shopify'].formatMoney) {
+    return GLOBAL_SELF['Shopify'].formatMoney(cents, format);
+  }
 
   if (typeof cents == 'string') cents = cents.replace('.','');
 
@@ -52,7 +55,7 @@ export const getFormat = (currency?:Currency, format?:CurrencyFormat) => {
   //Default format
   if(!format) {
     //Get the currency settings
-    let cs = window && window['Currency'] ? window['Currency'] : null;
+    let cs = GLOBAL_SELF['Currency'] ? GLOBAL_SELF['Currency'] : null;
 
     if(strCurrency != getShopCurrency()) {
       format = cs && cs.convertedFormat ? cs.convertedFormat : 'money_with_currency_format';

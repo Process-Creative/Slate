@@ -31,12 +31,26 @@ export const queryDecodeString = (s?:string) => {
   if(!s) s = location.search;
   if(s.startsWith('?')) s = s.substr(1);
 
-  return s.split('&').map(n => {
-    return n.split('=').map(n => decodeURIComponent(n));
-  }).reduce((x,y) => {
-    x[y[0]] = y.length > 1 ? y[1] : true;
-    return x;
-  }, {} as {[key:string]:string|true} )
+  const out:{ [key:string]:string[]|string|boolean } = {};
+  const values = s.split('&').map(n => {
+    const bits = n.split('=').map(n => decodeURIComponent(n));
+    const key = bits[0];
+    const value = bits[1] || '';
+    return { key, value };
+  });
+
+  values.forEach((v,i) => {
+    const { key, value } = v;
+    const hasMultiple = values.some((v2, i2) => v2.key === key && i2 !== i);
+    if(hasMultiple) {
+      out[key] = out[key] || [];
+      (out[key] as string[]).push(value);
+    } else {
+      out[key] = value.length ? value : true;
+    }
+  });
+
+  return out;
 }
 
 /**

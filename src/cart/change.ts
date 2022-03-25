@@ -1,13 +1,14 @@
 import { ON_ITEM_CHANGED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { LineItemProperties, Cart } from "..";
+import { SlateCustomEvent } from "../support";
 
 export type CartChange = {
   quantity?:number;
   properties?:LineItemProperties;
 } & (
-  { line:number; } | { id:number; }
+  { line:number; } | { id:number|string; }
 );
-export class EventCartChanged extends CustomEvent<{ cart:Cart }> {
+export class EventCartChanged extends SlateCustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
     super(ON_ITEM_CHANGED, {
       bubbles: true,

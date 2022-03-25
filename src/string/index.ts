@@ -1,3 +1,5 @@
+import { GLOBAL_SELF } from '../support';
+
 export * from './url';
 
 const TEXT_NODE = document.createTextNode("test");
@@ -105,8 +107,8 @@ export const getLanguageKey = (
   let str:string|null|undefined = null;
 
   //Try find
-  if(window && window.Language && window.Language.strings) {
-    str = window.Language.strings[key];
+  if(GLOBAL_SELF.Language && GLOBAL_SELF.Language.strings) {
+    str = GLOBAL_SELF.Language.strings[key];
   }
   if(!str || !str.length) return `translation missing: ${key}`;
   return liquid(str, variables);

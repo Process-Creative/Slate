@@ -1,6 +1,6 @@
 import { ON_CART_FINISHED, ON_CART_PENDING, ON_CART_FETCHED, EventCartFetched, cartGet } from ".";
 import { Cart } from "..";
-import { jQuery } from "../support";
+import { GLOBAL_SELF, jQuery, SlateCustomEvent } from "../support";
 
 export type CartQueueItem<T> = {
   callable:() => Promise<T>;
@@ -16,11 +16,11 @@ export type CartError = {
 }
 
 // Queue.
-window.Cart = window.Cart || { };
-window.Cart.queue = window.Cart.queue || {};
-window.Cart.queue.items = window.Cart.queue.items || [];
+GLOBAL_SELF.Cart = GLOBAL_SELF.Cart || { };
+GLOBAL_SELF.Cart.queue = GLOBAL_SELF.Cart.queue || {};
+GLOBAL_SELF.Cart.queue.items = GLOBAL_SELF.Cart.queue.items || [];
 
-export class EventCartQueueFinished extends CustomEvent<{ cart:Cart }> {
+export class EventCartQueueFinished extends SlateCustomEvent<{ cart:Cart }> {
   constructor(cart:Cart) {
     super(ON_CART_FINISHED, {
       bubbles: true,
@@ -30,7 +30,7 @@ export class EventCartQueueFinished extends CustomEvent<{ cart:Cart }> {
   }
 }
 
-export class EventCartQueueStarted extends CustomEvent<{}> {
+export class EventCartQueueStarted extends SlateCustomEvent<{}> {
   constructor() {
     super(ON_CART_PENDING, {
       bubbles: true,
@@ -47,7 +47,7 @@ export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
   };
 
   // Queue the item
-  window.Cart.queue.items.push(item);
+  GLOBAL_SELF.Cart.queue.items.push(item);
 
   // Prep the resolver.
   const promToReturn = new Promise<T>((resolve,reject) => {
@@ -56,9 +56,9 @@ export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
   });
 
   // Reset needs fetching state on queue start
-  if(window.Cart.queue.items.length === 1) {
-    window.Cart.queue.needsFetching = false;
-    const itm = window.Cart.queue.items[0];
+  if(GLOBAL_SELF.Cart.queue.items.length === 1) {
+    GLOBAL_SELF.Cart.queue.needsFetching = false;
+    const itm = GLOBAL_SELF.Cart.queue.items[0];
     itm.callable().then(itm.resolver!).catch(itm.rejecter!);// Begin queue
 
     // Start queue event
@@ -75,7 +75,7 @@ type CartQueueNextParams<J extends boolean,T> = {
   fetched:J;
   response:J extends true ? Cart : T;
   strEvent:string|null;
-  event:Event|null;
+  event:SlateCustomEvent<any>|null;
 }
 
 export const cartQueueNext = <J extends boolean,T>(
@@ -90,7 +90,7 @@ export const cartQueueNext = <J extends boolean,T>(
   }
 
   // Remove item
-  window.Cart.queue.items.splice(0, 1);
+  GLOBAL_SELF.Cart.queue.items.splice(0, 1);
 
   // Fire event
   if(strEvent) jQuery ? jQuery(document).trigger(strEvent, response) : null;
@@ -100,27 +100,27 @@ export const cartQueueNext = <J extends boolean,T>(
   if(params.fetched) {
     jQuery ? jQuery(document).trigger(ON_CART_FETCHED, response) : null;
     document.dispatchEvent(new EventCartFetched(params.response as Cart));
-    window.Cart.data = params.response as Cart;
+    GLOBAL_SELF.Cart.data = params.response as Cart;
   } else {
-    window.Cart.queue.needsFetching = true;
+    GLOBAL_SELF.Cart.queue.needsFetching = true;
   }
 
   // Not, end of queue, begin.
-  if(window.Cart.queue.items.length) {
-    const item = window.Cart.queue.items[0];
+  if(GLOBAL_SELF.Cart.queue.items.length) {
+    const item = GLOBAL_SELF.Cart.queue.items[0];
     item.callable().then(item.resolver!).catch(item.rejecter!);
     return response;
   }
 
   // Do we need to fetch cart? if so then just do that.
-  if(window.Cart.queue.needsFetching) {
+  if(GLOBAL_SELF.Cart.queue.needsFetching) {
     cartGet().catch(console.error);
     return response;
   }
   
   // Nothing more to do, fire event
-  jQuery ? jQuery(document).trigger(ON_CART_FINISHED, window.Cart.data) : null;
-  document.dispatchEvent(new EventCartQueueFinished(window.Cart.data));
+  jQuery ? jQuery(document).trigger(ON_CART_FINISHED, GLOBAL_SELF.Cart.data) : null;
+  document.dispatchEvent(new EventCartQueueFinished(GLOBAL_SELF.Cart.data));
 
   return response;
 }
@@ -128,9 +128,9 @@ export const cartQueueNext = <J extends boolean,T>(
 
 export const cartQueueError = (e:any) => {
   console.error(e);
-  window.Cart.queue.items.forEach(item => {
+  GLOBAL_SELF.Cart.queue.items.forEach(item => {
     if(item.rejecter) item.rejecter(e);
   });
-  window.Cart.queue.items = [];
+  GLOBAL_SELF.Cart.queue.items = [];
   cartGet();
 }
