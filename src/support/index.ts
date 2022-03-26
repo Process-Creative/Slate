@@ -14,6 +14,9 @@ type jQueryPolyfill = (selector:any) => {
   attr:(s?:string)=>string;
   toggleClass:(str:string)=>void;
   click:()=>void;
+  val:(s?:string)=>string;
+} & {
+  each:any
 };
 
 export const jQuery:jQueryPolyfill|null = (
