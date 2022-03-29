@@ -5,7 +5,7 @@ export const GLOBAL_SELF:Window = typeof window !== 'undefined' ? (
 
 export class SlateCustomEvent<T = any> extends CustomEvent<T> {}
 
-type jQueryPolyfill = (selector:any) => {
+type jQueryPolyfill = ((selector:any) => {
   trigger: (method:string, params?:any) => void;
   length:number;
   find:jQueryPolyfill;
@@ -15,7 +15,7 @@ type jQueryPolyfill = (selector:any) => {
   toggleClass:(str:string)=>void;
   click:()=>void;
   val:(s?:string)=>string;
-} & {
+}) & {
   each:any
 };
 
