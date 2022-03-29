@@ -1,7 +1,7 @@
 name: deploy-production
 on:
   push:
-    branches: [ no-jquery ]
+    branches: [ master ]
     commit-ignore:
       - 🚀
       - [bot]
