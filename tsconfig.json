@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "lib": [
+      "ES6", "ScriptHost", "dom", "dom.iterable"
+    ],
+    "strict": true,
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules",
+    "src/**/*__tests__"
+  ]
+}

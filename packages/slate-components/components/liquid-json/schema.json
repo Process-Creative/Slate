@@ -1,8 +1,0 @@
-{
-  "version": "1.0.0",
-  "compatible": [
-    "themekit", "slatev0", "slatev1", "slatev2"
-  ],
-  "deps": [],
-  "name": "liquid-json"
-}
