@@ -7,3 +7,9 @@ export const cartGetVariant = (variantId:number) => {
 export const cartGetCountOfVariant = (variantId:number) => {
   return cartGetVariant(variantId).length;
 }
+
+export const cartGetQuantityOfVariant = (variantId:number) => {
+  return cartGetVariant(variantId).reduce((x,item) => {
+    return x += item.quantity;
+  }, 0);
+} 
