@@ -22,6 +22,7 @@ export const cartGet = () => cartQueue((async () => {
 
     return cartQueueNext({
       fetched: true,
+      sections: false,
       response,
       strEvent: null,
       event: null

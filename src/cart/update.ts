@@ -1,6 +1,7 @@
 import { ON_CART_UPDATED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { SlateCustomEvent } from "../support";
 import { Cart, CartAttributes } from "../types/cart";
+import { cartBundledSectionGetQueryParams } from "./section";
 
 export type CartUpdateItem = { [key:number]:number }
 export type CartUpdateItemArray = number[];
@@ -23,7 +24,7 @@ class EventCartUpdated extends SlateCustomEvent<{ cart:Cart }> {
 
 export const cartUpdate = (update:CartUpdate) => cartQueue((async () => {
   try {
-    const response:Cart = await fetch('/cart/update.js', {
+    const response:Cart = await fetch(cartBundledSectionGetQueryParams('/cart/update.js'), {
       method: 'POST',
       body: JSON.stringify(update),
       headers: { 'Content-Type': 'application/json' }
@@ -31,6 +32,7 @@ export const cartUpdate = (update:CartUpdate) => cartQueue((async () => {
     
     return cartQueueNext({
       fetched: true,
+      sections: true,
       response,
       strEvent: ON_CART_UPDATED,
       event: new EventCartUpdated(response)

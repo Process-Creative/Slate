@@ -7,3 +7,4 @@ export * from './count';
 export * from './get';
 export * from './remove';
 export * from './update';
+export * from './section';

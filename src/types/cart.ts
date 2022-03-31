@@ -13,6 +13,10 @@ export type FeaturedImage = {
   aspect_ratio: number;
 }
 
+export type CartSectionsResponse = {
+  sections?:{ [key:string]:string }
+};
+
 export type Cart = {
   attributes:CartAttributes;
   cart_level_discount_applications: [];

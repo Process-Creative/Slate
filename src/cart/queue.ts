@@ -1,6 +1,7 @@
 import { ON_CART_FINISHED, ON_CART_PENDING, ON_CART_FETCHED, EventCartFetched, cartGet } from ".";
-import { Cart } from "..";
+import { Cart, CartSectionsResponse } from "..";
 import { GLOBAL_SELF, jQuery, SlateCustomEvent } from "../support";
+import { ON_CART_SECTION_FETCHED } from "./events";
 
 export type CartQueueItem<T> = {
   callable:() => Promise<T>;
@@ -40,6 +41,16 @@ export class EventCartQueueStarted extends SlateCustomEvent<{}> {
   }
 }
 
+export class EventCartSectionsFetched extends SlateCustomEvent<{ sections: { [key:string]:string } }> {
+  constructor(sections:{ [key:string]:string }) {
+    super(ON_CART_SECTION_FETCHED, {
+      bubbles: true,
+      cancelable: false,
+      detail: { sections }
+    });
+  }
+}
+
 export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
   // Create item
   const item:CartQueueItem<T> = {
@@ -71,15 +82,19 @@ export const cartQueue = <T>(callable:()=>Promise<T>):Promise<T> => {
 }
 
 
-type CartQueueNextParams<J extends boolean,T> = {
+type CartQueueNextParams<J extends boolean, S extends boolean,T> = {
   fetched:J;
-  response:J extends true ? Cart : T;
+  sections:S;
+  response:(
+    (J extends true ? Cart : T) &
+    (S extends true ? CartSectionsResponse : {})
+  );
   strEvent:string|null;
   event:SlateCustomEvent<any>|null;
 }
 
-export const cartQueueNext = <J extends boolean,T>(
-  params:CartQueueNextParams<J,T>
+export const cartQueueNext = <J extends boolean, S extends boolean, T>(
+  params:CartQueueNextParams<J,S,T>
 ) => {
   const { strEvent, response, event } = params;
 
@@ -96,11 +111,18 @@ export const cartQueueNext = <J extends boolean,T>(
   if(strEvent) jQuery ? jQuery(document).trigger(strEvent, response) : null;
   if(event) document.dispatchEvent(event);
 
+  // Does this include a section fetch?
+  if(typeof (response as CartSectionsResponse).sections !== 'undefined') {
+    const resAs = response as CartSectionsResponse;
+    jQuery ? jQuery(document).trigger(ON_CART_SECTION_FETCHED, { sections: resAs.sections! }) : null;
+    document.dispatchEvent(new EventCartSectionsFetched(resAs.sections!));
+  }
+
   // Was this a fetch event?
   if(params.fetched) {
     jQuery ? jQuery(document).trigger(ON_CART_FETCHED, response) : null;
-    document.dispatchEvent(new EventCartFetched(params.response as Cart));
-    GLOBAL_SELF.Cart.data = params.response as Cart;
+    document.dispatchEvent(new EventCartFetched(params.response as any));
+    GLOBAL_SELF.Cart.data = params.response as any;
   } else {
     GLOBAL_SELF.Cart.queue.needsFetching = true;
   }

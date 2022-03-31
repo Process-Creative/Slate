@@ -1,6 +1,7 @@
 import { ON_ITEM_CHANGED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { LineItemProperties, Cart } from "..";
 import { SlateCustomEvent } from "../support";
+import { cartBundledSectionGetQueryParams } from "./section";
 
 export type CartChange = {
   quantity?:number;
@@ -20,7 +21,7 @@ export class EventCartChanged extends SlateCustomEvent<{ cart:Cart }> {
 
 export const cartChange = (change:CartChange) => cartQueue((async () => {
   try {
-    const response:Cart = await fetch('/cart/change.js', {
+    const response:Cart = await fetch(cartBundledSectionGetQueryParams('/cart/change.js'), {
       method: 'POST',
       body: JSON.stringify(change),
       headers: { 'Content-Type': 'application/json' }
@@ -28,6 +29,7 @@ export const cartChange = (change:CartChange) => cartQueue((async () => {
     
     return cartQueueNext({
       fetched: true,
+      sections: true,
       response,
       strEvent: ON_ITEM_CHANGED,
       event: new EventCartChanged(response)

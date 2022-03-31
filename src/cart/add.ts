@@ -1,6 +1,8 @@
 import { ON_ITEM_ADDED, cartQueue, cartQueueNext, cartQueueError } from ".";
 import { LineItemProperties, LineItem } from "..";
 import { SlateCustomEvent } from "../support";
+import { CartSectionsResponse } from "../types";
+import { cartBundledSectionGetQueryParams } from "./section";
 
 export type CartAdd = {
   items:{
@@ -23,7 +25,7 @@ class EventCartAdded extends SlateCustomEvent<{ items:LineItem[] }> {
 
 export const cartAdd = (params:CartAdd) => cartQueue((async () => {
   try {
-    const response:{ items:LineItem[] } = await fetch('/cart/add.js', {
+    const response:{ items:LineItem[] } = await fetch(cartBundledSectionGetQueryParams('/cart/add.js'), {
       method: 'POST',
       body: JSON.stringify(params),
       headers: { 'Content-Type': 'application/json' }
@@ -31,6 +33,7 @@ export const cartAdd = (params:CartAdd) => cartQueue((async () => {
 
     return cartQueueNext({
       fetched: false,
+      sections: true,
       response,
       strEvent: ON_ITEM_ADDED,
       event: new EventCartAdded(response.items)
