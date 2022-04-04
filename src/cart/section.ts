@@ -1,18 +1,30 @@
 import { queryEncodeString } from "../string";
 
-export const CART_BUNDLED_SECTIONS:string[] = [];
+export const cartBundledSectionsGet = ():string[] => {
+  //@ts-ignore
+  return window.CART_BUNDLED_SECTIONS || [];
+}
+
+export const cartBundledSectionsSet = (sections:string[]) => {
+  //@ts-ignore
+  window.CART_BUNDLED_SECTIONS = sections;
+}
 
 export const cartBundledSectionAdd = (section:string) => {
-  if(CART_BUNDLED_SECTIONS.indexOf(section) !== -1) return;
-  CART_BUNDLED_SECTIONS.push(section);
+  const bundles = cartBundledSectionsGet();
+  if(bundles.indexOf(section) !== -1) return;
+  bundles.push(section);
+  cartBundledSectionsSet(bundles);
 }
 
 export const cartBundledSectionRemove = (section:string) => {
-  const id = CART_BUNDLED_SECTIONS.indexOf(section);
+  const bundles = cartBundledSectionsGet();
+  const id = bundles.indexOf(section);
   if(id === -1) return;
-  CART_BUNDLED_SECTIONS.splice(id, 1);
+  bundles.splice(id, 1);
+  cartBundledSectionsSet(bundles);
 }
 
 export const cartBundledSectionGetQueryParams = (url:string) => {
-  return `${url}?${queryEncodeString({ sections: CART_BUNDLED_SECTIONS })}`;
+  return `${url}?${queryEncodeString({ sections: cartBundledSectionsGet() })}`;
 }
