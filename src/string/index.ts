@@ -19,7 +19,8 @@ TEXT_CONTAINER.appendChild(TEXT_NODE);
  */
 export const escapeString = (s:string) => {
   TEXT_NODE.nodeValue = s;
-  return TEXT_CONTAINER.innerHTML;
+  const html = TEXT_CONTAINER.innerHTML;
+  return html.replace(/"/g, '&quot;');
 };
 
 /**
