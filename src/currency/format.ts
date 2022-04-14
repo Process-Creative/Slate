@@ -1,6 +1,6 @@
 import { Currency, CurrencyFormat } from '.';
 import { GLOBAL_SELF } from '../support';
-import { getShopCurrency, getUserCurrency, convert } from './convert';
+import { getShopCurrency, getUserCurrency, convert, currencyConvert, currencyGetUser, currencyGetShop } from './convert';
 import { MONEY_FORMATS } from './formats';
 
 export const formatMoney = (cents:number|string, format:string):string => {
@@ -50,7 +50,7 @@ export const formatMoney = (cents:number|string, format:string):string => {
 }
 
 export const getFormat = (currency?:Currency, format?:CurrencyFormat) => {
-  let strCurrency = currency || getUserCurrency();
+  let strCurrency = currency || currencyGetUser();
 
   //Default format
   if(!format) {
@@ -59,7 +59,7 @@ export const getFormat = (currency?:Currency, format?:CurrencyFormat) => {
 
     if(strCurrency != getShopCurrency()) {
       format = cs && cs.convertedFormat ? cs.convertedFormat : 'money_with_currency_format';
-    } else if(cs && cs.shopFormat && strCurrency == getShopCurrency()) {
+    } else if(cs && cs.shopFormat && strCurrency == currencyGetShop()) {
       return cs.shopFormat;
     } else if(cs && cs.format) {
       return cs.format;
@@ -74,8 +74,17 @@ export const getFormat = (currency?:Currency, format?:CurrencyFormat) => {
 }
 
 export const printMoney = (money:number, format?:CurrencyFormat, currency?:Currency) => {
-  currency = currency || getUserCurrency();
-  let f = getFormat(currency, format);
-  let v = convert(money, null, currency);
-  return formatMoney(v, f);
+  return currencyPrintMoney({ money, format, currency });
 };
+
+export const currencyPrintMoney = (p:{
+  money:number,
+  format?:CurrencyFormat,
+  currency?:Currency
+}) => {
+  let { currency, format, money } = p;
+  currency = currency || currencyGetUser();
+  let f = getFormat(currency, format);
+  let v = currencyConvert({ money, to: currency });
+  return formatMoney(v, f);
+}
