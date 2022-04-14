@@ -4,7 +4,7 @@ import { GLOBAL_SELF, jQuery, SlateCustomEvent } from '../support';
 
 export const CURRENCY_COOKIE_NAME = 'currency';
 
-const ON_CURRENCY_CHANGED = 'onCurrencyChange';
+export const ON_CURRENCY_CHANGE = 'onCurrencyChange';
 
 /**
  * Returns the currency of the current store, must be defined by your theme.
@@ -37,8 +37,8 @@ export const currencySetUser = (currency:Currency) => {
   let current = currencyGetUser();
   if(current === currency) return;
   Cookies.set(CURRENCY_COOKIE_NAME, currency);
-  jQuery ? jQuery(document).trigger(ON_CURRENCY_CHANGED, currency) : null;
-  const evt = new SlateCustomEvent(ON_CURRENCY_CHANGED);
+  jQuery ? jQuery(document).trigger(ON_CURRENCY_CHANGE, currency) : null;
+  const evt = new SlateCustomEvent(ON_CURRENCY_CHANGE);
   document.dispatchEvent(evt);
 }
 
