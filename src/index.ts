@@ -4,6 +4,7 @@ export * from './cart/';
 export * from './checkout';
 export * from './currency/';
 export * from './customer/';
+export * from './geo/geo';
 export * from './image/';
 export * from './product/';
 export * from './shipping/';
