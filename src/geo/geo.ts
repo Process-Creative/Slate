@@ -43,7 +43,7 @@ export const geoFetchData = () => {
     try {
       let cache = Cookies.get(GEO_COOKIE_CACHE) as any;
       if(typeof cache === "string") cache = JSON.parse(cache);
-      if(!cache || !cache.region_code) throw "Invalid cache";
+      if(!cache || !cache.country_code) throw "Invalid cache";
       window.Geo.cache = cache;
       resolve(cache);
       return;
@@ -60,7 +60,7 @@ export const geoFetchData = () => {
 
     window.Geo.isFetching = true;
     window.Geo.requester().then((data:GeoData) => {
-      if(!data || !data.region_code) throw 'Invalid Geo Data';
+      if(!data || !data.country_code) throw 'Invalid Geo Data';
 
       window.Geo = window.Geo || {};
       window.Geo.isFetching = false;
