@@ -3,7 +3,7 @@ import * as Cookies from 'js-cookie';
 const GEO_COOKIE_CACHE = 'GeoDataCache';
 
 export type GeoData = {
-  region_code: string;
+  country_code: string;
 };
 
 export type GeoListener = (data:GeoData)=>void;
