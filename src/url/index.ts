@@ -102,7 +102,6 @@ export const getImageUrl = (src:ImageSource|null, size:ShopifyImageSize|null):st
   let match = strSrc.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
   if (!match) return null;
 
-
   let prefix = strSrc.split(match[0]);
   let suffix = match[0];
   return removeProtocol([

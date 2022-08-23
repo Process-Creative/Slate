@@ -57,6 +57,14 @@ export const pictureGenerate = (params:GenPictureParams) => {
   if(typeof params['cloudinarySrc'] !== typeof undefined) {
     params.src = params['cloudinarySrc']!;
   }
+  // @ts-ignore
+  let [ url, query ] = params.src.split('?');
+  const size = url.split('_')[1]?.split('.')[0];
+
+  url = url.replace(`_${size}`, '');
+  url = `${url}?${query}`;
+
+  params.src = url;
 
   //Random version number, used to disable cache
   const versionNumber = params.cache == false ? Math.floor(Math.random() * 1000000000) : '';
