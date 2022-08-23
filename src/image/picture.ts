@@ -94,7 +94,6 @@ export const pictureGenerate = (params:GenPictureParams) => {
         let imageSize = size.size;
         if(typeof size.size === 'number') imageSize = size.size * r;
         buffer += getImageUrl(params.src, imageSize);
-        console.log(getImageUrl(params.src, imageSize));
         buffer += `${versionNumber? `?v=${versionNumber}` : ``}`;
         if(r != 1) buffer += ` ${r}x`;
         if(y < (ratios.length-1)) buffer += ', ';
