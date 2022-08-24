@@ -1,6 +1,6 @@
 import { cartChange, cartGetCurrent, cartUpdate } from "./";
 
-export const cartRemove = (line:number) => cartChange({ line, quantity: 0 });
+export const cartRemove = (line:number|string) => cartChange({ id: line, quantity: 0 });
 
 export const cartRemoveLines = (lines:number[]) => cartUpdate({
   updates: cartGetCurrent().items.reduce((x,y,i) => {
